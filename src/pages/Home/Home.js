@@ -6,7 +6,7 @@ import './Home.scss';
 function Home() {
     return (
         <>
-            <h1 className="text-center">Help Mommy</h1>
+            <h1 className="text-center">HelpMommy</h1>
             <div className="block-img">
                 <img src="/img/undraw_family.svg" alt="Help Mommy" className="img-fluid" />
             </div>

@@ -11,3 +11,21 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.MuiButton-root {
+    margin: .5em 0 !important;
+}
+
+.block-img {
+    img {
+        max-width: 100%;
+    }
+
+    .img-fluid {
+        width: 100%;
+    }
+}
+
+.text-center {
+    text-align: center;
+}

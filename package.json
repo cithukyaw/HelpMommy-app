@@ -1,15 +1,15 @@
 {
-  "name": "io.cordova.hellocordova",
-  "displayName": "HelloCordova",
+  "name": "io.cordova.helpmommy",
+  "displayName": "HelpMommy",
   "version": "1.0.0",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "description": "A reward app that can earn by helping your mommy.",
   "main": "index.js",
   "homepage": "./",
   "keywords": [
-    "ecosystem:cordova"
+    "reward"
   ],
-  "author": "Apache Cordova Team",
-  "license": "Apache-2.0",
+  "author": "Sithu",
+  "license": "MIT",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",

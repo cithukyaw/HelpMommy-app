@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import ReactDOM from "react-dom/client";
-import './index.scss';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import "./index.scss";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
 const renderReactDom = () => {
     const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -15,7 +15,7 @@ const renderReactDom = () => {
 };
 
 if (window.cordova) {
-    document.addEventListener('deviceready', () => {
+    document.addEventListener("deviceready", () => {
         renderReactDom();
     }, false);
 } else {

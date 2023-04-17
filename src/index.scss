@@ -20,6 +20,10 @@ code {
     font-weight: 700 !important;
 }
 
+.form-control {
+    margin-bottom: .5em;
+}
+
 .block-img {
     img {
         max-width: 100%;
@@ -32,4 +36,14 @@ code {
 
 .text-center {
     text-align: center;
+}
+
+.icon-primary {
+    background: #1976d2 !important;
+    color: #fff !important;
+}
+
+.rounded-icon {
+    border-radius: 100%;
+    padding: 10px;
 }

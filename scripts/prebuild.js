@@ -1,7 +1,7 @@
 const path = require('path');
 const { exec } = require('child_process');
 const fs = require('fs');
-const rimraf = require('rimraf');
+const { rimraf, rimrafSync, native, nativeSync, RimrafAsyncOptions} = require('rimraf')
 
 function renameOutputFolder(buildFolderPath, outputFolderPath) {
     return new Promise((resolve, reject) => {
@@ -19,15 +19,15 @@ function execPostReactBuild(buildFolderPath, outputFolderPath) {
     return new Promise((resolve, reject) => {
         if (fs.existsSync(buildFolderPath)) {
             if (fs.existsSync(outputFolderPath)) {
-                rimraf(outputFolderPath, (err) => {
-                    if (err) {
-                        reject(err);
-                        return;
-                    }
-                    renameOutputFolder(buildFolderPath, outputFolderPath)
-                        .then(val => resolve(val))
-                        .catch(e => reject(e));
-                });
+                rimraf(outputFolderPath)
+                    .then(r => {
+                        renameOutputFolder(buildFolderPath, outputFolderPath)
+                            .then(val => resolve(val))
+                            .catch(e => reject(e));
+
+                        resolve(r);
+                    })
+                    .catch(e => reject(e))
             } else {
                 renameOutputFolder(buildFolderPath, outputFolderPath)
                     .then(val => resolve(val))

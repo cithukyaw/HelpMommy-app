@@ -7,6 +7,7 @@ import {
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import Home from "./pages/Home/Home";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 const Layout = () => {
     return (
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
                 path: "/signup",
                 element: <Signup/>
             },
+            {
+                path: "/dashboard",
+                element: <Dashboard/>
+            }
         ]
     },
 ]);

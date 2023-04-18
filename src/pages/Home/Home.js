@@ -4,7 +4,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import './Home.scss';
 
-function Home() {
+const Home = () => {
     return (
         <>
             <h1 className="text-center">HelpMommy</h1>

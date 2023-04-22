@@ -6,7 +6,7 @@ import './Home.scss';
 
 const Home = () => {
     return (
-        <>
+        <div className="container">
             <h1 className="text-center">HelpMommy</h1>
             <div className="block-img">
                 <img src="/img/undraw_family.svg" alt="Help Mommy" className="img-fluid" />
@@ -23,8 +23,8 @@ const Home = () => {
                 component={Link} to="/signup"
                 startIcon={<HowToRegIcon/>}>Create an Account
             </Button>
-        </>
+        </div>
     );
-}
+};
 
 export default Home;

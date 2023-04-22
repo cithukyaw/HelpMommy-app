@@ -8,6 +8,10 @@ import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Exchange from "./pages/Exchange/Exchange";
+import Add from "./pages/Add/Add";
+import History from "./pages/History/History";
+import Account from "./pages/Account/Account";
 
 const Layout = () => {
     return (
@@ -37,6 +41,22 @@ const router = createBrowserRouter([
             {
                 path: "/dashboard",
                 element: <Dashboard/>
+            },
+            {
+                path: "/exchange",
+                element: <Exchange/>
+            },
+            {
+                path: "/add",
+                element: <Add/>
+            },
+            {
+                path: "/history",
+                element: <History/>
+            },
+            {
+                path: "/account",
+                element: <Account/>
             }
         ]
     },
@@ -48,6 +68,6 @@ const App = () => {
             <RouterProvider router={router}/>
         </>
     );
-}
+};
 
 export default App;

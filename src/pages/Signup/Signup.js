@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 const Signup  = () => {
     return (
-        <div>
+        <div className="container">
             <div className="text-center">
                 <HowToRegIcon fontSize="large" className="rounded-icon icon-primary"/>
             </div>
@@ -23,6 +23,6 @@ const Signup  = () => {
             </div>
         </div>
     );
-}
+};
 
 export default Signup;

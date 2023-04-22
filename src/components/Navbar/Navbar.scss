@@ -1,0 +1,33 @@
+nav {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #252628;
+    color: #fff;
+    padding: .5em 0;
+    display: flex;
+
+    a {
+        display: block;
+        color: #a9a9a9;
+        text-align: center;
+        text-decoration: none;
+        width: calc(100% / 5);
+
+        div {
+            font-size: .9em;
+        }
+    }
+
+    a:hover, a.active {
+        color: #ffffff;
+    }
+
+    .ico-add {
+        border-radius: 100%;
+        border: 10px #252628 solid;
+        font-size: 2.5em;
+        margin-top: -18px;
+    }
+}

@@ -10,7 +10,7 @@ const Login = () => {
     };
 
     return (
-        <div>
+        <div className="container">
             <div className="text-center">
                 <LoginIcon fontSize="large" className="rounded-icon icon-primary"/>
             </div>
@@ -29,7 +29,7 @@ const Login = () => {
             </div>
         </div>
     );
-}
+};
 
 export default Login;
 

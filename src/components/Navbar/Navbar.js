@@ -3,31 +3,31 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import InterestsIcon from '@mui/icons-material/Interests';
 import HomeIcon from "@mui/icons-material/Home";
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import "./Navbar.scss";
 
 const Navbar = () => {
     return (
         <nav>
-            <Link to="/dashboard" className="active">
+            <NavLink to="/dashboard" activeClassName="active">
                 <HomeIcon />
                 <div>Home</div>
-            </Link>
-            <Link to="/hearts">
+            </NavLink>
+            <NavLink to="/hearts" activeClassName="active">
                 <InterestsIcon />
                 <div>Hearts</div>
-            </Link>
-            <Link to="/add">
+            </NavLink>
+            <NavLink to="/add" activeClassName="active">
                 <AddCircleOutlineIcon className="ico-add" />
-            </Link>
-            <Link to="/exchange">
+            </NavLink>
+            <NavLink to="/exchange" activeClassName="active">
                 <CurrencyExchangeIcon />
                 <div>Exchange</div>
-            </Link>
-            <Link to="/account">
+            </NavLink>
+            <NavLink to="/account" activeClassName="active">
                 <AccountCircleIcon />
                 <div>Account</div>
-            </Link>
+            </NavLink>
         </nav>
     );
 };

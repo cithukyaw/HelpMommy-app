@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 const Dashboard = () => {
     return (
         <>
-            <Header title="Dashboard" />
+            <Header title="HelpMommy" />
             <div className="container">
                 <h2 className="text-center">Coming Soon...</h2>
             </div>

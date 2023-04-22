@@ -1,7 +1,7 @@
 import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
 
-const History = () => {
+const Hearts = () => {
     return (
         <>
             <Header title="Hearts Earned History" />
@@ -13,4 +13,4 @@ const History = () => {
     );
 };
 
-export default History;
+export default Hearts;

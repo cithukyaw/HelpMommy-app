@@ -13,7 +13,7 @@ const Navbar = () => {
                 <HomeIcon />
                 <div>Home</div>
             </Link>
-            <Link to="/history">
+            <Link to="/hearts">
                 <InterestsIcon />
                 <div>Hearts</div>
             </Link>

@@ -10,7 +10,7 @@ import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Exchange from "./pages/Exchange/Exchange";
 import Add from "./pages/Add/Add";
-import History from "./pages/History/History";
+import Hearts from "./pages/Hearts/Hearts";
 import Account from "./pages/Account/Account";
 
 const Layout = () => {
@@ -51,8 +51,8 @@ const router = createBrowserRouter([
                 element: <Add/>
             },
             {
-                path: "/history",
-                element: <History/>
+                path: "/hearts",
+                element: <Hearts/>
             },
             {
                 path: "/account",

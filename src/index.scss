@@ -10,7 +10,7 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-h1, h2, h3, h4 h5 {
+h1, h2, h3 {
     font-family: 'Pacifico', cursive;
 }
 
@@ -27,7 +27,6 @@ h2 {
 }
 
 .MuiButton-root {
-    margin: .5em 0 !important;
     font-weight: 700 !important;
 }
 
@@ -63,4 +62,14 @@ h2 {
     padding: 10px;
 }
 
+.margin-button {
+    margin: .5em 0 !important
+}
 
+.margin-top-none {
+    margin-top: 0;
+}
+
+.margin-bottom-none {
+    margin-bottom: 0;
+}

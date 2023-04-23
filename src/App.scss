@@ -2,17 +2,54 @@
     background: #f8f8f8;
     height: 100vh;
 
+    svg[data-testid="FavoriteIcon"].MuiSvgIcon-root {
+        color: #c50000;
+    }
+
+    svg[data-testid="HeartBrokenIcon"].MuiSvgIcon-root {
+        color: #444444;
+    }
+
     .link {
         color: inherit;
         text-decoration: none;
     }
 
     .container {
-        padding: 1em;
+        padding: 1em 1em 4em 1em;
     }
 
     .bg-white {
         background: #ffffff;
+    }
+
+    .card {
+        border-radius: 5px;
+        box-shadow: 0 0 10px -3px rgba(0,0,0,0.2);
+        background: #ffffff;
+        padding: 2em;
+        margin-bottom: 1em;
+    }
+
+    ul, li {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    ul.list li {
+        display: flex;
+        justify-content: space-between;
+        padding: .5em 0 .25em 0;
+        border-bottom: 1px #eaeaea solid;
+    }
+
+    ul.list li:last-child {
+        border-bottom: none;
+    }
+
+    ul.list li svg {
+        vertical-align: middle;
     }
 }
 

@@ -16,7 +16,7 @@ const Signup  = () => {
                 <TextField id="outlined-basic" label="Password" variant="outlined" required fullWidth type="password" />
             </div>
             <div className="form-control">
-                <Button variant="contained" size="large" fullWidth={true}>Create</Button>
+                <Button className="margin-button" variant="contained" size="large" fullWidth={true}>Create</Button>
             </div>
             <div className="text-center">
                 <Link to="/login">If you already have an account, login here</Link>

@@ -14,12 +14,14 @@ const Home = () => {
             <Button fullWidth
                 variant="contained"
                 size="large"
+                className="margin-button"
                 component={Link} to="/login"
                 startIcon={<LoginIcon/>}>Login
             </Button>
             <Button fullWidth
                 variant="outlined"
                 size="large"
+                className="margin-button"
                 component={Link} to="/signup"
                 startIcon={<HowToRegIcon/>}>Create an Account
             </Button>

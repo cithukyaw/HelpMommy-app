@@ -22,7 +22,7 @@ const Login = () => {
                 <TextField id="outlined-basic" label="Password" variant="outlined" required fullWidth type="password" />
             </div>
             <div className="form-control">
-                <Button variant="contained" size="large" fullWidth={true} onClick={handleClick}>Login</Button>
+                <Button className="margin-button" variant="contained" size="large" fullWidth={true} onClick={handleClick}>Login</Button>
             </div>
             <div className="text-center">
                 <Link to="/signup">If you don&apos;t have an account, create an account here</Link>

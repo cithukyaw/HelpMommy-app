@@ -1,14 +1,6 @@
 .app {
     background: #f8f8f8;
-    height: 100vh;
-
-    svg[data-testid="FavoriteIcon"].MuiSvgIcon-root {
-        color: #c50000;
-    }
-
-    svg[data-testid="HeartBrokenIcon"].MuiSvgIcon-root {
-        color: #444444;
-    }
+    min-height: 100vh;
 
     .link {
         color: inherit;

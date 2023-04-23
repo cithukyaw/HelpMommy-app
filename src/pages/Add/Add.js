@@ -1,12 +1,61 @@
 import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
+import {Button, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const Add = () => {
+    const jobs = [
+        {"id": 1, "name": "စာလုပ်", "rating": 5},
+        {"id": 3, "name": "ဈေးဝယ်", "rating": 5},
+        {"id": 4, "name": "မီးပူတိုက်", "rating": 5},
+        {"id": 5, "name": "အဝတ်လျော်", "rating": 4},
+        {"id": 6, "name": "တံမြတ်စည်းလှည်း", "rating": 4},
+        {"id": 7, "name": "ဖုန်သန့်ရှင်းရေး", "rating": 4},
+        {"id": 8, "name": "ထမင်းအိုးတည်", "rating": 3},
+        {"id": 9, "name": "ရေနွေးတည်", "rating": 3},
+        {"id": 10, "name": "သောက်ရေဖြည့်", "rating": 3},
+        {"id": 11, "name": "ပန်းကန်ဆေး", "rating": 3},
+        {"id": 12, "name": "အဝတ်လှမ်း/ရုတ်", "rating": 2},
+        {"id": 13, "name": "ဂိမ်းဆော့", "rating": -2},
+        {"id": 14, "name": "ယူကျုကြည့်", "rating": -1}
+    ];
+
     return (
         <>
             <Header title="Add Hearts" />
             <div className="container">
-                <h2 className="text-center">Coming Soon...</h2>
+                <p>အမေ့ကိုကူညီခဲ့တဲ့အလုပ်ကိုရွေးထည့်ပြီး <FavoriteIcon/> ရယူပါ</p>
+                <FormControl fullWidth>
+                    <InputLabel id="job-select-label">Job</InputLabel>
+                    <Select
+                        labelId="job-select-label"
+                        id="job-select"
+                        label="Job"
+                        required
+                    >
+                        { jobs.map(job =>
+                            <MenuItem value={job.id} key={job.id}>
+                                {job.name}
+                                <span className="hearts">
+                                    {
+                                        [...Array(Math.abs(job.rating))].map(x => {
+                                            if (job.rating > 0) {
+                                                return <FavoriteIcon key={x}/>;
+                                            } else {
+                                                return <HeartBrokenIcon key={x}/>;
+                                            }
+                                        })
+                                    }
+                                </span>
+                            </MenuItem>
+                        )}
+                    </Select>
+                </FormControl>
+                <Button variant="contained" size="large" color="success" fullWidth className="margin-button" startIcon={<AddCircleOutlineIcon/>}>
+                    Add Hearts
+                </Button>
             </div>
             <Navbar />
         </>

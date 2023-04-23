@@ -50,7 +50,7 @@ const Dashboard = () => {
                         </li>
                         <li>
                             <span>ဂိမ်းဆော့</span>
-                            <span>-1 <HeartBrokenIcon/></span>
+                            <span>-2 <HeartBrokenIcon/></span>
                         </li>
                         <li>
                             <span>YouTube ကြည့်</span>

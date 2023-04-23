@@ -26,12 +26,31 @@ h2 {
     font-size: 2em;
 }
 
+svg[data-testid="FavoriteIcon"].MuiSvgIcon-root {
+    color: #c50000;
+    vertical-align: middle;
+}
+
+svg[data-testid="HeartBrokenIcon"].MuiSvgIcon-root {
+    color: #444444;
+    vertical-align: middle;
+}
+
 .MuiButton-root {
     font-weight: 700 !important;
 }
 
 .MuiOutlinedInput-root {
     background: #ffffff;
+}
+
+.MuiMenuItem-root span.hearts {
+    position: absolute;
+    right: 16px;
+}
+
+span.hearts svg {
+    margin-right: -5px;
 }
 
 .form-control {

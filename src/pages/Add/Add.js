@@ -62,16 +62,19 @@ const Add = () => {
                             label="Job"
                             required
                         >
+                            <MenuItem value="">
+                                <em>-- None --</em>
+                            </MenuItem>
                             { jobs.map(job =>
                                 <MenuItem value={job.id} key={job.id}>
                                     {job.name}
                                     <span className="hearts">
                                         {
-                                            [...Array(Math.abs(job.rating))].map(x => {
+                                            [...Array(Math.abs(job.rating))].map((x, i) => {
                                                 if (job.rating > 0) {
-                                                    return <FavoriteIcon key={x}/>;
+                                                    return <FavoriteIcon key={i}/>;
                                                 } else {
-                                                    return <HeartBrokenIcon key={x}/>;
+                                                    return <HeartBrokenIcon key={i}/>;
                                                 }
                                             })
                                         }

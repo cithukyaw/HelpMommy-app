@@ -9,6 +9,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
+import {toast, ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Add = () => {
     const jobs = [
@@ -30,11 +32,24 @@ const Add = () => {
     const [jobDate, setJobDate] = useState(dayjs());
 
     const handleSubmit = () => {
-        // TODO:
+        let rating = 5;
+
+        if (rating > 0) {
+            toast.success(`Congrats! You got ${rating} hearts.`, {
+                position: "top-center",
+                theme: "dark",
+            });
+        } else {
+            toast.error(`Oops! You lost ${Math.abs(rating)} hearts.`, {
+                position: "top-center",
+                theme: "dark",
+            });
+        }
     };
 
     return (
         <>
+            <ToastContainer/>
             <Header title="Add Hearts" />
             <div className="container">
                 <p>အမေ့ကိုကူညီခဲ့တဲ့အလုပ်ကိုရွေးထည့်ပြီး <FavoriteIcon/> ရယူပါ</p>

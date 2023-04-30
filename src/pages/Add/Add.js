@@ -15,18 +15,24 @@ import "react-toastify/dist/ReactToastify.css";
 const Add = () => {
     const jobs = [
         {"id": 1, "name": "စာလုပ်", "rating": 5},
-        {"id": 3, "name": "ဈေးဝယ်", "rating": 5},
-        {"id": 4, "name": "မီးပူတိုက်", "rating": 5},
-        {"id": 5, "name": "အဝတ်လျော်", "rating": 4},
-        {"id": 6, "name": "တံမြတ်စည်းလှည်း", "rating": 4},
-        {"id": 7, "name": "ဖုန်သန့်ရှင်းရေး", "rating": 4},
-        {"id": 8, "name": "ထမင်းအိုးတည်", "rating": 3},
-        {"id": 9, "name": "ရေနွေးတည်", "rating": 3},
-        {"id": 10, "name": "သောက်ရေဖြည့်", "rating": 3},
-        {"id": 11, "name": "ပန်းကန်ဆေး", "rating": 3},
-        {"id": 12, "name": "အဝတ်လှမ်း/ရုတ်", "rating": 2},
-        {"id": 13, "name": "ဂိမ်းဆော့", "rating": -2},
-        {"id": 14, "name": "ယူကျုကြည့်", "rating": -1}
+        {"id": 2, "name": "ဈေးဝယ်", "rating": 5},
+        {"id": 3, "name": "မီးပူတိုက်", "rating": 5},
+        {"id": 4, "name": "ရေကန်လှယ်", "rating": 5},
+        {"id": 5, "name": "အဲယားကွန်းဆေး", "rating": 5},
+        {"id": 6, "name": "အဝတ်လျော်", "rating": 4},
+        {"id": 7, "name": "တံမြတ်စည်းလှည်း", "rating": 4},
+        {"id": 8, "name": "ဖုန်သန့်ရှင်းရေး", "rating": 4},
+        {"id": 9, "name": "ရေခဲသေတ္တာသန့်ရှင်းရေး", "rating": 4},
+        {"id": 10, "name": "ထမင်းအိုးတည်", "rating": 3},
+        {"id": 11, "name": "ရေနွေးတည်", "rating": 3},
+        {"id": 12, "name": "သောက်ရေဖြည့်", "rating": 3},
+        {"id": 13, "name": "အိုးခွက်ပန်းကန်ဆေး", "rating": 3},
+        {"id": 14, "name": "ဆိုဖာသန့်ရှင်းရေး", "rating": 3},
+        {"id": 15, "name": "အဝတ်လှမ်း/ရုတ်/ခေါက်", "rating": 2},
+        {"id": 16, "name": "အဝတ်ဗီဒိုရှင်း", "rating": 2},
+        {"id": 17, "name": "ဝရံတာသန့်ရှင်းရေး", "rating": 2},
+        {"id": 18, "name": "ဂိမ်းဆော့", "rating": -2},
+        {"id": 19, "name": "ယူကျုကြည့်", "rating": -1}
     ];
 
     const [jobDate, setJobDate] = useState(dayjs());

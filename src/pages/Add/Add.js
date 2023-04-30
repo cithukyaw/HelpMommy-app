@@ -1,11 +1,12 @@
 import {useState} from "react";
+import {useForm} from "react-hook-form";
 import {Button, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
@@ -36,10 +37,16 @@ const Add = () => {
     ];
 
     const [jobDate, setJobDate] = useState(dayjs());
+    const {
+        register,
+        formState: {errors},
+        handleSubmit
+    } = useForm();
 
-    const handleSubmit = () => {
-        let rating = 5;
+    const onSubmit = (data) => {
+        const {jobId} = data;
 
+        let rating = jobs.filter(j => j.id === jobId).pop().rating;
         if (rating > 0) {
             toast.success(`Congrats! You got ${rating} hearts.`, {
                 position: "top-center",
@@ -56,25 +63,25 @@ const Add = () => {
     return (
         <>
             <ToastContainer/>
-            <Header title="Add Hearts" />
+            <Header title="Add Hearts"/>
             <div className="container">
-                <p>အမေ့ကိုကူညီခဲ့တဲ့အလုပ်ကိုရွေးထည့်ပြီး <FavoriteIcon/> ရယူပါ</p>
-                <div className="form-control">
-                    <FormControl fullWidth>
-                        <InputLabel id="job-select-label">Job</InputLabel>
-                        <Select
-                            labelId="job-select-label"
-                            id="job-select"
-                            label="Job"
-                            required
-                        >
-                            <MenuItem value="">
-                                <em>-- None --</em>
-                            </MenuItem>
-                            { jobs.map(job =>
-                                <MenuItem value={job.id} key={job.id}>
-                                    {job.name}
-                                    <span className="hearts">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <p>အမေ့ကိုကူညီခဲ့တဲ့အလုပ်ကိုရွေးထည့်ပြီး <FavoriteIcon/> ရယူပါ</p>
+                    <div className="form-control">
+                        {errors.jobId && <p className="form-error">{errors.jobId?.message}</p>}
+                        <FormControl fullWidth>
+                            <InputLabel id="job-select-label">Job</InputLabel>
+                            <Select
+                                {...register("jobId", {required: "Select a job."})}
+                                labelId="job-select-label"
+                                id="job-select"
+                                label="Job"
+                                defaultValue="">
+                                <MenuItem value=""><em>-- None --</em></MenuItem>
+                                {jobs.map(job =>
+                                    <MenuItem value={job.id} key={job.id}>
+                                        {job.name}
+                                        <span className="hearts">
                                         {
                                             [...Array(Math.abs(job.rating))].map((x, i) => {
                                                 if (job.rating > 0) {
@@ -84,35 +91,39 @@ const Add = () => {
                                                 }
                                             })
                                         }
-                                    </span>
-                                </MenuItem>
-                            )}
-                        </Select>
-                    </FormControl>
-                </div>
-                <div className="form-control">
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                            label="Date of the job"
-                            format="DD/MM/YYYY"
-                            defaultValue={jobDate}
-                            onChange={value => setJobDate(value)}
-                            slotProps={{ textField: { fullWidth: true } }}
-                            required
-                        />
-                    </LocalizationProvider>
-                </div>
-                <Button fullWidth
-                    variant="contained"
-                    size="large"
-                    color="success"
-                    startIcon={<AddCircleOutlineIcon/>}
-                    onClick={handleSubmit}
-                >
-                    Add Hearts
-                </Button>
+                                        </span>
+                                    </MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="form-control">
+                        {errors.jobDate && <p className="form-error">{errors.jobDate?.message}</p>}
+                        <LocalizationProvider
+                            dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                {...register("jobDate", {required: "Select a date."})}
+                                label="Date of the job"
+                                format="DD/MM/YYYY"
+                                onChange={value => setJobDate(value)}
+                                slotProps={{textField: {fullWidth: true}}}
+                                maxDate={jobDate}
+                                defaultValue={jobDate}
+                            />
+                        </LocalizationProvider>
+                    </div>
+                    <Button fullWidth
+                            variant="contained"
+                            size="large"
+                            color="success"
+                            startIcon={<AddCircleOutlineIcon/>}
+                            onClick={handleSubmit(onSubmit)}
+                    >
+                        Add Hearts
+                    </Button>
+                </form>
             </div>
-            <Navbar />
+            <Navbar/>
         </>
     );
 };

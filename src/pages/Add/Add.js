@@ -43,10 +43,10 @@ const Add = () => {
         handleSubmit
     } = useForm();
 
-    const onSubmit = (data) => {
+    const onSubmit = data => {
         const {jobId} = data;
 
-        let rating = jobs.filter(j => j.id === jobId).pop().rating;
+        const rating = jobs.filter(j => j.id === jobId).pop().rating;
         if (rating > 0) {
             toast.success(`Congrats! You got ${rating} hearts.`, {
                 position: "top-center",

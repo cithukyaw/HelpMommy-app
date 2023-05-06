@@ -8,8 +8,8 @@ import {Link} from "react-router-dom";
 import "./Dashboard.scss";
 
 const Dashboard = () => {
-    let name = "Si Phyo";
-    let todayHearts = 12;
+    const name = "John Doe";
+    const todayHearts = 12;
 
     return (
         <>

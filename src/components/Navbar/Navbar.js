@@ -1,13 +1,13 @@
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
-import InterestsIcon from '@mui/icons-material/Interests';
+import InterestsIcon from "@mui/icons-material/Interests";
 import HomeIcon from "@mui/icons-material/Home";
 import {NavLink} from "react-router-dom";
 import "./Navbar.scss";
 
 const Navbar = () => {
-    const menuActive = (navData) => navData.isActive ? "active" : '';
+    const menuActive = navData => navData.isActive ? "active" : "";
 
     return (
         <nav>

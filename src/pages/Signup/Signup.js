@@ -2,7 +2,7 @@ import {Button, TextField} from "@mui/material";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import {Link} from "react-router-dom";
 
-const Signup  = () => {
+const Signup = () => {
     return (
         <div className="container">
             <div className="text-center">

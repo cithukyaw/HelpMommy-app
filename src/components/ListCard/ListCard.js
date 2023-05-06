@@ -2,8 +2,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 import "./ListCard.scss";
 
-const ListCard = (props) => {
-    let {title, index} = props;
+const ListCard = props => {
+    const {title, index} = props;
 
     return (
         <div>

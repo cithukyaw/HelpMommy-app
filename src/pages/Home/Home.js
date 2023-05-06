@@ -1,8 +1,8 @@
 import {Button} from "@mui/material";
 import {Link} from "react-router-dom";
-import LoginIcon from '@mui/icons-material/Login';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
-import './Home.scss';
+import LoginIcon from "@mui/icons-material/Login";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import "./Home.scss";
 
 const Home = () => {
     return (

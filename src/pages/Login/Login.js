@@ -1,5 +1,5 @@
 import {Button, TextField} from "@mui/material";
-import LoginIcon from '@mui/icons-material/Login';
+import LoginIcon from "@mui/icons-material/Login";
 import {Link, useNavigate} from "react-router-dom";
 
 const Login = () => {

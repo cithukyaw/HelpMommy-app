@@ -1,43 +1,6 @@
 const path = require('path');
 const { exec } = require('child_process');
-const fs = require('fs');
-const { rimraf, rimrafSync, native, nativeSync, RimrafAsyncOptions} = require('rimraf')
-
-function renameOutputFolder(buildFolderPath, outputFolderPath) {
-    return new Promise((resolve, reject) => {
-        fs.rename(buildFolderPath, outputFolderPath, (err) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve('Successfully built!');
-            }
-        });
-    });
-}
-
-function execPostReactBuild(buildFolderPath, outputFolderPath) {
-    return new Promise((resolve, reject) => {
-        if (fs.existsSync(buildFolderPath)) {
-            if (fs.existsSync(outputFolderPath)) {
-                rimraf(outputFolderPath)
-                    .then(r => {
-                        renameOutputFolder(buildFolderPath, outputFolderPath)
-                            .then(val => resolve(val))
-                            .catch(e => reject(e));
-
-                        resolve(r);
-                    })
-                    .catch(e => reject(e))
-            } else {
-                renameOutputFolder(buildFolderPath, outputFolderPath)
-                    .then(val => resolve(val))
-                    .catch(e => reject(e));
-            }
-        } else {
-            reject(new Error('build folder does not exist'));
-        }
-    });
-}
+const ex = require('./exec');
 
 module.exports = () => {
     const projectPath = path.resolve(process.cwd(), './node_modules/.bin/react-scripts');
@@ -49,7 +12,7 @@ module.exports = () => {
                     reject(error);
                     return;
                 }
-                execPostReactBuild(path.resolve(__dirname, '../build/'), path.join(__dirname, '../www/'))
+                ex.exec(path.resolve(__dirname, '../build/'), path.join(__dirname, '../www/'))
                     .then((s) => {
                         console.log(s);
                         resolve(s);

@@ -6,7 +6,8 @@
         Apache Cordova Team
     </author>
     <content src="index.html" />
+    <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-    <hook type="before_prepare" src="scripts/prebuild.js"/>
+    <hook type="before_build" src="scripts/prebuild.js" />
 </widget>

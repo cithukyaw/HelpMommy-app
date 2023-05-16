@@ -1,6 +1,6 @@
 {
   "name": "io.cordova.helpmommy",
-  "displayName": "HelpMommy",
+  "displayName": "Help Mommy",
   "version": "1.0.0",
   "description": "A reward app that can earn by helping your mommy.",
   "main": "index.js",
@@ -52,7 +52,8 @@
     "platforms": [
       "android",
       "browser"
-    ]
+    ],
+    "plugins": {}
   },
   "devDependencies": {
     "cordova-android": "^10.1.2",

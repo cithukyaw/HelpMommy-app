@@ -1,6 +1,6 @@
 import "./App.scss";
 import {
-    createBrowserRouter,
+    createHashRouter,
     Outlet,
     RouterProvider
 } from "react-router-dom";
@@ -22,7 +22,7 @@ const Layout = () => {
     );
 };
 
-const router = createBrowserRouter([
+const router = createHashRouter([
     {
         path: "/",
         element: <Layout/>,

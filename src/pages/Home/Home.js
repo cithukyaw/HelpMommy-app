@@ -4,6 +4,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import "./Home.scss";
 
+// eslint-disable-next-line
 const Home = () => {
     return (
         <div className="container">

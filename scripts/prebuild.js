@@ -13,11 +13,11 @@ module.exports = () => {
                     return;
                 }
                 ex.exec(path.resolve(__dirname, '../build/'), path.join(__dirname, '../www/'))
-                    .then((s) => {
+                    .then(s => {
                         console.log(s);
                         resolve(s);
                     })
-                    .catch((e) => {
+                    .catch(e => {
                         console.error(e);
                         reject(e);
                     });

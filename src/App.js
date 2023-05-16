@@ -13,6 +13,7 @@ import Add from "./pages/Add/Add";
 import Hearts from "./pages/Hearts/Hearts";
 import Account from "./pages/Account/Account";
 
+// eslint-disable-next-line
 const Layout = () => {
     return (
         <div className="app">

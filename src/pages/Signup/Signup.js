@@ -2,6 +2,7 @@ import {Button, TextField} from "@mui/material";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import {Link} from "react-router-dom";
 
+// eslint-disable-next-line
 const Signup = () => {
     return (
         <div className="container">

@@ -10,6 +10,7 @@ import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
+import Error from "../../components/Error";
 import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -68,7 +69,7 @@ const Add = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <p>အမေ့ကိုကူညီခဲ့တဲ့အလုပ်ကိုရွေးထည့်ပြီး <FavoriteIcon/> ရယူပါ</p>
                     <div className="form-control">
-                        {errors.jobId && <p className="form-error">{errors.jobId?.message}</p>}
+                        <Error field={errors.jobId} />
                         <FormControl fullWidth>
                             <InputLabel id="job-select-label">Job</InputLabel>
                             <Select
@@ -98,7 +99,7 @@ const Add = () => {
                         </FormControl>
                     </div>
                     <div className="form-control">
-                        {errors.jobDate && <p className="form-error">{errors.jobDate?.message}</p>}
+                        <Error field={errors.jobDate} />
                         <LocalizationProvider
                             dateAdapter={AdapterDayjs}>
                             <DatePicker

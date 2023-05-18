@@ -2,7 +2,7 @@ import {useForm} from "react-hook-form";
 import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Button, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField} from "@mui/material";
-import FormControl from '@mui/material/FormControl';
+import FormControl from "@mui/material/FormControl";
 import LoginIcon from "@mui/icons-material/Login";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Error from "../../components/Error";
@@ -16,11 +16,9 @@ const Login = () => {
         handleSubmit
     } = useForm();
 
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleClickShowPassword = () => setShowPassword(show => !show);
 
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
+    const handleMouseDownPassword = e => e.preventDefault();
 
     const onSubmit = () => {
         navigate("/dashboard");
@@ -44,7 +42,7 @@ const Login = () => {
                     <OutlinedInput
                         {...register("password", {required: "Enter a password with min 8 characters."})}
                         id="outlined-password" label="Password" required
-                        type={showPassword ? 'text' : 'password'}
+                        type={showPassword ? "text" : "password"}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton

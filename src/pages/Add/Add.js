@@ -17,8 +17,8 @@ import dayjs from "dayjs";
 import "react-toastify/dist/ReactToastify.css";
 
 const Add = () => {
-    const { data, loading } = useFetch("jobs");
-    const jobs = data?.result;
+    const { result, loading } = useFetch("jobs");
+    const jobs = result?.data;
 
     const [jobDate, setJobDate] = useState(dayjs());
     const {

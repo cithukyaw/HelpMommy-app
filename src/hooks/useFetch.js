@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import httpRequest from "../httpRequest";
 
 const useFetch = (url, method = "get", postData = {}) => {
-    const [data, setData] = useState(null);
+    const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
@@ -15,7 +15,7 @@ const useFetch = (url, method = "get", postData = {}) => {
                     url,
                     data: postData
                 });
-                setData(res.data);
+                setResult(res.data);
             } catch (err) {
                 setError(err);
             }
@@ -25,7 +25,7 @@ const useFetch = (url, method = "get", postData = {}) => {
         fetchData();
     }, [url]);
 
-    return { data, loading, error };
+    return { result, loading, error };
 };
 
 export default useFetch;

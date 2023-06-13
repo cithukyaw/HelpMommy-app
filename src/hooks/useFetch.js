@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import httpRequest from "../httpRequest";
+import {httpRequest} from "../httpRequest";
 
 const useFetch = (url, method = "get", postData = {}) => {
     const [result, setResult] = useState(null);

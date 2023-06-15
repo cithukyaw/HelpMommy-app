@@ -6,9 +6,12 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 import {Link} from "react-router-dom";
 import "./Dashboard.scss";
+import {getItem} from "../../storage";
+import config from "../../config";
 
 const Dashboard = () => {
-    const name = "John Doe";
+    const user = getItem(config.userStoreKey);
+    const name = user.full_name;
     const todayHearts = 12;
 
     return (

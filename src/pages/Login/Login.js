@@ -9,6 +9,8 @@ import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import {makeRequest} from "../../httpRequest";
 import {ToastContainer} from "react-toastify";
+import {storeItem} from "../../storage";
+import config from "../../config";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -30,7 +32,9 @@ const Login = () => {
             loading: setLoading
         });
 
-        if (result && result.meta.id) {
+        if (result && result.data.id) {
+            storeItem(config.userStoreKey, result.data);
+
             navigate("/dashboard");
         }
 

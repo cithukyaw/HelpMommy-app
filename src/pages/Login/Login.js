@@ -7,9 +7,9 @@ import LoginIcon from "@mui/icons-material/Login";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
-import {makeRequest} from "../../httpRequest";
+import {makeRequest} from "../../helpers/httpRequest";
 import {ToastContainer} from "react-toastify";
-import {storeItem} from "../../storage";
+import {storeItem} from "../../helpers/storage";
 import config from "../../config";
 
 const Login = () => {

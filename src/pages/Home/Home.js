@@ -2,7 +2,7 @@ import {Button} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
-import {getItem} from "../../storage";
+import {getItem} from "../../helpers/storage";
 import {useEffect} from "react";
 import config from "../../config";
 import "./Home.scss";

@@ -8,7 +8,6 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import {makeRequest} from "../../helpers/httpRequest";
-import {ToastContainer} from "react-toastify";
 import {storeItem} from "../../helpers/storage";
 import config from "../../config";
 
@@ -46,7 +45,6 @@ const Login = () => {
     return (
         <>
             {loading && <Loading/>}
-            <ToastContainer/>
             <div className="container">
                 <div className="text-center">
                     <LoginIcon fontSize="large" className="rounded-icon icon-primary"/>

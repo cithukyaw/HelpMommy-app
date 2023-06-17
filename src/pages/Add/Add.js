@@ -7,14 +7,13 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 import useFetch from "../../hooks/useFetch";
 import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import dayjs from "dayjs";
-import "react-toastify/dist/ReactToastify.css";
 import {makeRequest} from "../../helpers/httpRequest";
 import {getItem} from "../../helpers/storage";
 import config from "../../config";
@@ -56,7 +55,6 @@ const Add = () => {
     return (
         !loading && jobs ?
             <>
-                <ToastContainer/>
                 <Header title="Add Hearts"/>
                 <div className="container">
                     <form onSubmit={handleSubmit(onSubmit)}>

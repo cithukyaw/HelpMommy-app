@@ -12,11 +12,14 @@ import Exchange from "./pages/Exchange/Exchange";
 import Add from "./pages/Add/Add";
 import Hearts from "./pages/Hearts/Hearts";
 import Account from "./pages/Account/Account";
+import {ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // eslint-disable-next-line
 const Layout = () => {
     return (
         <div className="app">
+            <ToastContainer/>
             <Outlet/>
         </div>
     );

@@ -98,7 +98,13 @@ const Add = () => {
                                     label="Date of the job"
                                     format="DD/MM/YYYY"
                                     onChange={value => setJobDate(value)}
-                                    slotProps={{textField: {fullWidth: true}}}
+                                    slotProps={{
+                                        textField: {
+                                            ...register("activity_date", {required: "Select a date."}),
+                                            fullWidth: true,
+                                            value: jobDate
+                                        },
+                                    }}
                                     maxDate={jobDate}
                                     defaultValue={jobDate}
                                 />

@@ -10,14 +10,15 @@ import {getItem} from "../../helpers/storage";
 import config from "../../config";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../../components/Loading";
+import NoHeart from "../../components/NoHeart/NoHeart";
 
 const Dashboard = () => {
     const user = getItem(config.userStoreKey);
 
     const getCurrentDate = () => {
         const current = new Date();
-        const month = (current.getMonth() + 1).toString().padStart(2, '0');
-        const day = current.getDate().toString().padStart(2, '0');
+        const month = (current.getMonth() + 1).toString().padStart(2, "0");
+        const day = current.getDate().toString().padStart(2, "0");
 
         return `${current.getFullYear()}-${month}-${day}`;
     };
@@ -48,23 +49,16 @@ const Dashboard = () => {
                     <div className="card">
                         <h4 className="margin-top-none">{todayHearts} heart{todayHearts > 1 ? "s" : ""} earned today</h4>
                         <ul className="list">
-                            {jobs.map(job => (
-                                <li key={job.id}>
-                                    <span>{job.name}</span>
-                                    <span>{job.rating} { job.rating > 0 ? <FavoriteIcon/> : <HeartBrokenIcon/> }</span>
-                                </li>
-                            ))}
+                        {jobs.map(job => (
+                            <li key={job.id}>
+                                <span>{job.name}</span>
+                                <span>{job.rating} { job.rating > 0 ? <FavoriteIcon/> : <HeartBrokenIcon/> }</span>
+                            </li>
+                        ))}
                         </ul>
                     </div>
                     :
-                    <div className="text-center heart-broken">
-                        <HeartBrokenIcon/>
-                        <p>No hearts today</p>
-                        <p>Help your mom and get hearts.</p>
-                        <Button variant="contained" className="margin-button" component={Link} to="/add" startIcon={<AddCircleOutlineIcon/>}>
-                            Add Hearts
-                        </Button>
-                    </div>
+                    <NoHeart/>
                 }
             </div>
             <Navbar/>

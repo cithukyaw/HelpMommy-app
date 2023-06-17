@@ -1,5 +1,5 @@
 const config = {
-    "exchangeRate": 100, // MMK per 1 heart
+    "exchangeRate": 50, // MMK per 1 heart
     "currencyUnit": "Ks",
     "userStoreKey": "user",
     "toastOptions": {

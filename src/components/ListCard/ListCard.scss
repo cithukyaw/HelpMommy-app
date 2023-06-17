@@ -1,3 +1,13 @@
-h4 span {
-    float: right;
+h4 {
+    time {
+        display: inline-block;
+    }
+
+    time:first-letter {
+        text-transform:capitalize;
+    }
+
+    span {
+        float: right;
+    }
 }

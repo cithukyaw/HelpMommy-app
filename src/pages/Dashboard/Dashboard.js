@@ -11,24 +11,18 @@ import config from "../../config";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../../components/Loading";
 import NoHeart from "../../components/NoHeart/NoHeart";
+import moment from "moment";
 
 const Dashboard = () => {
     const user = getItem(config.userStoreKey);
 
-    const getCurrentDate = () => {
-        const current = new Date();
-        const month = (current.getMonth() + 1).toString().padStart(2, "0");
-        const day = current.getDate().toString().padStart(2, "0");
-
-        return `${current.getFullYear()}-${month}-${day}`;
-    };
-
-    const { result, loading } = useFetch(`users/${user.id}/jobs?filter[date]=${getCurrentDate()}`);
+    const currentDate = moment().format("YYYY-MM-DD");
+    const { result, loading } = useFetch(`users/${user.id}/jobs?filter[date]=${currentDate}`);
     const jobs = result?.data;
 
     const { result: ratingResult } = useFetch(`users/${user.id}/ratings`);
     const totalHearts = ratingResult?.meta.rating;
-    const todayHearts = ratingResult?.data[getCurrentDate()]?.ratings;
+    const todayHearts = ratingResult?.data[currentDate]?.ratings;
 
     return (
         <>

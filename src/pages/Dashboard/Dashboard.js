@@ -13,15 +13,21 @@ import Loading from "../../components/Loading";
 
 const Dashboard = () => {
     const user = getItem(config.userStoreKey);
-    const todayHearts = 12;
 
     const getCurrentDate = () => {
         const current = new Date();
-        return `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`;
+        const month = (current.getMonth() + 1).toString().padStart(2, '0');
+        const day = current.getDate().toString().padStart(2, '0');
+
+        return `${current.getFullYear()}-${month}-${day}`;
     };
 
     const { result, loading } = useFetch(`users/${user.id}/jobs?filter[date]=${getCurrentDate()}`);
     const jobs = result?.data;
+
+    const { result: ratingResult } = useFetch(`users/${user.id}/ratings`);
+    const totalHearts = ratingResult?.meta.rating;
+    const todayHearts = ratingResult?.data[getCurrentDate()]?.ratings;
 
     return (
         <>
@@ -32,15 +38,15 @@ const Dashboard = () => {
                     <div className="user-name">Welcome {user.full_name}</div>
                     <div className="user-hearts">
                         <FavoriteIcon/>
-                        <strong>0 hearts</strong>
+                        <strong>{totalHearts} heart{totalHearts > 1 ? "s" : ""}</strong>
                     </div>
                     <Button variant="outlined" size="small" component={Link} to="/add" startIcon={<AddCircleOutlineIcon/>}>
                         Add Hearts
                     </Button>
                 </div>
-                { jobs && result.meta.total ?
+                { jobs && result.meta.total && ratingResult ?
                     <div className="card">
-                        <h4 className="margin-top-none">{todayHearts} hearts earned today</h4>
+                        <h4 className="margin-top-none">{todayHearts} heart{todayHearts > 1 ? "s" : ""} earned today</h4>
                         <ul className="list">
                             {jobs.map(job => (
                                 <li key={job.id}>

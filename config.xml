@@ -16,4 +16,11 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <hook src="scripts/prebuild.js" type="before_prepare" />
+    <platform name="android">
+        <icon src="res/mdpi/ic_launcher.png" density="mdpi" />
+        <icon src="res/hdpi/ic_launcher.png" density="hdpi" />
+        <icon src="res/xhdpi/ic_launcher.png" density="xhdpi" />
+        <icon src="res/xxhdpi/ic_launcher.png" density="xxhdpi" />
+        <icon src="res/xxxhdpi/ic_launcher.png" density="xxxhdpi" />
+    </platform>
 </widget>

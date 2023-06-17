@@ -15,32 +15,47 @@ import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import dayjs from "dayjs";
 import "react-toastify/dist/ReactToastify.css";
+import {makeRequest} from "../../helpers/httpRequest";
+import {getItem} from "../../helpers/storage";
+import config from "../../config";
 
 const Add = () => {
+    const user = getItem(config.userStoreKey);
     const { result, loading } = useFetch("jobs");
     const jobs = result?.data;
 
     const [jobDate, setJobDate] = useState(dayjs());
     const {
         register,
+        setError,
         formState: {errors},
         handleSubmit
     } = useForm();
 
-    const onSubmit = data => {
-        const {jobId} = data;
+    const onSubmit = async data => {
+        const { activity_date: activityDate } = data;
+        const jobDate = activityDate.split("/");
+        data.activity_date = `${jobDate[2]}-${jobDate[1]}-${jobDate[0]}`;
 
-        const rating = jobs.filter(j => j.id === jobId).pop().rating;
-        if (rating > 0) {
-            toast.success(`Congrats! You got ${rating} hearts.`, {
-                position: "top-center",
-                theme: "dark",
-            });
-        } else {
-            toast.error(`Oops! You lost ${Math.abs(rating)} hearts.`, {
-                position: "top-center",
-                theme: "dark",
-            });
+        const { result, error } = await makeRequest(`users/${user.id}/jobs`, "POST", data);
+
+        if (result && result.data.id) {
+            const rating = jobs.filter(j => j.id === data.job_id).pop().rating;
+            if (rating > 0) {
+                toast.success(`Congrats! You got ${rating} hearts.`, {
+                    position: "top-center",
+                    theme: "dark",
+                });
+            } else {
+                toast.error(`Oops! You lost ${Math.abs(rating)} hearts.`, {
+                    position: "top-center",
+                    theme: "dark",
+                });
+            }
+        }
+
+        if (error) {
+            error.map(err => setError(err.field, { type: "custom", message: err.message }));
         }
     };
 
@@ -53,11 +68,11 @@ const Add = () => {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <p>အမေ့ကိုကူညီခဲ့တဲ့အလုပ်ကိုရွေးထည့်ပြီး <FavoriteIcon/> ရယူပါ</p>
                         <div className="form-control">
-                            <Error field={errors.jobId} />
+                            <Error field={errors.job_id} />
                             <FormControl fullWidth>
                                 <InputLabel id="job-select-label">Job</InputLabel>
                                 <Select
-                                    {...register("jobId", {required: "Select a job."})}
+                                    {...register("job_id", {required: "Select a job."})}
                                     labelId="job-select-label"
                                     id="job-select"
                                     label="Job"
@@ -83,11 +98,11 @@ const Add = () => {
                             </FormControl>
                         </div>
                         <div className="form-control">
-                            <Error field={errors.jobDate} />
+                            <Error field={errors.activity_date} />
                             <LocalizationProvider
                                 dateAdapter={AdapterDayjs}>
                                 <DatePicker
-                                    {...register("jobDate", {required: "Select a date."})}
+                                    {...register("activity_date", {required: "Select a date."})}
                                     label="Date of the job"
                                     format="DD/MM/YYYY"
                                     onChange={value => setJobDate(value)}

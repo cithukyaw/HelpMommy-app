@@ -39,9 +39,7 @@ const Login = () => {
         }
 
         if (error) {
-            for (const err of error) {
-                setError(err.field, { type: "custom", message: err.message });
-            }
+            error.map(err => setError(err.field, {type: "custom", message: err.message}));
         }
     };
 

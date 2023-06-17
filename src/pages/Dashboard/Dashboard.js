@@ -45,7 +45,7 @@ const Dashboard = () => {
                             {jobs.map(job => (
                                 <li key={job.id}>
                                     <span>{job.name}</span>
-                                    <span>{job.rating} <FavoriteIcon/></span>
+                                    <span>{job.rating} { job.rating > 0 ? <FavoriteIcon/> : <HeartBrokenIcon/> }</span>
                                 </li>
                             ))}
                         </ul>

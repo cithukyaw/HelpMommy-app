@@ -42,15 +42,9 @@ const Add = () => {
         if (result && result.data.id) {
             const rating = jobs.filter(j => j.id === data.job_id).pop().rating;
             if (rating > 0) {
-                toast.success(`Congrats! You got ${rating} hearts.`, {
-                    position: "top-center",
-                    theme: "dark",
-                });
+                toast.success(`Congrats! You got ${rating} hearts.`, config.toastOptions);
             } else {
-                toast.error(`Oops! You lost ${Math.abs(rating)} hearts.`, {
-                    position: "top-center",
-                    theme: "dark",
-                });
+                toast.error(`Oops! You lost ${Math.abs(rating)} hearts.`, config.toastOptions);
             }
         }
 

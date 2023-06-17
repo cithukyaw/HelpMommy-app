@@ -1,5 +1,6 @@
 import axios from "axios";
 import {toast} from "react-toastify";
+import config from "../config";
 
 export const httpRequest = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
@@ -33,10 +34,7 @@ export const makeRequest = async (url, method = "get", postData = {}, callbacks 
                 msg += ` Error: ${err.message}`;
             }
 
-            toast.error(msg, {
-                position: "top-center",
-                theme: "dark",
-            });
+            toast.error(msg, config.toastOptions);
         }
     }
 

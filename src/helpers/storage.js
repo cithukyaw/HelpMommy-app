@@ -7,3 +7,7 @@ export const getItem = key => {
 
     return value ? JSON.parse(value) : null;
 };
+
+export const removeItem = key => {
+    localStorage.removeItem(key);
+};

@@ -5,7 +5,8 @@ import config from "../config";
 export const httpRequest = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
-        // Authorization: "bearer: " + process.env.REACT_APP_API_KEY,
+        "Content-Type": "application/json",
+        "X-Api-Key": process.env.REACT_APP_API_KEY,
     },
 });
 

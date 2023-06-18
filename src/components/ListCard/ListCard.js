@@ -5,13 +5,24 @@ import "./ListCard.scss";
 
 const ListCard = props => {
     const {title, hearts, jobs, index} = props;
-    let relativeTime = moment(title, "YYYY-MM-DD").endOf("day").fromNow();
+    let relativeTime = moment(title, "YYYY-MM-DD").fromNow();
 
-    if (relativeTime === "a day ago") {
-        relativeTime = "yesterday";
-    } else if (relativeTime.includes("hour")) {
-        relativeTime = "today";
-    }
+    relativeTime = relativeTime.replace(/(a|\d+) day(.*)/, (match, p1, p2) => {
+        if (p1 === "a") {
+            return "today";
+        }
+
+        const day = p1 - 1;
+        if (day === 0) {
+            return "today";
+        }
+
+        if (day === 1) {
+            return "yesterday";
+        }
+
+        return `${day} day${p2}`;
+    });
 
     return (
         <div>

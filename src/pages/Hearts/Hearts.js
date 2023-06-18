@@ -12,11 +12,11 @@ import NoHeart from "../../components/NoHeart/NoHeart";
 const Hearts = () => {
     const user = getItem(config.userStoreKey);
 
-    const { result: ratingResult } = useFetch(`users/${user.id}/ratings`);
+    const { result: ratingResult } = useFetch(`users/${user.id}/ratings?pager=7`);
     const totalHearts = ratingResult?.meta.rating;
     const amount = totalHearts * config.exchangeRate;
 
-    const { result, loading } = useFetch(`users/${user.id}/jobs`);
+    const { result, loading } = useFetch(`users/${user.id}/jobs?pager=7`);
 
     let list = [];
     if (result) {

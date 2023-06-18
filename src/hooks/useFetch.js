@@ -1,5 +1,7 @@
 import {useEffect, useState} from "react";
 import {httpRequest} from "../helpers/httpRequest";
+import {toast} from "react-toastify";
+import config from "../config";
 
 const useFetch = (url, method = "get", postData = {}) => {
     const [result, setResult] = useState(null);
@@ -17,7 +19,14 @@ const useFetch = (url, method = "get", postData = {}) => {
                 });
                 setResult(res.data);
             } catch (err) {
-                setError(err);
+                setError(err.response);
+
+                let msg = "Oops! Something's went wrong.";
+                if (err) {
+                    msg += ` Error: ${err.message}`;
+                }
+
+                toast.error(msg, config.toastOptions);
             }
             setLoading(false);
         };

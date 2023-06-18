@@ -53,77 +53,79 @@ const Add = () => {
     };
 
     return (
-        !loading && jobs ?
-            <>
-                <Header title="Add Hearts"/>
-                <div className="container">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <p>အမေ့ကိုကူညီခဲ့တဲ့အလုပ်ကိုရွေးထည့်ပြီး <FavoriteIcon/> ရယူပါ</p>
-                        <div className="form-control">
-                            <Error field={errors.job_id} />
-                            <FormControl fullWidth>
-                                <InputLabel id="job-select-label">Job</InputLabel>
-                                <Select
-                                    {...register("job_id", {required: "Select a job."})}
-                                    labelId="job-select-label"
-                                    id="job-select"
-                                    label="Job"
-                                    defaultValue="">
-                                    <MenuItem value=""><em>-- None --</em></MenuItem>
-                                    {jobs.map(job =>
-                                        <MenuItem value={job.id} key={job.id}>
-                                            {job.name}
-                                            <span className="hearts">
-                                            {
-                                                [...Array(Math.abs(job.rating))].map((x, i) => {
-                                                    if (job.rating > 0) {
-                                                        return <FavoriteIcon key={i}/>;
-                                                    } else {
-                                                        return <HeartBrokenIcon key={i}/>;
-                                                    }
-                                                })
-                                            }
-                                            </span>
-                                        </MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <div className="form-control">
-                            <Error field={errors.activity_date} />
-                            <LocalizationProvider
-                                dateAdapter={AdapterDayjs}>
-                                <DatePicker
-                                    {...register("activity_date", {required: "Select a date."})}
-                                    label="Date of the job"
-                                    format="DD/MM/YYYY"
-                                    onChange={value => setJobDate(value)}
-                                    slotProps={{
-                                        textField: {
-                                            ...register("activity_date", {required: "Select a date."}),
-                                            fullWidth: true,
-                                            value: jobDate
-                                        },
-                                    }}
-                                    maxDate={jobDate}
-                                    defaultValue={jobDate}
-                                />
-                            </LocalizationProvider>
-                        </div>
-                        <Button fullWidth
-                                variant="contained"
-                                size="large"
-                                color="success"
-                                startIcon={<AddCircleOutlineIcon/>}
-                                onClick={handleSubmit(onSubmit)}
-                        >
-                            Add Hearts
-                        </Button>
-                    </form>
-                </div>
-                <Navbar/>
-            </> :
-            <Loading/>
+        <>
+            {loading && <Loading/>}
+            <Header title="Add Hearts"/>
+            <div className="container">
+            { jobs ?
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <p>အမေ့ကိုကူညီခဲ့တဲ့အလုပ်ကိုရွေးထည့်ပြီး <FavoriteIcon/> ရယူပါ</p>
+                    <div className="form-control">
+                        <Error field={errors.job_id} />
+                        <FormControl fullWidth>
+                            <InputLabel id="job-select-label">Job</InputLabel>
+                            <Select
+                                {...register("job_id", {required: "Select a job."})}
+                                labelId="job-select-label"
+                                id="job-select"
+                                label="Job"
+                                defaultValue="">
+                                <MenuItem value=""><em>-- None --</em></MenuItem>
+                                {jobs.map(job =>
+                                    <MenuItem value={job.id} key={job.id}>
+                                        {job.name}
+                                        <span className="hearts">
+                                        {
+                                            [...Array(Math.abs(job.rating))].map((x, i) => {
+                                                if (job.rating > 0) {
+                                                    return <FavoriteIcon key={i}/>;
+                                                } else {
+                                                    return <HeartBrokenIcon key={i}/>;
+                                                }
+                                            })
+                                        }
+                                        </span>
+                                    </MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="form-control">
+                        <Error field={errors.activity_date} />
+                        <LocalizationProvider
+                            dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                {...register("activity_date", {required: "Select a date."})}
+                                label="Date of the job"
+                                format="DD/MM/YYYY"
+                                onChange={value => setJobDate(value)}
+                                slotProps={{
+                                    textField: {
+                                        ...register("activity_date", {required: "Select a date."}),
+                                        fullWidth: true,
+                                        value: jobDate
+                                    },
+                                }}
+                                maxDate={jobDate}
+                                defaultValue={jobDate}
+                            />
+                        </LocalizationProvider>
+                    </div>
+                    <Button fullWidth
+                            variant="contained"
+                            size="large"
+                            color="success"
+                            startIcon={<AddCircleOutlineIcon/>}
+                            onClick={handleSubmit(onSubmit)}
+                    >
+                        Add Hearts
+                    </Button>
+                </form>
+                : ""
+            }
+            </div>
+            <Navbar/>
+        </>
     );
 };
 

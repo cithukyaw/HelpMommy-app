@@ -50,7 +50,7 @@ const Hearts = () => {
                 { list.length ?
                     list.map(([key, value]) => <ListCard key={key} title={key} hearts={ratingResult?.data[key]?.ratings} jobs={value} />)
                     :
-                    <NoHeart/>
+                    <NoHeart msg="You have no hearts." />
                 }
             </div>
             <Navbar/>

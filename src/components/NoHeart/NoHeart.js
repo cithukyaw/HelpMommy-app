@@ -5,11 +5,11 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import "./NoHeart.scss";
 
 // eslint-disable-next-line
-const NoHeart = () => {
+const NoHeart = ({ msg }) => {
     return (
         <div className="text-center heart-broken">
             <HeartBrokenIcon/>
-            <p>You have no hearts.</p>
+            <p>{ msg }</p>
             <p>Help your mom and get hearts.</p>
             <Button variant="contained" className="margin-button" component={Link} to="/add" startIcon={<AddCircleOutlineIcon/>}>
                 Add Hearts

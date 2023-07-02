@@ -22,7 +22,7 @@ const Home = () => {
         <div className="container">
             <h1 className="text-center">HelpMommy</h1>
             <div className="block-img">
-                <img src="/img/undraw_family.svg" alt="Help Mommy" className="img-fluid" />
+                <img src="./img/undraw_family.svg" alt="Help Mommy" className="img-fluid" />
             </div>
             <Button fullWidth
                 variant="contained"

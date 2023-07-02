@@ -14,9 +14,9 @@ import Navbar from "../../components/Navbar/Navbar";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import dayjs from "dayjs";
-import {makeRequest} from "../../helpers/httpRequest";
 import {getItem} from "../../helpers/storage";
 import config from "../../config";
+import {sendRequest} from "../../helpers/fetchRequest";
 
 const Add = () => {
     const user = getItem(config.userStoreKey);
@@ -36,7 +36,7 @@ const Add = () => {
         const jobDate = activityDate.split("/");
         data.activity_date = `${jobDate[2]}-${jobDate[1]}-${jobDate[0]}`;
 
-        const { result, error } = await makeRequest(`users/${user.id}/jobs`, "POST", data);
+        const { result, error } = await sendRequest(`users/${user.id}/jobs`, "POST", data);
 
         if (result && result.data.id) {
             const rating = jobs.filter(j => j.id === data.job_id).pop().rating;

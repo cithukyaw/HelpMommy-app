@@ -7,9 +7,9 @@ import LoginIcon from "@mui/icons-material/Login";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
-import {makeRequest} from "../../helpers/httpRequest";
 import {storeItem} from "../../helpers/storage";
 import config from "../../config";
+import {sendRequest} from "../../helpers/fetchRequest";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -27,17 +27,19 @@ const Login = () => {
     const handleMouseDownPassword = e => e.preventDefault();
 
     const onSubmit = async data => {
-        const { result, error } = await makeRequest("auth/login", "POST", data, {
-            loading: setLoading
-        });
+        setLoading(true);
+        const { result, error } = await sendRequest("auth/login", "POST", data);
+        setLoading(false);
 
         if (result && result.data.id) {
+            console.log(result);
             storeItem(config.userStoreKey, result.data);
 
             navigate("/dashboard");
         }
 
         if (error) {
+            console.log(error);
             error.map(err => setError(err.field, {type: "custom", message: err.message}));
         }
     };

@@ -12,7 +12,7 @@ import NoHeart from "../../components/NoHeart/NoHeart";
 const Hearts = () => {
     const user = getItem(config.userStoreKey);
 
-    const { result: ratingResult } = useFetch(`users/${user.id}/ratings?pager=7`);
+    const { result: ratingResult } = useFetch(`users/${user.id}/ratings`);
     const totalHearts = ratingResult?.meta.rating;
     const amount = totalHearts * config.exchangeRate;
 
@@ -50,7 +50,7 @@ const Hearts = () => {
                 { list.length ?
                     list.map(([key, value]) => <ListCard key={key} title={key} hearts={ratingResult?.data[key]?.ratings} jobs={value} />)
                     :
-                    <NoHeart msg="You have no hearts." />
+                    <NoHeart msg="You have no hearts for last 7 days." />
                 }
             </div>
             <Navbar/>

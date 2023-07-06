@@ -52,7 +52,7 @@ const Dashboard = () => {
                         </ul>
                     </div>
                     :
-                    <NoHeart msg="You have no hearts today." />
+                    <NoHeart msg="ဒီနေ့ သင် အသည်းမရရှိသေးပါ။" />
                 }
             </div>
             <Navbar/>

@@ -5,6 +5,7 @@ const config = {
     "toastOptions": {
         position: "top-center",
         theme: "dark",
+        autoClose: 1000,
     }
 };
 

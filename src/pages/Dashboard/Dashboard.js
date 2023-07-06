@@ -23,6 +23,7 @@ const Dashboard = () => {
     const { result: ratingResult } = useFetch(`users/${user.id}/ratings`);
     const totalHearts = ratingResult?.meta.rating;
     const todayHearts = ratingResult?.data[currentDate]?.ratings;
+    const amount = totalHearts * config.exchangeRate;
 
     return (
         <>
@@ -33,7 +34,8 @@ const Dashboard = () => {
                     <div className="user-name">Welcome {user.full_name}</div>
                     <div className="user-hearts">
                         <FavoriteIcon/>
-                        <strong>{totalHearts} heart{totalHearts > 1 ? "s" : ""}</strong>
+                        <strong>{totalHearts} heart{totalHearts > 1 ? "s " : " "}</strong>
+                        ({amount.toLocaleString()} {config.currencyUnit})
                     </div>
                     <Button variant="outlined" size="small" component={Link} to="/add" startIcon={<AddCircleOutlineIcon/>}>
                         Add Hearts
@@ -41,7 +43,10 @@ const Dashboard = () => {
                 </div>
                 { jobs && result.meta.total && ratingResult ?
                     <div className="card">
-                        <h4 className="margin-top-none">{todayHearts} heart{todayHearts > 1 ? "s" : ""} earned today</h4>
+                        <h4 className="margin-top-none">
+                            {todayHearts} heart{todayHearts > 1 ? "s " : " "}
+                            ({ (todayHearts * config.exchangeRate).toLocaleString() } { config.currencyUnit }) earned today
+                        </h4>
                         <ul className="list">
                         {jobs.map(job => (
                             <li key={job.id}>

@@ -28,7 +28,7 @@ const Dashboard = () => {
     return (
         <>
             {loading && <Loading/>}
-            <Header title="HelpMommy"/>
+            <Header title="Help Mommy"/>
             <div className="container">
                 <div className="card">
                     <div className="user-name">Welcome {user.full_name}</div>

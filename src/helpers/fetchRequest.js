@@ -19,7 +19,6 @@ export const sendRequest = async (url, method = "get", data = null) => {
     options.body = data ? JSON.stringify(data) : null;
 
     try {
-        console.log(options);
         const response = await fetch(process.env.REACT_APP_API_URL + url, options);
         result = await response.json();
 

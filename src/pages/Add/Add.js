@@ -22,7 +22,6 @@ const Add = () => {
     const user = getItem(config.userStoreKey);
     const { result, loading } = useFetch("jobs");
     const jobs = result?.data;
-
     const [jobDate, setJobDate] = useState(dayjs());
     const {
         register,
@@ -65,7 +64,7 @@ const Add = () => {
                         <FormControl fullWidth>
                             <InputLabel id="job-select-label">Job</InputLabel>
                             <Select
-                                {...register("job_id", {required: "Select a job."})}
+                                {...register("job_id", {required: "အလုပ်တစ်ခုကိုရွေးပေးပါ"})}
                                 labelId="job-select-label"
                                 id="job-select"
                                 label="Job"

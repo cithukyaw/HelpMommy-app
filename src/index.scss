@@ -49,6 +49,14 @@ svg[data-testid="HeartBrokenIcon"].MuiSvgIcon-root {
     right: 16px;
 }
 
+.MuiAlert-root {
+    margin: 1em 0;
+}
+
+.tip {
+    color: #d32f2f;
+}
+
 span.hearts svg {
     margin-right: -5px;
 }

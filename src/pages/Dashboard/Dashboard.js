@@ -20,7 +20,7 @@ const Dashboard = () => {
     const { result, loading } = useFetch(`users/${user.id}/jobs?filter[date]=${currentDate}`);
     const jobs = result?.data;
 
-    const { result: ratingResult } = useFetch(`users/${user.id}/ratings`);
+    const { result: ratingResult, loading: ratingLoading } = useFetch(`users/${user.id}/ratings`);
     const totalHearts = ratingResult?.meta.rating;
     const todayHearts = ratingResult?.data[currentDate]?.ratings;
     const amount = totalHearts * config.exchangeRate;
@@ -32,11 +32,14 @@ const Dashboard = () => {
             <div className="container">
                 <div className="card">
                     <div className="user-name">Welcome {user.full_name}</div>
-                    <div className="user-hearts">
-                        <FavoriteIcon/>
-                        <strong>{totalHearts} heart{totalHearts > 1 ? "s " : " "}</strong>
-                        ({amount.toLocaleString()} {config.currencyUnit})
-                    </div>
+                    {!loading && !ratingLoading ?
+                        <div className="user-hearts">
+                            <FavoriteIcon/>
+                            <strong>{totalHearts} heart{totalHearts > 1 ? "s " : " "}</strong>
+                            ({amount.toLocaleString()} {config.currencyUnit})
+                        </div>
+                        : ""
+                    }
                     <Button variant="outlined" size="small" component={Link} to="/add" startIcon={<AddCircleOutlineIcon/>}>
                         Add Hearts
                     </Button>

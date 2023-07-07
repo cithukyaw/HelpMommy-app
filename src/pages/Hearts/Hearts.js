@@ -50,7 +50,7 @@ const Hearts = () => {
                 { list.length ?
                     list.map(([key, value]) => <ListCard key={key} title={key} hearts={ratingResult?.data[key]?.ratings} jobs={value} />)
                     :
-                    <NoHeart msg="နောက်ဆုံး (၇)ရက်အတွင်း သင် အသည်းမရရှိခဲ့ပါ။" />
+                    !loading && <NoHeart msg="နောက်ဆုံး (၇)ရက်အတွင်း သင် အသည်းမရရှိခဲ့ပါ။" />
                 }
             </div>
             <Navbar/>

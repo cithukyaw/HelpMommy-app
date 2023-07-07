@@ -60,7 +60,7 @@ const Dashboard = () => {
                         </ul>
                     </div>
                     :
-                    <NoHeart msg="ဒီနေ့ သင် အသည်းမရရှိသေးပါ။" />
+                    !loading && <NoHeart msg="ဒီနေ့ သင် အသည်းမရရှိသေးပါ။" />
                 }
             </div>
             <Navbar/>

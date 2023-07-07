@@ -30,7 +30,7 @@ const Account = () => {
     const handleMouseDownPassword = e => e.preventDefault();
 
     const onSubmit = async data => {
-        const {result, error} = await makeRequest(`users/${user.id}`, "PUT", data, {
+        const {result, error} = await makeRequest(`users/${user.id}`, "POST", data, {
             loading: setLoading
         });
 

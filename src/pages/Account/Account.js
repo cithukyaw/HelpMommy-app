@@ -6,14 +6,16 @@ import {useForm} from "react-hook-form";
 import FormControl from "@mui/material/FormControl";
 import {Lock, Visibility, VisibilityOff} from "@mui/icons-material";
 import {useState} from "react";
-import {getItem, storeItem} from "../../helpers/storage";
+import {getItem, removeItem, storeItem} from "../../helpers/storage";
 import config from "../../config";
 import {makeRequest} from "../../helpers/httpRequest";
 import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 // eslint-disable-next-line
 const Account = () => {
     const user = getItem(config.userStoreKey);
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const {
@@ -40,6 +42,11 @@ const Account = () => {
         if (error) {
             error.map(err => setError(err.field, {type: "custom", message: err.message}));
         }
+    };
+
+    const logout = () => {
+        removeItem(config.userStoreKey);
+        navigate("login");
     };
 
     return (
@@ -102,6 +109,9 @@ const Account = () => {
                                 fullWidth={true}>Update</Button>
                     </div>
                 </form>
+                <p className="text-center">
+                    <a href="#" onClick={logout}>Logout</a>
+                </p>
             </div>
             <Navbar />
         </>

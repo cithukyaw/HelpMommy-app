@@ -51,7 +51,7 @@ const Account = () => {
 
     return (
         <>
-            <Header title="Account" />
+            <Header title="အကောင့်အချက်အလက်ပြင်ရန်" />
             <div className="container">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-control">

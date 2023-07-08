@@ -54,7 +54,7 @@ const Add = () => {
     return (
         <>
             {loading && <Loading/>}
-            <Header title="Add Hearts"/>
+            <Header title="အသည်းရယူရန်"/>
             <div className="container">
             { jobs ?
                 <form onSubmit={handleSubmit(onSubmit)}>

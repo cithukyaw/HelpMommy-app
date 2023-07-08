@@ -32,7 +32,7 @@ const Hearts = () => {
     return (
         <>
             {loading && <Loading/>}
-            <Header title="Hearts Earned History"/>
+            <Header title="အသည်းစုဆောင်းရရှိမှုအခြေအနေ"/>
             <div className="container">
                 { totalHearts ?
                     <Card>

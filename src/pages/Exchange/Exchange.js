@@ -5,7 +5,7 @@ import Navbar from "../../components/Navbar/Navbar";
 const Exchange = () => {
     return (
         <>
-            <Header title="Exchange Hearts" />
+            <Header title="အသည်းနှင့်မုန့်ဖိုးလဲလှယ်ရန်" />
             <div className="container">
                 <h2 className="text-center">Coming Soon...</h2>
                 <p className="text-center">Exchange hearts with gifts or cash</p>

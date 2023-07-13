@@ -1,6 +1,7 @@
 const config = {
     "exchangeRate": 50, // MMK per 1 heart
     "currencyUnit": "MMK",
+    "minHeart": 20,
     "userStoreKey": "user",
     "toastOptions": {
         position: "top-center",

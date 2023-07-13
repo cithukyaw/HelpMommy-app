@@ -26,14 +26,20 @@ h2 {
     font-size: 2em;
 }
 
+svg.MuiSvgIcon-root {
+    vertical-align: middle;
+}
+
 svg[data-testid="FavoriteIcon"].MuiSvgIcon-root {
     color: #c50000;
-    vertical-align: middle;
 }
 
 svg[data-testid="HeartBrokenIcon"].MuiSvgIcon-root {
     color: #444444;
-    vertical-align: middle;
+}
+
+svg[data-testid="WalletIcon"].MuiSvgIcon-root {
+    color: #1976d2;
 }
 
 .MuiButton-root {

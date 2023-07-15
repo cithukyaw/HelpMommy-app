@@ -22,7 +22,7 @@ export const sendRequest = async (url, method = "get", data = null) => {
         const response = await fetch(process.env.REACT_APP_API_URL + url, options);
         result = await response.json();
 
-        if (response.status === 400) { // Handle validation error
+        if (result.error || response.status === 400) { // Handle validation error
             error = result.error;
             result = null;
         }

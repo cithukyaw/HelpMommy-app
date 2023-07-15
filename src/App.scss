@@ -31,9 +31,27 @@
 
     ul.list li {
         display: flex;
-        justify-content: space-between;
         padding: .5em 0 .25em 0;
         border-bottom: 1px #eaeaea solid;
+    }
+
+    ul.list li > .delete-action svg {
+        visibility: hidden;
+        width: 0;
+        padding-right: 0;
+        transition: padding-right .5s, width .5s, visibility .5s;
+    }
+
+    ul.list li > .delete-action.show svg {
+        visibility: visible;
+        width: 24px;
+        padding-right: .3em;
+    }
+
+    ul.list li > .list-item {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
     }
 
     ul.list li:last-child {

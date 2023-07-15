@@ -53,8 +53,10 @@ const Dashboard = () => {
                         <ul className="list">
                         {jobs.map(job => (
                             <li key={job.id}>
-                                <span>{job.name}</span>
-                                <span>{job.rating} { job.rating > 0 ? <FavoriteIcon/> : <HeartBrokenIcon/> }</span>
+                                <span className="list-item">
+                                    <span>{job.name}</span>
+                                    <span>{job.rating} { job.rating > 0 ? <FavoriteIcon/> : <HeartBrokenIcon/> }</span>
+                                </span>
                             </li>
                         ))}
                         </ul>

@@ -32,16 +32,16 @@ const Hearts = () => {
     return (
         <>
             {loading && <Loading/>}
-            <Header title="အသည်းစုဆောင်းရရှိမှုအခြေအနေ"/>
+            <Header title="အသည်းရရှိမှုမှတ်တမ်း"/>
             <div className="container">
                 { totalHearts ?
                     <Card>
                         <CardContent>
                             <Typography variant="h6" component="div">
-                                You have total {totalHearts}<FavoriteIcon/>
+                                အသည်းစုစုပေါင်း {totalHearts}<FavoriteIcon/>
                             </Typography>
-                            <Typography variant="body1">
-                                worth of <strong>{amount.toLocaleString()} {config.currencyUnit}</strong>
+                            <Typography variant="body1" className="mt-1">
+                                တန်ဖိုးငွေ <strong>{amount.toLocaleString()} {config.currencyUnit}</strong>
                             </Typography>
                         </CardContent>
                     </Card>

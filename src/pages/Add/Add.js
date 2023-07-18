@@ -15,10 +15,11 @@ import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import dayjs from "dayjs";
 import {getItem} from "../../helpers/storage";
-import config from "../../config";
 import {sendRequest} from "../../helpers/fetchRequest";
+import {getConfig} from "../../helpers/common";
 
 const Add = () => {
+    const config = getConfig();
     const user = getItem(config.userStoreKey);
     const { result, loading } = useFetch("jobs");
     const jobs = result?.data;

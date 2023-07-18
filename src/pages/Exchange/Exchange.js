@@ -5,15 +5,16 @@ import {Button, Card, CardContent, TextField, Typography} from "@mui/material";
 import {useForm} from "react-hook-form";
 import {useEffect, useState} from "react";
 import useFetch from "../../hooks/useFetch";
-import config from "../../config";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import WalletIcon from "@mui/icons-material/Wallet";
 import {getItem} from "../../helpers/storage";
 import {toast} from "react-toastify";
 import {makeRequest} from "../../helpers/httpRequest";
+import {getConfig} from "../../helpers/common";
 
 // eslint-disable-next-line
 const Exchange = () => {
+    const config = getConfig();
     const user = getItem(config.userStoreKey);
     const [loading, setLoading] = useState(false);
     const [amountReceived, setAmountReceived] = useState(0);

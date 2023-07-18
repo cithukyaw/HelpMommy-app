@@ -7,13 +7,14 @@ import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 import {Link} from "react-router-dom";
 import "./Dashboard.scss";
 import {getItem} from "../../helpers/storage";
-import config from "../../config";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../../components/Loading";
 import NoHeart from "../../components/NoHeart/NoHeart";
 import moment from "moment";
+import {getConfig} from "../../helpers/common";
 
 const Dashboard = () => {
+    const config = getConfig();
     const user = getItem(config.userStoreKey);
 
     const currentDate = moment().format("YYYY-MM-DD");

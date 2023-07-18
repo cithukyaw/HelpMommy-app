@@ -2,14 +2,15 @@ import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import ListCard from "../../components/ListCard/ListCard";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import config from "../../config";
 import {Card, CardContent, Typography} from "@mui/material";
 import useFetch from "../../hooks/useFetch";
 import {getItem} from "../../helpers/storage";
 import Loading from "../../components/Loading";
 import NoHeart from "../../components/NoHeart/NoHeart";
+import {getConfig} from "../../helpers/common";
 
 const Hearts = () => {
+    const config = getConfig();
     const user = getItem(config.userStoreKey);
 
     const { result: ratingResult } = useFetch(`users/${user.id}/ratings`);

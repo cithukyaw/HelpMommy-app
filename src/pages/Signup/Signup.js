@@ -9,10 +9,11 @@ import Loading from "../../components/Loading";
 import Error from "../../components/Error";
 import {makeRequest} from "../../helpers/httpRequest";
 import {storeItem} from "../../helpers/storage";
-import config from "../../config";
+import {getConfig} from "../../helpers/common";
 
 // eslint-disable-next-line
 const Signup = () => {
+    const config = getConfig();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);

@@ -14,15 +14,27 @@ import Hearts from "./pages/Hearts/Hearts";
 import Account from "./pages/Account/Account";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useFetch from "./hooks/useFetch";
+import {storeItem} from "./helpers/storage";
+import config from "./config";
 
 // eslint-disable-next-line
 const Layout = () => {
+    loadSetting();
+
     return (
         <div className="app">
             <ToastContainer/>
             <Outlet/>
         </div>
     );
+};
+
+const loadSetting = () => {
+    const { result } = useFetch("settings");
+    if (result) {
+        storeItem(config.settingStoreKey, result);
+    }
 };
 
 const router = createHashRouter([

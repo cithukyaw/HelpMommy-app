@@ -8,10 +8,11 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import {storeItem} from "../../helpers/storage";
-import config from "../../config";
 import {sendRequest} from "../../helpers/fetchRequest";
+import {getConfig} from "../../helpers/common";
 
 const Login = () => {
+    const config = getConfig();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +33,6 @@ const Login = () => {
         setLoading(false);
 
         if (result && result.data.id) {
-            console.log(result);
             storeItem(config.userStoreKey, result.data);
 
             navigate("/dashboard");

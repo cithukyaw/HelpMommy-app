@@ -36,7 +36,7 @@ const Signup = () => {
         if (result && result.data.id) {
             storeItem(config.userStoreKey, result.data);
 
-            navigate("/dashboard");
+            navigate("/redeem");
         }
 
         if (error) {

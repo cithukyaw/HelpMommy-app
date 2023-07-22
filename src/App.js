@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import useFetch from "./hooks/useFetch";
 import {storeItem} from "./helpers/storage";
 import config from "./config";
+import Redeem from "./pages/Redeem/Redeem";
 
 // eslint-disable-next-line
 const Layout = () => {
@@ -53,6 +54,10 @@ const router = createHashRouter([
             {
                 path: "/signup",
                 element: <Signup/>
+            },
+            {
+                path: "/redeem",
+                element: <Redeem/>
             },
             {
                 path: "/dashboard",

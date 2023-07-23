@@ -15,7 +15,7 @@ import Account from "./pages/Account/Account";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useFetch from "./hooks/useFetch";
-import {storeItem} from "./helpers/storage";
+import {storeItemEncrypted} from "./helpers/storage";
 import config from "./config";
 import Redeem from "./pages/Redeem/Redeem";
 
@@ -34,7 +34,7 @@ const Layout = () => {
 const loadSetting = () => {
     const { result } = useFetch("settings");
     if (result) {
-        storeItem(config.settingStoreKey, result);
+        storeItemEncrypted(config.settingStoreKey, result.value);
     }
 };
 

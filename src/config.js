@@ -1,6 +1,6 @@
 const config = {
     "userStoreKey": "user",
-    "settingStoreKey": "setting",
+    "settingStoreKey": "config",
     "toastOptions": {
         position: "top-center",
         theme: "dark",

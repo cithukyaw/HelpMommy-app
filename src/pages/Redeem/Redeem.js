@@ -42,10 +42,10 @@ const Redeem = () => {
             <div className="container">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-control">
-                        <div className="label paragraph">စာလုံး(၆)လုံးပါ Redeem ကုဒ်ကို ရိုက်ထည့်ပေးပါ။</div>
+                        <div className="label paragraph">တစ်သက်စာသုံးစွဲခွင့်ကုဒ်ကိုရိုက်ထည့်ပေးပါ။</div>
                         <Error field={errors.code} />
                         <TextField {...register("code", {
-                                required: "သင်ဝယ်ထားသော redeem code ကိုရိုက်ထည့်ပေးပါ",
+                                required: "သင်ဝယ်ထားသောအသုံးပြုခွင့်ကုဒ်ကိုရိုက်ထည့်ပေးပါ",
                                 minLength: {
                                     value: 6,
                                     message: "စာလုံးရေ(၆)လုံးထိရိုက်ထည့်ပေးပါ"
@@ -65,21 +65,21 @@ const Redeem = () => {
                                 variant="contained"
                                 size="large"
                                 color="success"
-                                fullWidth>Continue</Button>
+                                fullWidth>စတင်အသုံးပြုမည်</Button>
                     </div>
                     <div className="card">
-                        <p className="text-center">Redeem code မရှိသေးပါက Facebook page မှတစ်ဆင့် ဆက်သွယ်၍ (သို့) ဖုန်းဖြင့်ဆက်သွယ်၍ ၃၀၀၀ ကျပ်ဖြင့် ဝယ်ယူနိုင်ပါသည်။</p>
+                        <p className="text-center">တစ်သက်စာသုံးစွဲခွင့်ကုဒ်မရှိသေးပါက Facebook page မှတစ်ဆင့် (သို့) ဖုန်းဖြင့် ဆက်သွယ်၍ <strong>၃၀၀၀ ကျပ်</strong>ဖြင့် ဝယ်ယူနိုင်ပါသည်။</p>
                         <Button href="https://facebook.com" target="_blank" rel="noopener"
                                 variant="contained"
                                 size="large"
                                 startIcon={<SendIcon/>}
-                                fullWidth>Contact on Messenger</Button>
+                                fullWidth>FB Messenger မှဆက်သွယ်ရန်</Button>
 
                         <Button href={`tel:${process.env.REACT_APP_CONTACT_NO}`} className="mt-2"
                                 variant="outlined"
                                 size="large"
                                 startIcon={<LocalPhoneIcon/>}
-                                fullWidth>Call</Button>
+                                fullWidth>ဖုန်းဖြင့်ဆက်သွယ်ရန်</Button>
                     </div>
                 </form>
             </div>

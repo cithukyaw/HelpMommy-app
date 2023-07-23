@@ -54,8 +54,8 @@ const Signup = () => {
                 <h2 className="text-center">Create an Account</h2>
                 <div className="form-control">
                     <Error field={errors.username} />
-                    <TextField {...register("username", {required: "Enter a username."})}
-                        id="outlined-username" label="Username" variant="outlined" required fullWidth autoComplete="off" />
+                    <TextField {...register("username", {required: "Enter a login username."})}
+                        id="outlined-username" label="Login Username" variant="outlined" required fullWidth autoComplete="off" />
                 </div>
                 <div className="form-control">
                     <Error field={errors.password} />
@@ -82,10 +82,10 @@ const Signup = () => {
                 </div>
                 <div className="form-control">
                     <Button onClick={handleSubmit(onSubmit)} disabled={loading}
-                        className="margin-button" variant="contained" size="large" fullWidth={true}>Create</Button>
+                        className="margin-button" variant="contained" size="large" fullWidth={true}>အကောင့်ပြုလုပ်ရန်</Button>
                 </div>
                 <div className="text-center">
-                    <Link to="/login">If you already have an account, login here</Link>
+                    <Link to="/login">အကောင့်ရှိပြီးသားလား? အကောင့်ဝင်ရန်</Link>
                 </div>
             </div>
         </>

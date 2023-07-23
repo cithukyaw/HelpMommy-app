@@ -30,14 +30,14 @@ const Home = () => {
                 size="large"
                 className="margin-button"
                 component={Link} to="/login"
-                startIcon={<LoginIcon/>}>Login
+                startIcon={<LoginIcon/>}>အကောင့်ဝင်ရန်
             </Button>
             <Button fullWidth
                 variant="outlined"
                 size="large"
                 className="margin-button"
                 component={Link} to="/signup"
-                startIcon={<HowToRegIcon/>}>Create an Account
+                startIcon={<HowToRegIcon/>}>အကောင့်အသစ်ဖွင့်ရန်
             </Button>
         </div>
     );

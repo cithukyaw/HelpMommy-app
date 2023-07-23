@@ -82,10 +82,10 @@ const Login = () => {
                 </div>
                 <div className="form-control">
                     <Button onClick={handleSubmit(onSubmit)}
-                        className="margin-button" variant="contained" size="large" fullWidth={true}>Login</Button>
+                        className="margin-button" variant="contained" size="large" fullWidth={true}>အကောင့်ဝင်ရန်</Button>
                 </div>
                 <div className="text-center">
-                    <Link to="/signup">If you don&apos;t have an account, create an account here</Link>
+                    <Link to="/signup">အကောင့်မရှိသေးရင် အကောင့်အသစ်ဖွင့်ရန်</Link>
                 </div>
             </div>
         </>

@@ -2,20 +2,24 @@ import {Button} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
-import {getItem} from "../../helpers/storage";
+import {getItemDecrypted} from "../../helpers/storage";
 import {useEffect} from "react";
-import {getConfig} from "../../helpers/common";
+import {checkRedeem, getConfig} from "../../helpers/common";
 import "./Home.scss";
 
 // eslint-disable-next-line
 const Home = () => {
     const config = getConfig();
-    const user = getItem(config.userStoreKey);
+    const user = getItemDecrypted(config.userStoreKey);
     const navigate = useNavigate();
 
     useEffect(() => {
         if (user) {
-            navigate("/dashboard");
+            if (checkRedeem(user)) {
+                navigate("/dashboard");
+            } else {
+                navigate("/redeem");
+            }
         }
     });
 

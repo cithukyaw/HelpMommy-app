@@ -14,13 +14,13 @@ import Navbar from "../../components/Navbar/Navbar";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import dayjs from "dayjs";
-import {getItem} from "../../helpers/storage";
+import {getItemDecrypted} from "../../helpers/storage";
 import {sendRequest} from "../../helpers/fetchRequest";
 import {getConfig} from "../../helpers/common";
 
 const Add = () => {
     const config = getConfig();
-    const user = getItem(config.userStoreKey);
+    const user = getItemDecrypted(config.userStoreKey);
     const { result, loading } = useFetch("jobs");
     const jobs = result?.data;
     const [jobDate, setJobDate] = useState(dayjs());

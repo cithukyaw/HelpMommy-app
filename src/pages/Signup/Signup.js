@@ -8,7 +8,7 @@ import {Link, useNavigate} from "react-router-dom";
 import Loading from "../../components/Loading";
 import Error from "../../components/Error";
 import {makeRequest} from "../../helpers/httpRequest";
-import {storeItem} from "../../helpers/storage";
+import {storeItemEncrypted} from "../../helpers/storage";
 import {getConfig} from "../../helpers/common";
 
 // eslint-disable-next-line
@@ -34,7 +34,7 @@ const Signup = () => {
         });
 
         if (result && result.data.id) {
-            storeItem(config.userStoreKey, result.data);
+            storeItemEncrypted(config.userStoreKey, result.data);
 
             navigate("/redeem");
         }

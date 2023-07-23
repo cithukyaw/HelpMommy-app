@@ -4,18 +4,30 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import {Button} from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import "./Dashboard.scss";
-import {getItem} from "../../helpers/storage";
+import {getItemDecrypted} from "../../helpers/storage";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../../components/Loading";
 import NoHeart from "../../components/NoHeart/NoHeart";
 import moment from "moment";
-import {getConfig} from "../../helpers/common";
+import {checkRedeem, getConfig} from "../../helpers/common";
+import {useEffect} from "react";
 
 const Dashboard = () => {
+    const navigate = useNavigate();
     const config = getConfig();
-    const user = getItem(config.userStoreKey);
+    const user = getItemDecrypted(config.userStoreKey);
+
+    useEffect(() => {
+        if (user) {
+            if (!checkRedeem(user)) {
+                navigate("/redeem");
+            }
+        } else {
+            navigate("/");
+        }
+    });
 
     const currentDate = moment().format("YYYY-MM-DD");
     const { result, loading } = useFetch(`users/${user.id}/jobs?filter[date]=${currentDate}`);

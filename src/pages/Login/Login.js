@@ -7,7 +7,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
-import {storeItem} from "../../helpers/storage";
+import {storeItemEncrypted} from "../../helpers/storage";
 import {sendRequest} from "../../helpers/fetchRequest";
 import {getConfig} from "../../helpers/common";
 
@@ -33,13 +33,12 @@ const Login = () => {
         setLoading(false);
 
         if (result && result.data.id) {
-            storeItem(config.userStoreKey, result.data);
+            storeItemEncrypted(config.userStoreKey, result.data);
 
             navigate("/dashboard");
         }
 
         if (error) {
-            console.log(error);
             error.map(err => setError(err.field, {type: "custom", message: err.message}));
         }
     };

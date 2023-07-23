@@ -8,11 +8,11 @@ import {makeRequest} from "../../helpers/httpRequest";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {getConfig} from "../../helpers/common";
-import {getItem} from "../../helpers/storage";
+import {getItemDecrypted, storeItemEncrypted} from "../../helpers/storage";
 
 const Redeem = () => {
     const config = getConfig();
-    const user = getItem(config.userStoreKey);
+    const user = getItemDecrypted(config.userStoreKey);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const {
@@ -28,6 +28,8 @@ const Redeem = () => {
         });
 
         if (result && result.data.id) {
+            storeItemEncrypted(config.userStoreKey, result.data);
+
             navigate("/dashboard");
         }
 

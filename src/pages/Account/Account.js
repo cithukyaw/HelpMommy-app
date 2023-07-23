@@ -6,7 +6,7 @@ import {useForm} from "react-hook-form";
 import FormControl from "@mui/material/FormControl";
 import {Lock, Visibility, VisibilityOff} from "@mui/icons-material";
 import {useState} from "react";
-import {getItem, removeItem, storeItem} from "../../helpers/storage";
+import {getItemDecrypted, removeItem, storeItemEncrypted} from "../../helpers/storage";
 import {makeRequest} from "../../helpers/httpRequest";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
@@ -15,7 +15,7 @@ import {getConfig} from "../../helpers/common";
 // eslint-disable-next-line
 const Account = () => {
     const config = getConfig();
-    const user = getItem(config.userStoreKey);
+    const user = getItemDecrypted(config.userStoreKey);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +36,7 @@ const Account = () => {
         });
 
         if (result && result.data.id) {
-            storeItem(config.userStoreKey, result.data);
+            storeItemEncrypted(config.userStoreKey, result.data);
             toast.success("အကောင့်အချက်အလက်ကိုပြင်ပြီးပါပြီ", config.toastOptions);
         }
 

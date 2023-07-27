@@ -1,8 +1,9 @@
 import Header from "../../components/Header/Header";
 import Error from "../../components/Error";
-import {Button, TextField} from "@mui/material";
+import {Button, TextField, Typography} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import {useForm} from "react-hook-form";
 import {makeRequest} from "../../helpers/httpRequest";
 import {useState} from "react";
@@ -70,7 +71,10 @@ const Redeem = () => {
                                 fullWidth>စတင်အသုံးပြုမည်</Button>
                     </div>
                     <div className="card">
-                        <p className="text-center">တစ်သက်စာသုံးစွဲခွင့်ကုဒ်မရှိသေးပါက Facebook page မှတစ်ဆင့် (သို့) ဖုန်းဖြင့် ဆက်သွယ်၍ <strong>၃၀၀၀ ကျပ်</strong>ဖြင့် ဝယ်ယူနိုင်ပါသည်။</p>
+                        <Typography gutterBottom variant="h6" component="div" className="text-center">
+                            <CardGiftcardIcon/> EARLY ACCESS <CardGiftcardIcon/>
+                        </Typography>
+                        <p className="text-center">တစ်သက်စာသုံးစွဲခွင့်ကုဒ်မရှိသေးပါက Facebook page မှတစ်ဆင့် (သို့) ဖုန်းဖြင့် ဆက်သွယ်၍ အစောဆုံးအသုံးပြုခွင့် အထူးနှုန်း <strong>၃၀၀၀ ကျပ်</strong>ဖြင့် ဝယ်ယူနိုင်ပါသည်။</p>
                         <Button href="https://facebook.com" target="_blank" rel="noopener"
                                 variant="contained"
                                 size="large"

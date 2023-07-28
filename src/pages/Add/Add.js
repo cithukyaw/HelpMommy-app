@@ -30,6 +30,7 @@ const Add = () => {
         formState: {errors},
         handleSubmit
     } = useForm();
+    const today = dayjs();
 
     const onSubmit = async data => {
         const { activity_date: activityDate } = data;
@@ -106,7 +107,7 @@ const Add = () => {
                                         value: jobDate
                                     },
                                 }}
-                                maxDate={jobDate}
+                                maxDate={today}
                                 defaultValue={jobDate}
                             />
                         </LocalizationProvider>

@@ -12,6 +12,7 @@ import {toast} from "react-toastify";
 import {makeRequest} from "../../helpers/httpRequest";
 import {getConfig} from "../../helpers/common";
 import NoHeart from "../../components/NoHeart/NoHeart";
+import Loading from "../../components/Loading";
 
 // eslint-disable-next-line
 const Exchange = () => {
@@ -64,6 +65,7 @@ const Exchange = () => {
 
     return (
         <>
+            {ratingLoading && <Loading/>}
             <Header title="အသည်းနှင့်မုန့်ဖိုးလဲလှယ်ရန်"/>
             <div className="container">
                 {!ratingLoading ?

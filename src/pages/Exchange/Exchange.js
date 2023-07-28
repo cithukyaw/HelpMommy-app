@@ -11,6 +11,7 @@ import {getItemDecrypted} from "../../helpers/storage";
 import {toast} from "react-toastify";
 import {makeRequest} from "../../helpers/httpRequest";
 import {getConfig} from "../../helpers/common";
+import NoHeart from "../../components/NoHeart/NoHeart";
 
 // eslint-disable-next-line
 const Exchange = () => {
@@ -77,54 +78,56 @@ const Exchange = () => {
                                 </Typography>
                             </CardContent>
                         </Card>
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <div className="form-control">
-                                <div className="label paragraph">မုန့်ဖိုးနှင့်လဲမည့်အသည်းအရေအတွက်ထည့်ရန်</div>
-                                <Error field={errors.hearts}/>
-                                <TextField label="No. of Hearts to be exchanged"
-                                           {...register("hearts", {
-                                               required: "မုန့်ဖိုးနှင့်လဲမည့်အသည်းအရေအတွက်ကိုထည့်ပေးပါ",
-                                               min: {
-                                                   value: config.minHeart,
-                                                   message: `အနည်းဆုံး အသည်းအခု ${config.minHeart} ထည့်ရန်လိုပါသည်`
-                                               },
-                                               max: {
-                                                   value: totalHearts,
-                                                   message: `အများဆုံး အသည်း ${totalHearts} ခုပဲ လဲလို့ရပါမည်`
-                                               },
-                                           })}
-                                           inputProps={{
-                                               type: "number",
-                                               inputMode: "numeric",
-                                               pattern: "[0-9]*",
-                                               autoFocus: true
-                                           }}
-                                           required fullWidth id="outlined-name" variant="outlined"
-                                           onChange={calculateAmountReceived} />
-                            </div>
-
-                            <div className="form-control">
-                                <div className="label paragraph">ရရှိမည့်မုန့်ဖိုး</div>
-                                <Typography variant="h5" component="div">
-                                    {(amountReceived).toLocaleString()} {config.currencyUnit}
-                                </Typography>
-                            </div>
-
-                            <div className="form-control">
-                                <div className="label paragraph">မှတ်ချက်</div>
-                                <TextField label="Remarks"
-                                           {...register("remarks")}
-                                           multiline fullWidth rows={2}/>
-                            </div>
-                            <div className="form-control">
-                                <Button onClick={handleSubmit(onSubmit)}
-                                        disabled={loading}
-                                        className="margin-button"
-                                        variant="contained"
-                                        size="large"
-                                        fullWidth={true}>လဲမယ်</Button>
-                            </div>
-                        </form>
+                        { balanceHearts >= config.minHeart ?
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <div className="form-control">
+                                    <div className="label paragraph">မုန့်ဖိုးနှင့်လဲမည့်အသည်းအရေအတွက်ထည့်ရန်</div>
+                                    <Error field={errors.hearts}/>
+                                    <TextField label="No. of Hearts to be exchanged"
+                                               {...register("hearts", {
+                                                   required: "မုန့်ဖိုးနှင့်လဲမည့်အသည်းအရေအတွက်ကိုထည့်ပေးပါ",
+                                                   min: {
+                                                       value: config.minHeart,
+                                                       message: `အနည်းဆုံး အသည်းအခု ${config.minHeart} ထည့်ရန်လိုပါသည်`
+                                                   },
+                                                   max: {
+                                                       value: totalHearts,
+                                                       message: `အများဆုံး အသည်း ${totalHearts} ခုပဲ လဲလို့ရပါမည်`
+                                                   },
+                                               })}
+                                               inputProps={{
+                                                   type: "number",
+                                                   inputMode: "numeric",
+                                                   pattern: "[0-9]*",
+                                                   autoFocus: true
+                                               }}
+                                               required fullWidth id="outlined-name" variant="outlined"
+                                               onChange={calculateAmountReceived} />
+                                </div>
+                                <div className="form-control">
+                                    <div className="label paragraph">ရရှိမည့်မုန့်ဖိုး</div>
+                                    <Typography variant="h5" component="div">
+                                        {(amountReceived).toLocaleString()} {config.currencyUnit}
+                                    </Typography>
+                                </div>
+                                <div className="form-control">
+                                    <div className="label paragraph">မှတ်ချက်</div>
+                                    <TextField label="Remarks"
+                                               {...register("remarks")}
+                                               multiline fullWidth rows={2}/>
+                                </div>
+                                <div className="form-control">
+                                    <Button onClick={handleSubmit(onSubmit)}
+                                            disabled={loading}
+                                            className="margin-button"
+                                            variant="contained"
+                                            size="large"
+                                            fullWidth={true}>လဲမယ်</Button>
+                                </div>
+                            </form>
+                            :
+                            <NoHeart msg={`အနည်းဆုံး အသည်း (${config.minHeart})ခု ရှိရန်လိုပါသည်။`} />
+                        }
                     </>
                     : ""
                 }

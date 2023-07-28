@@ -1,6 +1,6 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import useLongPress from "../../hooks/useLongPress";
 import moment from "moment";
 import "./ListCard.scss";
@@ -49,16 +49,16 @@ const ListCard = props => {
         delay: 500,
     });
 
-    const doDelete = async (id) => {
+    const doDelete = async id => {
         const { result, error } = await sendRequest(`user_jobs/${id}`, "POST");
 
         if (error) {
-            let errMsg = '';
+            let errMsg = "";
             error.map(err => errMsg += " " + err.message);
             toast.error(errMsg, config.toastOptions);
         } else {
             if (result) {
-                toast.success(`Deleted.`, config.toastOptions);
+                toast.success("Deleted.", config.toastOptions);
                 setJobs(jobs.filter(job => parseInt(job.id) !== parseInt(id)));
             }
         }
@@ -76,7 +76,7 @@ const ListCard = props => {
                     <ul className="list">
                     {jobs.map(job => (
                         <li key={job.id}>
-                            <span className={showDeleteIcon ? 'delete-action show' : 'delete-action'}
+                            <span className={showDeleteIcon ? "delete-action show" : "delete-action"}
                                   onClick={() => doDelete(job.id)}>
                                 <DeleteForeverIcon />
                             </span>

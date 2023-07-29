@@ -74,8 +74,8 @@ const Redeem = () => {
                         <Typography gutterBottom variant="h6" component="div" className="text-center">
                             <CardGiftcardIcon/> EARLY ACCESS <CardGiftcardIcon/>
                         </Typography>
-                        <p className="text-center">တစ်သက်စာသုံးစွဲခွင့်ကုဒ်မရှိသေးပါက Facebook page မှတစ်ဆင့် (သို့) ဖုန်းဖြင့် ဆက်သွယ်၍ အစောဆုံးအသုံးပြုခွင့် အထူးနှုန်း <strong>၃၀၀၀ ကျပ်</strong>ဖြင့် ဝယ်ယူနိုင်ပါသည်။</p>
-                        <Button href="https://facebook.com" target="_blank" rel="noopener"
+                        <p className="text-center">တစ်သက်စာသုံးစွဲခွင့်ကုဒ် မရှိသေးပါက <strong>HelpMommy</strong> Facebook page (သို့) ဖုန်းဖြင့် ဆက်သွယ်၍ အစောဆုံးအသုံးပြုခွင့် အထူးနှုန်း <strong>၃၀၀၀ ကျပ်</strong>ဖြင့် ဝယ်ယူနိုင်ပါသည်။</p>
+                        <Button href={process.env.REACT_APP_FB} rel="noopener"
                                 variant="contained"
                                 size="large"
                                 startIcon={<SendIcon/>}

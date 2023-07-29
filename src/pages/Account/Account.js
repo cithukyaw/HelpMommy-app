@@ -55,6 +55,9 @@ const Account = () => {
             <Header title="အကောင့်အချက်အလက်ပြင်ရန်" />
             <div className="container">
                 <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="form-control mb-2  text-right">
+                        Account ID: <strong>{user.account_id}</strong>
+                    </div>
                     <div className="form-control">
                         <Error field={errors.name} />
                         <TextField {...register("name", {required: "အမည်အပြည့်အစုံဖြည့်ပေးပါ"})}

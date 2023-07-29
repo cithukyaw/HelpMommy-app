@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {Button, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -16,11 +16,20 @@ import Loading from "../../components/Loading";
 import dayjs from "dayjs";
 import {getItemDecrypted} from "../../helpers/storage";
 import {sendRequest} from "../../helpers/fetchRequest";
-import {getConfig} from "../../helpers/common";
+import {checkRedeem, getConfig} from "../../helpers/common";
+import {useNavigate} from "react-router-dom";
 
 const Add = () => {
+    const navigate = useNavigate();
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
+
+    useEffect(() => {
+        if (user && !checkRedeem(user)) {
+            navigate("/redeem");
+        }
+    });
+
     const { result, loading } = useFetch("jobs");
     const jobs = result?.data;
     const [jobDate, setJobDate] = useState(dayjs());

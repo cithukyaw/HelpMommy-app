@@ -1,12 +1,13 @@
 import Header from "../../components/Header/Header";
 import Error from "../../components/Error";
 import {Button, TextField, Typography} from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
+import ChatIcon from "@mui/icons-material/Chat";
+import TawkMessengerReact from "@tawk.to/tawk-messenger-react";
 import {useForm} from "react-hook-form";
 import {makeRequest} from "../../helpers/httpRequest";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {getConfig} from "../../helpers/common";
 import {getItemDecrypted, storeItemEncrypted} from "../../helpers/storage";
@@ -16,12 +17,35 @@ const Redeem = () => {
     const user = getItemDecrypted(config.userStoreKey);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const tawkMessengerRef = useRef();
     const {
         register,
         setError,
         formState: {errors},
         handleSubmit
     } = useForm();
+
+    const tawkCustomStyle = {
+        visibility: {
+            desktop: {
+                yOffset: 40,
+            },
+            mobile: {
+                yOffset: 40,
+            }
+        }
+    };
+
+    const onLoadChat = () => {
+        tawkMessengerRef.current.setAttributes({
+            account: user.id,
+            username: user.username
+        });
+    };
+
+    const showChat = () => {
+        tawkMessengerRef.current.maximize();
+    };
 
     const onSubmit = async data => {
         const {result, error} = await makeRequest(`users/${user.id}/redeem`, "POST", data, {
@@ -30,6 +54,7 @@ const Redeem = () => {
 
         if (result && result.data.id) {
             storeItemEncrypted(config.userStoreKey, result.data);
+            tawkMessengerRef.current.hideWidget();
 
             navigate("/dashboard");
         }
@@ -74,12 +99,12 @@ const Redeem = () => {
                         <Typography gutterBottom variant="h6" component="div" className="text-center">
                             <CardGiftcardIcon/> EARLY ACCESS <CardGiftcardIcon/>
                         </Typography>
-                        <p className="text-center">တစ်သက်စာသုံးစွဲခွင့်ကုဒ် မရှိသေးပါက <strong>HelpMommy</strong> Facebook page (သို့) ဖုန်းဖြင့် ဆက်သွယ်၍ အစောဆုံးအသုံးပြုခွင့် အထူးနှုန်း <strong>၃၀၀၀ ကျပ်</strong>ဖြင့် ဝယ်ယူနိုင်ပါသည်။</p>
-                        <Button href={process.env.REACT_APP_FB} rel="noopener"
+                        <p className="text-center">တစ်သက်စာသုံးစွဲခွင့်ကုဒ် မရှိသေးပါက <strong>HelpMommy</strong> Facebook page (သို့) LIVE CHAT (သို့) ဖုန်းဖြင့် ဆက်သွယ်၍ အစောဆုံးအသုံးပြုခွင့် အထူးနှုန်း <strong>၃၀၀၀ ကျပ်</strong>ဖြင့် ဝယ်ယူနိုင်ပါသည်။</p>
+                        <Button onClick={showChat}
                                 variant="contained"
                                 size="large"
-                                startIcon={<SendIcon/>}
-                                fullWidth>FB Messenger မှဆက်သွယ်ရန်</Button>
+                                startIcon={<ChatIcon/>}
+                                fullWidth>LIVE CHAT</Button>
 
                         <Button href={`tel:${process.env.REACT_APP_CONTACT_NO}`} className="mt-2"
                                 variant="outlined"
@@ -89,6 +114,12 @@ const Redeem = () => {
                     </div>
                 </form>
             </div>
+            <TawkMessengerReact
+                propertyId={process.env.REACT_APP_TAWK_PROPERTY_ID}
+                widgetId={process.env.REACT_APP_TAWK_WIDGET_ID}
+                customStyle={tawkCustomStyle}
+                onLoad={onLoadChat}
+                ref={tawkMessengerRef}/>
         </>
     );
 };

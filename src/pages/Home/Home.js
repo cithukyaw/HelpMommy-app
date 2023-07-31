@@ -34,14 +34,16 @@ const Home = () => {
                 size="large"
                 className="margin-button"
                 component={Link} to="/login"
-                startIcon={<LoginIcon/>}>အကောင့်ဝင်ရန်
+                startIcon={<LoginIcon/>}>
+                <span className="my">အကောင့်ဝင်ရန်</span>
             </Button>
             <Button fullWidth
                 variant="outlined"
                 size="large"
-                className="margin-button"
+                className="margin-button my"
                 component={Link} to="/signup"
-                startIcon={<HowToRegIcon/>}>အကောင့်အသစ်ဖွင့်ရန်
+                startIcon={<HowToRegIcon/>}>
+                <span className="my">အကောင့်အသစ်ဖွင့်ရန်</span>
             </Button>
         </div>
     );

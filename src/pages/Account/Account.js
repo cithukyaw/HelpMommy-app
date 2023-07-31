@@ -52,7 +52,7 @@ const Account = () => {
 
     return (
         <>
-            <Header title="အကောင့်အချက်အလက်ပြင်ရန်" />
+            <Header title="အကောင့်အချက်အလက်ပြင်ရန်" customClass="my"/>
             <div className="container">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-control mb-2  text-right">
@@ -102,7 +102,7 @@ const Account = () => {
                                 }
                             />
                         </FormControl>
-                        <small className="tip">(Password အသစ်ပြောင်းချင်မှသာ ရိုက်ထည့်ရန်)</small>
+                        <small className="tip my">(Password အသစ်ပြောင်းချင်မှသာ ရိုက်ထည့်ရန်)</small>
                     </div>
                     <div className="form-control">
                         <Button onClick={handleSubmit(onSubmit)}
@@ -110,11 +110,13 @@ const Account = () => {
                                 className="margin-button"
                                 variant="contained"
                                 size="large"
-                                fullWidth={true}>Update</Button>
+                                fullWidth={true}>
+                            <span className="my">ပြင်မယ်</span>
+                        </Button>
                     </div>
                 </form>
                 <p className="text-center">
-                    <a href="#" onClick={logout}>Logout</a>
+                    <a href="#" className="my" onClick={logout}>ထွက်မယ်</a>
                 </p>
             </div>
             <Navbar />

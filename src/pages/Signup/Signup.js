@@ -82,10 +82,12 @@ const Signup = () => {
                 </div>
                 <div className="form-control">
                     <Button onClick={handleSubmit(onSubmit)} disabled={loading}
-                        className="margin-button" variant="contained" size="large" fullWidth={true}>အကောင့်ပြုလုပ်ရန်</Button>
+                        className="margin-button" variant="contained" size="large" fullWidth={true}>
+                        <span className="my">အကောင့်ပြုလုပ်ရန်</span>
+                    </Button>
                 </div>
                 <div className="text-center">
-                    <Link to="/login">အကောင့်ရှိပြီးသားလား? အကောင့်ဝင်ရန်</Link>
+                    <Link to="/login" className="my">အကောင့်ရှိပြီးသားလား? အကောင့်ဝင်ရန်</Link>
                 </div>
             </div>
         </>

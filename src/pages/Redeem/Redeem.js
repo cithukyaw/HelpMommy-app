@@ -70,7 +70,7 @@ const Redeem = () => {
             <div className="container">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-control">
-                        <div className="label paragraph">တစ်သက်စာသုံးစွဲခွင့်ကုဒ်ကိုရိုက်ထည့်ပေးပါ။</div>
+                        <div className="label paragraph my">တစ်သက်စာသုံးစွဲခွင့်ကုဒ်ကိုရိုက်ထည့်ပေးပါ။</div>
                         <Error field={errors.code} />
                         <TextField {...register("code", {
                                 required: "သင်ဝယ်ထားသောအသုံးပြုခွင့်ကုဒ်ကိုရိုက်ထည့်ပေးပါ",
@@ -99,7 +99,7 @@ const Redeem = () => {
                         <Typography gutterBottom variant="h6" component="div" className="text-center">
                             <CardGiftcardIcon/> EARLY ACCESS <CardGiftcardIcon/>
                         </Typography>
-                        <p className="text-center">တစ်သက်စာသုံးစွဲခွင့်ကုဒ် မရှိသေးပါက <strong>HelpMommy</strong> Facebook page (သို့) LIVE CHAT (သို့) ဖုန်းဖြင့် ဆက်သွယ်၍ အစောဆုံးအသုံးပြုခွင့် အထူးနှုန်း <strong>၃၀၀၀ ကျပ်</strong>ဖြင့် ဝယ်ယူနိုင်ပါသည်။</p>
+                        <p className="text-center my">တစ်သက်စာသုံးစွဲခွင့်ကုဒ် မရှိသေးပါက <strong>HelpMommy</strong> Facebook page (သို့) LIVE CHAT (သို့) ဖုန်းဖြင့် ဆက်သွယ်၍ အစောဆုံးအသုံးပြုခွင့် အထူးနှုန်း <strong>၃၀၀၀ ကျပ်</strong>ဖြင့် ဝယ်ယူနိုင်ပါသည်။</p>
                         <Button onClick={showChat}
                                 variant="contained"
                                 size="large"
@@ -110,7 +110,9 @@ const Redeem = () => {
                                 variant="outlined"
                                 size="large"
                                 startIcon={<LocalPhoneIcon/>}
-                                fullWidth>ဖုန်းဖြင့်ဆက်သွယ်ရန်</Button>
+                                fullWidth>
+                            <span className="my">ဖုန်းဖြင့်ဆက်သွယ်ရန်</span>
+                        </Button>
                     </div>
                 </form>
             </div>

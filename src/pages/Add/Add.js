@@ -65,11 +65,11 @@ const Add = () => {
     return (
         <>
             {loading && <Loading/>}
-            <Header title="အသည်းရယူရန်"/>
+            <Header title="အသည်းရယူရန်" customClass="my"/>
             <div className="container">
             { jobs ?
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <p>အမေ့ကိုကူညီခဲ့တဲ့အလုပ်ကိုရွေးထည့်ပြီး <FavoriteIcon/> ရယူပါ</p>
+                    <p className="my">အမေ့ကိုကူညီခဲ့တဲ့အလုပ်ကိုရွေးထည့်ပြီး <FavoriteIcon/> ရယူပါ</p>
                     <div className="form-control">
                         <Error field={errors.job_id} />
                         <FormControl fullWidth>
@@ -83,7 +83,7 @@ const Add = () => {
                                 <MenuItem value=""><em>-- None --</em></MenuItem>
                                 {jobs.map(job =>
                                     <MenuItem value={job.id} key={job.id}>
-                                        {job.name}
+                                        <span className="my">{job.name}</span>
                                         <span className="hearts">
                                         {
                                             [...Array(Math.abs(job.rating))].map((x, i) => {

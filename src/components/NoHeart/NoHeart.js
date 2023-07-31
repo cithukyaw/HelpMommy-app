@@ -9,7 +9,7 @@ const NoHeart = ({ msg }) => {
     return (
         <div className="text-center heart-broken">
             <HeartBrokenIcon/>
-            <p>{ msg }</p>
+            <p className="my">{ msg }</p>
             <p>Help your mom and get hearts.</p>
             <Button variant="contained" className="margin-button" component={Link} to="/add" startIcon={<AddCircleOutlineIcon/>}>
                 Add Hearts

@@ -81,7 +81,7 @@ const ListCard = props => {
                                 <DeleteForeverIcon />
                             </span>
                             <span className="list-item unselectable" {...longPressEvent}>
-                                <span>{job.name}</span>
+                                <span className="my">{job.name}</span>
                                 <span>{job.rating} { job.rating > 0 ? <FavoriteIcon/> : <HeartBrokenIcon/> }</span>
                             </span>
                         </li>

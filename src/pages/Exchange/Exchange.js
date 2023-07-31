@@ -66,24 +66,24 @@ const Exchange = () => {
     return (
         <>
             {ratingLoading && <Loading/>}
-            <Header title="အသည်းနှင့်မုန့်ဖိုးလဲလှယ်ရန်"/>
+            <Header title="အသည်းနှင့်မုန့်ဖိုးလဲလှယ်ရန်" customClass="my"/>
             <div className="container">
                 {!ratingLoading ?
                     <>
                         <Card className="mb-2">
                             <CardContent>
                                 <Typography variant="subtitle1" component="div">
-                                    <FavoriteIcon/> အသည်းလက်ကျန်စုစုပေါင်း <strong>{balanceHearts} ခု</strong>
+                                    <FavoriteIcon/> <span className="my">အသည်းလက်ကျန်စုစုပေါင်း <strong>{balanceHearts} ခု</strong></span>
                                 </Typography>
                                 <Typography variant="subtitle1" component="div">
-                                    <WalletIcon/> တန်ဖိုးငွေ <strong>{balanceAmount.toLocaleString()} {config.currencyUnit}</strong>
+                                    <WalletIcon/> <span className="my">တန်ဖိုးငွေ</span> <strong>{balanceAmount.toLocaleString()} {config.currencyUnit}</strong>
                                 </Typography>
                             </CardContent>
                         </Card>
                         { balanceHearts >= config.minHeart ?
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <div className="form-control">
-                                    <div className="label paragraph">မုန့်ဖိုးနှင့်လဲမည့်အသည်းအရေအတွက်ထည့်ရန်</div>
+                                    <div className="label paragraph my">မုန့်ဖိုးနှင့်လဲမည့်အသည်းအရေအတွက်ထည့်ရန်</div>
                                     <Error field={errors.hearts}/>
                                     <TextField label="No. of Hearts to be exchanged"
                                                {...register("hearts", {
@@ -107,13 +107,13 @@ const Exchange = () => {
                                                onChange={calculateAmountReceived} />
                                 </div>
                                 <div className="form-control">
-                                    <div className="label paragraph">ရရှိမည့်မုန့်ဖိုး</div>
+                                    <div className="label paragraph my">ရရှိမည့်မုန့်ဖိုး</div>
                                     <Typography variant="h5" component="div">
                                         {(amountReceived).toLocaleString()} {config.currencyUnit}
                                     </Typography>
                                 </div>
                                 <div className="form-control">
-                                    <div className="label paragraph">မှတ်ချက်</div>
+                                    <div className="label paragraph my">မှတ်ချက်</div>
                                     <TextField label="Remarks"
                                                {...register("remarks")}
                                                multiline fullWidth rows={2}/>
@@ -124,7 +124,9 @@ const Exchange = () => {
                                             className="margin-button"
                                             variant="contained"
                                             size="large"
-                                            fullWidth={true}>လဲမယ်</Button>
+                                            fullWidth={true}>
+                                        <span className="my">လဲမယ်</span>
+                                    </Button>
                                 </div>
                             </form>
                             :

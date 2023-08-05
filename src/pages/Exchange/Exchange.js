@@ -65,7 +65,7 @@ const Exchange = () => {
 
     return (
         <>
-            {ratingLoading && <Loading/>}
+            {(ratingLoading || loading) && <Loading/>}
             <Header title="အသည်းနှင့်မုန့်ဖိုးလဲလှယ်ရန်" customClass="my"/>
             <div className="container">
                 {!ratingLoading ?
@@ -80,7 +80,7 @@ const Exchange = () => {
                                 </Typography>
                             </CardContent>
                         </Card>
-                        { balanceHearts >= config.minHeart ?
+                        { totalHearts >= config.minHeart ?
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <div className="form-control">
                                     <div className="label paragraph my">မုန့်ဖိုးနှင့်လဲမည့်အသည်းအရေအတွက်ထည့်ရန်</div>

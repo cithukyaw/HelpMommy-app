@@ -11,6 +11,7 @@ import {makeRequest} from "../../helpers/httpRequest";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {getConfig} from "../../helpers/common";
+import Loading from "../../components/Loading";
 
 // eslint-disable-next-line
 const Account = () => {
@@ -52,6 +53,7 @@ const Account = () => {
 
     return (
         <>
+            {loading && <Loading/>}
             <Header title="အကောင့်အချက်အလက်ပြင်ရန်" customClass="my"/>
             <div className="container">
                 <form onSubmit={handleSubmit(onSubmit)}>

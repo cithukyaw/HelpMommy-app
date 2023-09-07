@@ -13,28 +13,10 @@ const ListCard = props => {
     const {title, hearts, index} = props;
     const [jobs, setJobs] = useState([]);
     const [showDeleteIcon, setShowDeleteIcon] = useState(false);
-    let relativeTime = moment(title, "YYYY-MM-DD").fromNow();
 
     useEffect(() => {
         setJobs(props.jobs);
     }, [props]);
-
-    relativeTime = relativeTime.replace(/(a|\d+) day(.*)/, (match, p1, p2) => {
-        if (p1 === "a") {
-            return "today";
-        }
-
-        const day = p1 - 1;
-        if (day === 0) {
-            return "today";
-        }
-
-        if (day === 1) {
-            return "yesterday";
-        }
-
-        return `${day} day${p2}`;
-    });
 
     const onLongPress = () => {
         setShowDeleteIcon(true);
@@ -69,7 +51,7 @@ const ListCard = props => {
         {jobs.length > 0 &&
             <div>
                 <h4 className={index ? "margin-top-none" : ""}>
-                    <time>{relativeTime}</time>
+                    <time>{moment(title).format("MMM D, YYYY (ddd)")}</time>
                     <span>{hearts} <FavoriteIcon/></span>
                 </h4>
                 <div className="card">

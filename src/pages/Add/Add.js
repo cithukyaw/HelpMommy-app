@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
-import {useForm} from "react-hook-form";
-import {Button, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {Controller, useForm} from "react-hook-form";
+import {Button, FormControl, TextField, Box} from "@mui/material";
+import Autocomplete, { autocompleteClasses } from "@mui/material/Autocomplete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -35,6 +36,7 @@ const Add = () => {
     const [jobDate, setJobDate] = useState(dayjs());
     const {
         register,
+        control,
         setError,
         formState: {errors},
         handleSubmit
@@ -45,6 +47,7 @@ const Add = () => {
         const { activity_date: activityDate } = data;
         const jobDate = activityDate.split("/");
         data.activity_date = `${jobDate[2]}-${jobDate[1]}-${jobDate[0]}`;
+        console.log(data);
 
         const { result, error } = await sendRequest(`users/${user.id}/jobs`, "POST", data);
 
@@ -73,31 +76,61 @@ const Add = () => {
                     <div className="form-control">
                         <Error field={errors.job_id} />
                         <FormControl fullWidth>
-                            <InputLabel id="job-select-label">Job</InputLabel>
-                            <Select
-                                {...register("job_id", {required: "အလုပ်တစ်ခုကိုရွေးပေးပါ"})}
-                                labelId="job-select-label"
-                                id="job-select"
-                                label="Job"
-                                defaultValue="">
-                                <MenuItem value=""><em>-- None --</em></MenuItem>
-                                {jobs.map(job =>
-                                    <MenuItem value={job.id} key={job.id}>
-                                        <span className="my">{job.name}</span>
-                                        <span className="hearts">
-                                        {
-                                            [...Array(Math.abs(job.rating))].map((x, i) => {
-                                                if (job.rating > 0) {
-                                                    return <FavoriteIcon key={i}/>;
-                                                } else {
-                                                    return <HeartBrokenIcon key={i}/>;
-                                                }
-                                            })
-                                        }
-                                        </span>
-                                    </MenuItem>
-                                )}
-                            </Select>
+                            <Controller
+                                name="job_id"
+                                control={control}
+                                rules={{ required: "အလုပ်တစ်ခုကိုရွေးပေးပါ" }}
+                                render={({ field }) => {
+                                    const { onChange } = field;
+                                    return (
+                                        <Autocomplete
+                                            id="job-select"
+                                            options={jobs}
+                                            autoHighlight
+                                            getOptionLabel={option => option.name}
+                                            renderOption={(props, option) => (
+                                                <Box sx={{
+                                                        borderRadius: "5px",
+                                                        margin: "5px",
+                                                        [`&.${autocompleteClasses.option}`]: {
+                                                            display: "flex",
+                                                            justifyContent: "space-between",
+                                                            padding: "8px",
+                                                        },
+                                                    }}
+                                                     component="li"
+                                                     {...props}>
+                                                    <span className="my">{option.name}</span>
+                                                    <span className="hearts">
+                                                    {
+                                                        [...Array(Math.abs(option.rating))].map((x, i) => {
+                                                            if (option.rating > 0) {
+                                                                return <FavoriteIcon key={i}/>;
+                                                            } else {
+                                                                return <HeartBrokenIcon key={i}/>;
+                                                            }
+                                                        })
+                                                    }
+                                                    </span>
+                                                </Box>
+                                            )}
+                                            renderInput={params => (
+                                                <TextField
+                                                    {...params}
+                                                    label="Job"
+                                                    inputProps={{
+                                                        ...params.inputProps,
+                                                        autoComplete: "off" // disable autocomplete and autofill
+                                                    }}
+                                                />
+                                            )}
+                                            onChange={(event, data) => {
+                                                onChange(data ? data.id : null);
+                                            }}
+                                        />
+                                    );
+                                }}
+                            />
                         </FormControl>
                     </div>
                     <div className="form-control">

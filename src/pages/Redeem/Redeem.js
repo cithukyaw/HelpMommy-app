@@ -1,7 +1,7 @@
 import Header from "../../components/Header/Header";
 import Error from "../../components/Error";
 import {Button, TextField, Typography} from "@mui/material";
-import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+// import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import ChatIcon from "@mui/icons-material/Chat";
 import TawkMessengerReact from "@tawk.to/tawk-messenger-react";
@@ -99,20 +99,20 @@ const Redeem = () => {
                         <Typography gutterBottom variant="h6" component="div" className="text-center">
                             <CardGiftcardIcon/> EARLY ACCESS <CardGiftcardIcon/>
                         </Typography>
-                        <p className="text-center my">တစ်သက်စာသုံးစွဲခွင့်ကုဒ် မရှိသေးပါက <strong>HelpMommy</strong> Facebook page (သို့) LIVE CHAT (သို့) ဖုန်းဖြင့် ဆက်သွယ်၍ အစောဆုံးအသုံးပြုခွင့် အထူးနှုန်း <strong>၃၀၀၀ ကျပ်</strong>ဖြင့် ဝယ်ယူနိုင်ပါသည်။</p>
+                        <p className="text-center my">တစ်သက်စာသုံးစွဲခွင့်ကုဒ် မရှိသေးပါက <strong>HelpMommy</strong> Facebook page chatbox မှတစ်ဆင့် (သို့) LIVE CHAT ဖြင့်ဆက်သွယ်၍ အစောဆုံးအသုံးပြုခွင့် အထူးနှုန်း <strong>၃၀၀၀ ကျပ်</strong>ဖြင့် ဝယ်ယူနိုင်ပါသည်။</p>
                         <Button onClick={showChat}
                                 variant="contained"
                                 size="large"
                                 startIcon={<ChatIcon/>}
                                 fullWidth>LIVE CHAT</Button>
 
-                        <Button href={`tel:${process.env.REACT_APP_CONTACT_NO}`} className="mt-2"
-                                variant="outlined"
-                                size="large"
-                                startIcon={<LocalPhoneIcon/>}
-                                fullWidth>
-                            <span className="my">ဖုန်းဖြင့်ဆက်သွယ်ရန်</span>
-                        </Button>
+                        {/*<Button href={`tel:${process.env.REACT_APP_CONTACT_NO}`} className="mt-2"*/}
+                        {/*        variant="outlined"*/}
+                        {/*        size="large"*/}
+                        {/*        startIcon={<LocalPhoneIcon/>}*/}
+                        {/*        fullWidth>*/}
+                        {/*    <span className="my">ဖုန်းဖြင့်ဆက်သွယ်ရန်</span>*/}
+                        {/*</Button>*/}
                     </div>
                 </form>
             </div>

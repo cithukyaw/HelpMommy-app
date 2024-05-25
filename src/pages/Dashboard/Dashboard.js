@@ -14,6 +14,7 @@ import moment from "moment";
 import {checkRedeem, getConfig} from "../../helpers/common";
 import {useEffect} from "react";
 import WalletIcon from "@mui/icons-material/Wallet";
+import TrialWarning from "../../components/TrialWarning";
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -44,6 +45,7 @@ const Dashboard = () => {
             {loading && <Loading/>}
             <Header title="Help Mommy"/>
             <div className="container">
+                <TrialWarning user={user}/>
                 <div className="card">
                     <div className="user-name">Welcome {user.full_name}</div>
                     {!loading && !ratingLoading ?

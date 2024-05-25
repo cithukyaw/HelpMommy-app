@@ -34,5 +34,9 @@ export const CryptoJsAesDecrypt = data => {
 export const checkRedeem = user => {
     const redeem = decode2json(user.status);
 
-    return !!redeem.id; // redeem.id ? true : false;
+    if (redeem.id) {
+        return true;
+    }
+
+    return !redeem.expired;
 };

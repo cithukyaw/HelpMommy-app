@@ -12,6 +12,7 @@ import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {getConfig} from "../../helpers/common";
 import Loading from "../../components/Loading";
+import TrialWarning from "../../components/TrialWarning";
 
 // eslint-disable-next-line
 const Account = () => {
@@ -56,6 +57,7 @@ const Account = () => {
             {loading && <Loading/>}
             <Header title="အကောင့်အချက်အလက်ပြင်ရန်" customClass="my"/>
             <div className="container">
+                <TrialWarning user={user}/>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-control mb-2  text-right">
                         Account ID: <strong>{user.account_id}</strong>

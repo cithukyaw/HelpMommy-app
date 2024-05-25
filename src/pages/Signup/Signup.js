@@ -36,7 +36,7 @@ const Signup = () => {
         if (result && result.data.id) {
             storeItemEncrypted(config.userStoreKey, result.data);
 
-            navigate("/redeem");
+            navigate("/dashboard");
         }
 
         if (error) {

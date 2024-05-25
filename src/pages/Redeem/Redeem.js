@@ -8,7 +8,7 @@ import TawkMessengerReact from "@tawk.to/tawk-messenger-react";
 import {useForm} from "react-hook-form";
 import {makeRequest} from "../../helpers/httpRequest";
 import {useRef, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {getConfig} from "../../helpers/common";
 import {getItemDecrypted, storeItemEncrypted} from "../../helpers/storage";
 
@@ -28,10 +28,10 @@ const Redeem = () => {
     const tawkCustomStyle = {
         visibility: {
             desktop: {
-                yOffset: 40,
+                yOffset: 60,
             },
             mobile: {
-                yOffset: 40,
+                yOffset: 60,
             }
         }
     };
@@ -71,20 +71,20 @@ const Redeem = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-control">
                         <div className="label paragraph my">တစ်သက်စာသုံးစွဲခွင့်ကုဒ်ကိုရိုက်ထည့်ပေးပါ။</div>
-                        <Error field={errors.code} />
+                        <Error field={errors.code}/>
                         <TextField {...register("code", {
-                                required: "သင်ဝယ်ထားသောအသုံးပြုခွင့်ကုဒ်ကိုရိုက်ထည့်ပေးပါ",
-                                minLength: {
-                                    value: 6,
-                                    message: "စာလုံးရေ(၆)လုံးထိရိုက်ထည့်ပေးပါ"
-                                },
-                                maxLength: {
-                                    value: 6,
-                                    message: "စာလုံးရေ(၆)လုံးသာရိုက်ထည့်ပေးပါ"
-                                }
-                            })}
-                           required fullWidth inputProps={{ minLength: 6, maxLength: 6 }}
-                           id="outlined-code" label="Redeem Code" variant="outlined" />
+                            required: "သင်ဝယ်ထားသောအသုံးပြုခွင့်ကုဒ်ကိုရိုက်ထည့်ပေးပါ",
+                            minLength: {
+                                value: 6,
+                                message: "စာလုံးရေ(၆)လုံးထိရိုက်ထည့်ပေးပါ"
+                            },
+                            maxLength: {
+                                value: 6,
+                                message: "စာလုံးရေ(၆)လုံးသာရိုက်ထည့်ပေးပါ"
+                            }
+                        })}
+                                   required fullWidth inputProps={{minLength: 6, maxLength: 6}}
+                                   id="outlined-code" label="Redeem Code" variant="outlined"/>
                     </div>
                     <div className="form-control">
                         <Button onClick={handleSubmit(onSubmit)}
@@ -99,7 +99,10 @@ const Redeem = () => {
                         <Typography gutterBottom variant="h6" component="div" className="text-center">
                             <CardGiftcardIcon/> EARLY ACCESS <CardGiftcardIcon/>
                         </Typography>
-                        <p className="text-center my">တစ်သက်စာသုံးစွဲခွင့်ကုဒ် မရှိသေးပါက <strong>HelpMommy</strong> Facebook page chatbox မှတစ်ဆင့် (သို့) LIVE CHAT ဖြင့်ဆက်သွယ်၍ အစောဆုံးအသုံးပြုခွင့် အထူးနှုန်း <strong>၃၀၀၀ ကျပ်</strong>ဖြင့် ဝယ်ယူနိုင်ပါသည်။</p>
+                        <p className="text-center my">တစ်သက်စာသုံးစွဲခွင့်ကုဒ်
+                            မရှိသေးပါက <strong>HelpMommy</strong> Facebook page chatbox မှတစ်ဆင့် (သို့) အောက်မှာ LIVE
+                            CHAT ဖြင့်ဆက်သွယ်၍ အစောဆုံးအသုံးပြုခွင့် အထူးနှုန်း <strong>၅၀၀၀ ကျပ်</strong>ဖြင့်
+                            ဝယ်ယူနိုင်ပါသည်။</p>
                         <Button onClick={showChat}
                                 variant="contained"
                                 size="large"
@@ -115,6 +118,9 @@ const Redeem = () => {
                         {/*</Button>*/}
                     </div>
                 </form>
+                <p className="text-center">
+                    <NavLink to="/dashboard">Back to Home</NavLink>
+                </p>
             </div>
             <TawkMessengerReact
                 propertyId={process.env.REACT_APP_TAWK_PROPERTY_ID}

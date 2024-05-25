@@ -13,6 +13,7 @@ import NoHeart from "../../components/NoHeart/NoHeart";
 import moment from "moment";
 import {checkRedeem, getConfig} from "../../helpers/common";
 import {useEffect} from "react";
+import WalletIcon from "@mui/icons-material/Wallet";
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -46,18 +47,24 @@ const Dashboard = () => {
                 <div className="card">
                     <div className="user-name">Welcome {user.full_name}</div>
                     {!loading && !ratingLoading ?
-                        <div className="user-hearts">
-                            <FavoriteIcon/>
-                            <strong>{totalHearts} heart{totalHearts > 1 ? "s " : " "}</strong>
-                            ({amount.toLocaleString()} {config.currencyUnit})
+                        <div>
+                            <div className="user-hearts">
+                                <FavoriteIcon/>
+                                <strong>{totalHearts} heart{totalHearts > 1 ? "s " : " "}</strong>
+                            </div>
+                            <div className="user-hearts">
+                                <WalletIcon/>
+                                {amount.toLocaleString()} {config.currencyUnit}
+                            </div>
                         </div>
                         : ""
                     }
-                    <Button variant="outlined" size="small" component={Link} to="/add" startIcon={<AddCircleOutlineIcon/>}>
+                    <Button variant="outlined" size="small" component={Link} to="/add"
+                            startIcon={<AddCircleOutlineIcon/>}>
                         Add Hearts
                     </Button>
                 </div>
-                { jobs && result.meta.total && ratingResult ?
+                {jobs && result.meta.total && ratingResult ?
                     <div className="card">
                         <h4 className="margin-top-none">
                             {todayHearts} heart{todayHearts > 1 ? "s " : " "}

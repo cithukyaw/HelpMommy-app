@@ -9,11 +9,12 @@ API backend: https://github.com/dev-sithu/HelpMommy-api
 1. Run `npm install`
 2. Copy `env` to `.env`
 3. Update `REACT_APP_API_URL` and `REACT_APP_API_KEY` in `.env`
-4. Run `npm build`
+
+For production build, run `npm run build`
 
 ## Run as Node app
 
-    npm run
+    npm run start
 
 ## Run as Cordova app
 

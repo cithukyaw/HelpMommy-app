@@ -7,22 +7,31 @@ import useFetch from "../../hooks/useFetch";
 import {getItemDecrypted} from "../../helpers/storage";
 import Loading from "../../components/Loading";
 import NoHeart from "../../components/NoHeart/NoHeart";
-import {getConfig} from "../../helpers/common";
+import {checkRedeem, getConfig} from "../../helpers/common";
+import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 
 const Hearts = () => {
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
+    const navigate = useNavigate();
+    let totalHearts, amount;
+    let jobData, ratingData = {
+        result: null,
+        loading: false
+    };
+    if (user) {
+        ratingData = useFetch(`users/${user.id}/ratings`);
+        totalHearts = ratingData.result?.meta.rating;
+        amount = totalHearts * config.exchangeRate;
 
-    const { result: ratingResult } = useFetch(`users/${user.id}/ratings`);
-    const totalHearts = ratingResult?.meta.rating;
-    const amount = totalHearts * config.exchangeRate;
-
-    const { result, loading } = useFetch(`users/${user.id}/jobs?pager=7`);
+        jobData = useFetch(`users/${user.id}/jobs?pager=7`);
+    }
 
     let list = [];
-    if (result) {
+    if (jobData) {
         const jobs = {};
-        result.data.map(row => {
+        jobData.result?.data.map(row => {
             jobs[row.activity_date] = jobs[row.activity_date] || [];
             jobs[row.activity_date].push(row);
         });
@@ -30,9 +39,19 @@ const Hearts = () => {
         list = Object.entries(jobs);
     }
 
+    useEffect(() => {
+        if (user) {
+            if (!checkRedeem(user)) {
+                navigate("/redeem");
+            }
+        } else {
+            navigate("/");
+        }
+    });
+
     return (
         <>
-            {loading && <Loading/>}
+            {jobData?.loading && <Loading/>}
             <Header title="အသည်းရရှိမှုမှတ်တမ်း" customClass="my"/>
             <div className="container">
                 { totalHearts ?
@@ -49,9 +68,9 @@ const Hearts = () => {
                     : ""
                 }
                 { list.length ?
-                    list.map(([key, value]) => <ListCard key={key} title={key} hearts={ratingResult?.data[key]?.ratings} jobs={value} />)
+                    list.map(([key, value]) => <ListCard key={key} title={key} hearts={ratingData.result?.data[key]?.ratings} jobs={value} />)
                     :
-                    !loading && <NoHeart msg="နောက်ဆုံး (၇)ရက်အတွင်း သင် အသည်းမရရှိခဲ့ပါ။" />
+                    !jobData?.loading && <NoHeart msg="နောက်ဆုံး (၇)ရက်အတွင်း သင် အသည်းမရရှိခဲ့ပါ။" />
                 }
             </div>
             <Navbar/>

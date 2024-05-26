@@ -10,14 +10,16 @@ import WalletIcon from "@mui/icons-material/Wallet";
 import {getItemDecrypted} from "../../helpers/storage";
 import {toast} from "react-toastify";
 import {makeRequest} from "../../helpers/httpRequest";
-import {getConfig} from "../../helpers/common";
+import {checkRedeem, getConfig} from "../../helpers/common";
 import NoHeart from "../../components/NoHeart/NoHeart";
 import Loading from "../../components/Loading";
+import {useNavigate} from "react-router-dom";
 
 // eslint-disable-next-line
 const Exchange = () => {
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [amountReceived, setAmountReceived] = useState(0);
     const [balanceHearts, setBalanceHearts] = useState(0);
@@ -28,14 +30,28 @@ const Exchange = () => {
         formState: {errors},
         handleSubmit
     } = useForm();
-
-    const {result: ratingResult, loading: ratingLoading} = useFetch(`users/${user.id}/ratings`);
-    const totalHearts = ratingResult?.meta.rating;
-    const amount = totalHearts * config.exchangeRate;
+    let totalHearts, amount;
+    let ratingData = {
+        result: null,
+        loading: false
+    };
+    if (user) {
+        ratingData = useFetch(`users/${user.id}/ratings`);
+        totalHearts = ratingData.result?.meta.rating;
+        amount = totalHearts * config.exchangeRate;
+    }
 
     useEffect(() => {
-        setBalanceHearts(totalHearts);
-        setBalanceAmount(amount);
+        if (user) {
+            if (!checkRedeem(user)) {
+                navigate("/redeem");
+            }
+
+            setBalanceHearts(totalHearts);
+            setBalanceAmount(amount);
+        } else {
+            navigate("/");
+        }
     }, [totalHearts, amount]);
 
     const calculateAmountReceived = e => {
@@ -65,10 +81,10 @@ const Exchange = () => {
 
     return (
         <>
-            {(ratingLoading || loading) && <Loading/>}
+            {(ratingData?.loading || loading) && <Loading/>}
             <Header title="အသည်းနှင့်မုန့်ဖိုးလဲလှယ်ရန်" customClass="my"/>
             <div className="container">
-                {!ratingLoading ?
+                {!ratingData?.loading ?
                     <>
                         <Card className="mb-2">
                             <CardContent>

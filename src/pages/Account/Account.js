@@ -5,7 +5,7 @@ import {Alert, Button, IconButton, InputAdornment, InputLabel, OutlinedInput, Te
 import {useForm} from "react-hook-form";
 import FormControl from "@mui/material/FormControl";
 import {Lock, Visibility, VisibilityOff} from "@mui/icons-material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {getItemDecrypted, removeItem, storeItemEncrypted} from "../../helpers/storage";
 import {makeRequest} from "../../helpers/httpRequest";
 import {toast} from "react-toastify";
@@ -52,77 +52,85 @@ const Account = () => {
         navigate("login");
     };
 
+    useEffect(() => {
+        if (!user) {
+            navigate("/");
+        }
+    });
+
     return (
         <>
             {loading && <Loading/>}
             <Header title="အကောင့်အချက်အလက်ပြင်ရန်" customClass="my"/>
-            <div className="container">
-                <TrialWarning user={user}/>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="form-control mb-2  text-right">
-                        Account ID: <strong>{user.account_id}</strong>
-                    </div>
-                    <div className="form-control">
-                        <Error field={errors.name} />
-                        <TextField {...register("name", {required: "အမည်အပြည့်အစုံဖြည့်ပေးပါ"})}
-                                   required fullWidth
-                                   id="outlined-name" label="Full Name" variant="outlined"
-                                   defaultValue={user.full_name} />
-                    </div>
+            { user &&
+                <div className="container">
+                    <TrialWarning user={user}/>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <div className="form-control mb-2  text-right">
+                            Account ID: <strong>{user.account_id}</strong>
+                        </div>
+                        <div className="form-control">
+                            <Error field={errors.name} />
+                            <TextField {...register("name", {required: "အမည်အပြည့်အစုံဖြည့်ပေးပါ"})}
+                                       required fullWidth
+                                       id="outlined-name" label="Full Name" variant="outlined"
+                                       defaultValue={user.full_name} />
+                        </div>
 
-                    <Alert severity="info" icon={<Lock fontSize="inherit" />}>Login Information Below</Alert>
+                        <Alert severity="info" icon={<Lock fontSize="inherit" />}>Login Information Below</Alert>
 
-                    <div className="form-control">
-                        <Error field={errors.username} />
-                        <TextField {...register("username", {required: "username ကို ဖြည့်ပေးပါ"})}
-                                   required fullWidth
-                                   id="outlined-username" label="Username" variant="outlined" autoComplete="off"
-                                   defaultValue={user.username} />
-                    </div>
-                    <div className="form-control">
-                        <Error field={errors.password} />
-                        <FormControl variant="outlined" fullWidth>
-                            <InputLabel htmlFor="outlined-password">Password</InputLabel>
-                            <OutlinedInput
-                                {...register("password", {
-                                    minLength: {
-                                        value: 8,
-                                        message: "အနည်းဆုံးစာလုံးရေ(၈)လုံးရိုက်ထည့်ပေးပါ"
+                        <div className="form-control">
+                            <Error field={errors.username} />
+                            <TextField {...register("username", {required: "username ကို ဖြည့်ပေးပါ"})}
+                                       required fullWidth
+                                       id="outlined-username" label="Username" variant="outlined" autoComplete="off"
+                                       defaultValue={user.username} />
+                        </div>
+                        <div className="form-control">
+                            <Error field={errors.password} />
+                            <FormControl variant="outlined" fullWidth>
+                                <InputLabel htmlFor="outlined-password">Password</InputLabel>
+                                <OutlinedInput
+                                    {...register("password", {
+                                        minLength: {
+                                            value: 8,
+                                            message: "အနည်းဆုံးစာလုံးရေ(၈)လုံးရိုက်ထည့်ပေးပါ"
+                                        }
+                                    })}
+                                    id="outlined-password" label="Password" required
+                                    type={showPassword ? "text" : "password"}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
                                     }
-                                })}
-                                id="outlined-password" label="Password" required
-                                type={showPassword ? "text" : "password"}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                        >
-                                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
-                        </FormControl>
-                        <small className="tip my">(Password အသစ်ပြောင်းချင်မှသာ ရိုက်ထည့်ရန်)</small>
-                    </div>
-                    <div className="form-control">
-                        <Button onClick={handleSubmit(onSubmit)}
-                                disabled={loading}
-                                className="margin-button"
-                                variant="contained"
-                                size="large"
-                                fullWidth={true}>
-                            <span className="my">ပြင်မယ်</span>
-                        </Button>
-                    </div>
-                </form>
-                <p className="text-center">
-                    <a href="#" className="my" onClick={logout}>ထွက်မယ်</a>
-                </p>
-            </div>
+                                />
+                            </FormControl>
+                            <small className="tip my">(Password အသစ်ပြောင်းချင်မှသာ ရိုက်ထည့်ရန်)</small>
+                        </div>
+                        <div className="form-control">
+                            <Button onClick={handleSubmit(onSubmit)}
+                                    disabled={loading}
+                                    className="margin-button"
+                                    variant="contained"
+                                    size="large"
+                                    fullWidth={true}>
+                                <span className="my">ပြင်မယ်</span>
+                            </Button>
+                        </div>
+                    </form>
+                    <p className="text-center">
+                        <a href="#" className="my" onClick={logout}>ထွက်မယ်</a>
+                    </p>
+                </div>
+            }
             <Navbar />
         </>
     );

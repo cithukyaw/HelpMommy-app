@@ -20,6 +20,22 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
+    const currentDate = moment().format("YYYY-MM-DD");
+    let jobs, totalHearts, todayHearts, amount;
+    let jobData, ratingData = {
+        result: null,
+        loading: false
+    };
+
+    if (user) {
+        jobData = useFetch(`users/${user.id}/jobs?filter[date]=${currentDate}`);
+        jobs = jobData.result?.data;
+
+        ratingData = useFetch(`users/${user.id}/ratings`);
+        totalHearts = ratingData.result?.meta.rating;
+        todayHearts = ratingData.result?.data[currentDate]?.ratings;
+        amount = totalHearts * config.exchangeRate;
+    }
 
     useEffect(() => {
         if (user) {
@@ -29,44 +45,39 @@ const Dashboard = () => {
         } else {
             navigate("/");
         }
-    });
-
-    const currentDate = moment().format("YYYY-MM-DD");
-    const { result, loading } = useFetch(`users/${user.id}/jobs?filter[date]=${currentDate}`);
-    const jobs = result?.data;
-
-    const { result: ratingResult, loading: ratingLoading } = useFetch(`users/${user.id}/ratings`);
-    const totalHearts = ratingResult?.meta.rating;
-    const todayHearts = ratingResult?.data[currentDate]?.ratings;
-    const amount = totalHearts * config.exchangeRate;
+    }, [user]);
 
     return (
         <>
-            {loading && <Loading/>}
+            {jobData?.loading && <Loading/>}
             <Header title="Help Mommy"/>
             <div className="container">
-                <TrialWarning user={user}/>
-                <div className="card">
-                    <div className="user-name">Welcome {user.full_name}</div>
-                    {!loading && !ratingLoading ?
-                        <div>
-                            <div className="user-hearts">
-                                <FavoriteIcon/>
-                                <strong>{totalHearts} heart{totalHearts > 1 ? "s " : " "}</strong>
-                            </div>
-                            <div className="user-hearts">
-                                <WalletIcon/>
-                                {amount.toLocaleString()} {config.currencyUnit}
-                            </div>
+                { user &&
+                    <div>
+                        <TrialWarning user={user}/>
+                        <div className="card">
+                            <div className="user-name">Welcome {user.full_name}</div>
+                            {!jobData?.loading && !ratingData.loading ?
+                                <div>
+                                    <div className="user-hearts">
+                                        <FavoriteIcon/>
+                                        <strong>{totalHearts} heart{totalHearts > 1 ? "s " : " "}</strong>
+                                    </div>
+                                    <div className="user-hearts">
+                                        <WalletIcon/>
+                                        {amount.toLocaleString()} {config.currencyUnit}
+                                    </div>
+                                </div>
+                                : ""
+                            }
+                            <Button variant="outlined" size="small" component={Link} to="/add"
+                                    startIcon={<AddCircleOutlineIcon/>}>
+                                Add Hearts
+                            </Button>
                         </div>
-                        : ""
-                    }
-                    <Button variant="outlined" size="small" component={Link} to="/add"
-                            startIcon={<AddCircleOutlineIcon/>}>
-                        Add Hearts
-                    </Button>
-                </div>
-                {jobs && result.meta.total && ratingResult ?
+                    </div>
+                }
+                {jobs && jobData?.result.meta.total && ratingData?.result ?
                     <div className="card">
                         <h4 className="margin-top-none">
                             {todayHearts} heart{todayHearts > 1 ? "s " : " "}
@@ -84,7 +95,7 @@ const Dashboard = () => {
                         </ul>
                     </div>
                     :
-                    !loading && <NoHeart msg="ဒီနေ့ သင် အသည်းမရရှိသေးပါ။" />
+                    !jobData?.loading && <NoHeart msg="ဒီနေ့ သင် အသည်းမရရှိသေးပါ။" />
                 }
             </div>
             <Navbar/>

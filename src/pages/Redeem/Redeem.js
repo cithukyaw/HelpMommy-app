@@ -7,7 +7,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import TawkMessengerReact from "@tawk.to/tawk-messenger-react";
 import {useForm} from "react-hook-form";
 import {makeRequest} from "../../helpers/httpRequest";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import {getConfig} from "../../helpers/common";
 import {getItemDecrypted, storeItemEncrypted} from "../../helpers/storage";
@@ -64,7 +64,14 @@ const Redeem = () => {
         }
     };
 
+    useEffect(() => {
+        if (!user) {
+            navigate("/");
+        }
+    });
+
     return (
+        user &&
         <>
             <Header title="Redeem"/>
             <div className="container">

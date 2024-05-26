@@ -29,6 +29,10 @@ const Add = () => {
         if (user && !checkRedeem(user)) {
             navigate("/redeem");
         }
+
+        if (!user) {
+            navigate("/");
+        }
     });
 
     const { result, loading } = useFetch("jobs");
@@ -47,7 +51,6 @@ const Add = () => {
         const { activity_date: activityDate } = data;
         const jobDate = activityDate.split("/");
         data.activity_date = `${jobDate[2]}-${jobDate[1]}-${jobDate[0]}`;
-        console.log(data);
 
         const { result, error } = await sendRequest(`users/${user.id}/jobs`, "POST", data);
 

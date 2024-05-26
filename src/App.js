@@ -15,13 +15,14 @@ import Account from "./pages/Account/Account";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useFetch from "./hooks/useFetch";
-import {storeItemEncrypted} from "./helpers/storage";
+import {getItemDecrypted, storeItemEncrypted} from "./helpers/storage";
 import config from "./config";
 import Redeem from "./pages/Redeem/Redeem";
 
 // eslint-disable-next-line
 const Layout = () => {
     loadSetting();
+    loadUser();
 
     return (
         <div className="app">
@@ -35,6 +36,16 @@ const loadSetting = () => {
     const { result } = useFetch("settings");
     if (result) {
         storeItemEncrypted(config.settingStoreKey, result.value);
+    }
+};
+
+const loadUser = () => {
+    const user = getItemDecrypted(config.userStoreKey);
+    if (user) {
+        const {result} = useFetch(`account/${user.account_id}`);
+        if (result) {
+            storeItemEncrypted(config.userStoreKey, result.data);
+        }
     }
 };
 

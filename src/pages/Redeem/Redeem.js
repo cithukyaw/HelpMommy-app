@@ -37,10 +37,12 @@ const Redeem = () => {
     };
 
     const onLoadChat = () => {
-        tawkMessengerRef.current.setAttributes({
-            account: user.id,
-            username: user.username
-        });
+        if (user) {
+            tawkMessengerRef.current.setAttributes({
+                account: user.id,
+                username: user.username
+            });
+        }
     };
 
     const showChat = () => {

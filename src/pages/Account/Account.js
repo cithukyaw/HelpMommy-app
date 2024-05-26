@@ -13,6 +13,7 @@ import {useNavigate} from "react-router-dom";
 import {getConfig} from "../../helpers/common";
 import Loading from "../../components/Loading";
 import TrialWarning from "../../components/TrialWarning";
+import useFetch from "../../hooks/useFetch";
 
 // eslint-disable-next-line
 const Account = () => {
@@ -27,6 +28,13 @@ const Account = () => {
         formState: {errors},
         handleSubmit
     } = useForm();
+
+    if (user) {
+        const {result} = useFetch(`account/${user.account_id}`);
+        if (result) {
+            storeItemEncrypted(config.userStoreKey, result.data);
+        }
+    }
 
     const handleClickShowPassword = () => setShowPassword(show => !show);
 

@@ -7,10 +7,10 @@ const TrialWarning = ({ user }) => {
     return (
         user.expiry !== null ?
             <Alert severity="warning" className="mt-0">
-                Your trial period will end in {user.expiry.d} days and {user.expiry.h} hrs.&nbsp;
+                <span className="my">အစမ်းသုံးကာလသည် နောက် {user.expiry.d}နာရီ {user.expiry.h}မိနစ်အတွင်းပြီးဆုံးပါမည်။</span>&nbsp;
                 <Button variant="contained" color="success" size="small"
                         component={Link} to="/redeem" startIcon={<RedeemOutlined/>}>
-                    Redeem
+                    <span className="my">တစ်သက်စာသုံးစွဲခွင့်ရယူရန်</span>
                 </Button>
             </Alert>
             :

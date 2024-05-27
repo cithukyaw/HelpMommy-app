@@ -50,6 +50,7 @@ const Add = () => {
     const onSubmit = async data => {
         const { activity_date: activityDate } = data;
         const jobDate = activityDate.split("/");
+        // eslint-disable-next-line camelcase
         data.activity_date = `${jobDate[2]}-${jobDate[1]}-${jobDate[0]}`;
 
         const { result, error } = await sendRequest(`users/${user.id}/jobs`, "POST", data);

@@ -1,6 +1,6 @@
 import Header from "../../components/Header/Header";
 import Error from "../../components/Error";
-import {Button, TextField, Typography} from "@mui/material";
+import {Alert, Button, TextField, Typography} from "@mui/material";
 // import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -9,7 +9,7 @@ import {useForm} from "react-hook-form";
 import {makeRequest} from "../../helpers/httpRequest";
 import {useEffect, useRef, useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
-import {getConfig} from "../../helpers/common";
+import {checkRedeem, getConfig} from "../../helpers/common";
 import {getItemDecrypted, storeItemEncrypted} from "../../helpers/storage";
 
 const Redeem = () => {
@@ -78,6 +78,11 @@ const Redeem = () => {
             <Header title="Redeem"/>
             <div className="container">
                 <form onSubmit={handleSubmit(onSubmit)}>
+                    {!checkRedeem(user) &&
+                        <Alert severity="warning" className="mt-0">
+                            <span className="my">အစမ်းသုံးကာလကျော်လွန်သွားပါပြီ။</span>
+                        </Alert>
+                    }
                     <div className="form-control">
                         <div className="label paragraph my">တစ်သက်စာသုံးစွဲခွင့်ကုဒ်ကိုရိုက်ထည့်ပေးပါ။</div>
                         <Error field={errors.code}/>

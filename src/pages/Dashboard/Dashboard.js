@@ -6,7 +6,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 import {Link, useNavigate} from "react-router-dom";
 import "./Dashboard.scss";
-import {getItemDecrypted} from "../../helpers/storage";
+import {getItemDecrypted, storeItemEncrypted} from "../../helpers/storage";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../../components/Loading";
 import NoHeart from "../../components/NoHeart/NoHeart";
@@ -28,6 +28,11 @@ const Dashboard = () => {
     };
 
     if (user) {
+        const {result} = useFetch(`account/${user.account_id}`);
+        if (result) {
+            storeItemEncrypted(config.userStoreKey, result.data);
+        }
+
         jobData = useFetch(`users/${user.id}/jobs?filter[date]=${currentDate}`);
         jobs = jobData.result?.data;
 

@@ -10,7 +10,7 @@ import {getItemDecrypted, removeItem, storeItemEncrypted} from "../../helpers/st
 import {makeRequest} from "../../helpers/httpRequest";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import {getConfig} from "../../helpers/common";
+import {checkRedeem, getConfig} from "../../helpers/common";
 import Loading from "../../components/Loading";
 import TrialWarning from "../../components/TrialWarning";
 import useFetch from "../../hooks/useFetch";
@@ -61,7 +61,11 @@ const Account = () => {
     };
 
     useEffect(() => {
-        if (!user) {
+        if (user) {
+            if (!checkRedeem(user)) {
+                navigate("/redeem");
+            }
+        } else {
             navigate("/");
         }
     });

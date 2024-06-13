@@ -28,7 +28,7 @@ const ListCard = props => {
 
     const longPressEvent = useLongPress(onLongPress, onClick, {
         shouldPreventDefault: true,
-        delay: 500,
+        delay: 1000,
     });
 
     const doDelete = async id => {

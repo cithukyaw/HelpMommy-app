@@ -4,20 +4,18 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import {Button} from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import "./Dashboard.scss";
 import {getItemDecrypted, storeItemEncrypted} from "../../helpers/storage";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../../components/Loading";
 import NoHeart from "../../components/NoHeart/NoHeart";
 import moment from "moment";
-import {checkRedeem, getConfig} from "../../helpers/common";
-import {useEffect} from "react";
 import WalletIcon from "@mui/icons-material/Wallet";
 import TrialWarning from "../../components/TrialWarning";
+import {getConfig} from "../../helpers/common";
 
 const Dashboard = () => {
-    const navigate = useNavigate();
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
     const currentDate = moment().format("YYYY-MM-DD");
@@ -41,16 +39,6 @@ const Dashboard = () => {
         todayHearts = ratingData.result?.data[currentDate]?.ratings;
         amount = totalHearts * config.exchangeRate;
     }
-
-    useEffect(() => {
-        if (user) {
-            if (!checkRedeem(user)) {
-                navigate("/redeem");
-            }
-        } else {
-            navigate("/");
-        }
-    }, [user]);
 
     return (
         <>

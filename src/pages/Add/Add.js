@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {Controller, useForm} from "react-hook-form";
-import {Button, FormControl, TextField, Box} from "@mui/material";
-import Autocomplete, { autocompleteClasses } from "@mui/material/Autocomplete";
+import {Box, Button, FormControl, TextField} from "@mui/material";
+import Autocomplete, {autocompleteClasses} from "@mui/material/Autocomplete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -16,24 +16,12 @@ import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import dayjs from "dayjs";
 import {getItemDecrypted} from "../../helpers/storage";
-import {checkRedeem, getConfig} from "../../helpers/common";
-import {useNavigate} from "react-router-dom";
+import {getConfig} from "../../helpers/common";
 import {api} from "../../helpers/api";
 
 const Add = () => {
-    const navigate = useNavigate();
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
-
-    useEffect(() => {
-        if (user && !checkRedeem(user)) {
-            navigate("/redeem");
-        }
-
-        if (!user) {
-            navigate("/");
-        }
-    });
 
     const { result, loading } = useFetch("jobs");
     const jobs = result?.data;

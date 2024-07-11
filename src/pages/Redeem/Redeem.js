@@ -1,13 +1,12 @@
 import Header from "../../components/Header/Header";
 import Error from "../../components/Error";
 import {Alert, Button, TextField, Typography} from "@mui/material";
-// import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import ChatIcon from "@mui/icons-material/Chat";
 import TawkMessengerReact from "@tawk.to/tawk-messenger-react";
 import {useForm} from "react-hook-form";
 import {api} from "../../helpers/api";
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import {checkRedeem, getConfig} from "../../helpers/common";
 import {getItemDecrypted, storeItemEncrypted} from "../../helpers/storage";
@@ -65,12 +64,6 @@ const Redeem = () => {
             error.map(err => setError(err.field, {type: "custom", message: err.message}));
         }
     };
-
-    useEffect(() => {
-        if (!user) {
-            navigate("/");
-        }
-    });
 
     return (
         user &&

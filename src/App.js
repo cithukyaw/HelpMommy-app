@@ -1,99 +1,83 @@
 import "./App.scss";
-import {
-    createHashRouter,
-    Outlet,
-    RouterProvider
-} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./pages/Login/Login";
-import Signup from "./pages/Signup/Signup";
 import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import Exchange from "./pages/Exchange/Exchange";
+import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Signup from "./pages/Signup/Signup";
 import Add from "./pages/Add/Add";
+import Exchange from "./pages/Exchange/Exchange";
 import Hearts from "./pages/Hearts/Hearts";
 import Account from "./pages/Account/Account";
-import {ToastContainer} from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import useFetch from "./hooks/useFetch";
-import {getItemDecrypted, storeItemEncrypted} from "./helpers/storage";
-import config from "./config";
 import Redeem from "./pages/Redeem/Redeem";
+import Layout from "./components/Layout";
 
-// eslint-disable-next-line
-const Layout = () => {
-    loadSetting();
-    loadUser();
-
-    return (
-        <div className="app">
-            <ToastContainer/>
-            <Outlet/>
-        </div>
-    );
-};
-
-const loadSetting = () => {
-    const { result } = useFetch("settings");
-    if (result) {
-        storeItemEncrypted(config.settingStoreKey, result.value);
-    }
-};
-
-const loadUser = () => {
-    const user = getItemDecrypted(config.userStoreKey);
-    if (user) {
-        const {result} = useFetch(`account/${user.account_id}`);
-        if (result) {
-            storeItemEncrypted(config.userStoreKey, result.data);
-        }
-    }
-};
-
-const router = createHashRouter([
-    {
-        path: "/",
-        element: <Layout/>,
-        children: [
-            {
-                path: "/",
-                element: <Home/>
-            },
-            {
-                path: "/login",
-                element: <Login/>
-            },
-            {
-                path: "/signup",
-                element: <Signup/>
-            },
-            {
-                path: "/redeem",
-                element: <Redeem/>
-            },
-            {
-                path: "/dashboard",
-                element: <Dashboard/>
-            },
-            {
-                path: "/exchange",
-                element: <Exchange/>
-            },
-            {
-                path: "/add",
-                element: <Add/>
-            },
-            {
-                path: "/hearts",
-                element: <Hearts/>
-            },
-            {
-                path: "/account",
-                element: <Account/>
-            }
-        ]
-    },
-]);
-
-const App = () => <RouterProvider router={router}/>;
+const App = () => (
+    <BrowserRouter>
+        <Routes>
+            <Route element={<Layout />}>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route
+                    path="/"
+                    element={
+                        <ProtectedRoute name="home">
+                            <Home />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/dashboard"
+                    element={
+                        <ProtectedRoute>
+                            <Dashboard />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/hearts"
+                    element={
+                        <ProtectedRoute>
+                            <Hearts />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/add"
+                    element={
+                        <ProtectedRoute>
+                            <Add />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/exchange"
+                    element={
+                        <ProtectedRoute>
+                            <Exchange />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/account"
+                    element={
+                        <ProtectedRoute>
+                            <Account />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/redeem"
+                    element={
+                        <ProtectedRoute>
+                            <Redeem />
+                        </ProtectedRoute>
+                    }
+                />
+            </Route>
+        </Routes>
+    </BrowserRouter>
+);
 
 export default App;

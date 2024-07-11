@@ -10,16 +10,15 @@ import WalletIcon from "@mui/icons-material/Wallet";
 import {getItemDecrypted} from "../../helpers/storage";
 import {toast} from "react-toastify";
 import {api} from "../../helpers/api";
-import {checkRedeem, getConfig} from "../../helpers/common";
+import {getConfig} from "../../helpers/common";
 import NoHeart from "../../components/NoHeart/NoHeart";
 import Loading from "../../components/Loading";
-import {useNavigate} from "react-router-dom";
 
 // eslint-disable-next-line
 const Exchange = () => {
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [amountReceived, setAmountReceived] = useState(0);
     const [balanceHearts, setBalanceHearts] = useState(0);
@@ -43,14 +42,8 @@ const Exchange = () => {
 
     useEffect(() => {
         if (user) {
-            if (!checkRedeem(user)) {
-                navigate("/redeem");
-            }
-
             setBalanceHearts(totalHearts);
             setBalanceAmount(amount);
-        } else {
-            navigate("/");
         }
     }, [totalHearts, amount]);
 

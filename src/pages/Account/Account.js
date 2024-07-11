@@ -5,12 +5,12 @@ import {Alert, Button, IconButton, InputAdornment, InputLabel, OutlinedInput, Te
 import {useForm} from "react-hook-form";
 import FormControl from "@mui/material/FormControl";
 import {Lock, Visibility, VisibilityOff} from "@mui/icons-material";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {getItemDecrypted, removeItem, storeItemEncrypted} from "../../helpers/storage";
 import {api} from "../../helpers/api";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import {checkRedeem, getConfig} from "../../helpers/common";
+import {getConfig} from "../../helpers/common";
 import Loading from "../../components/Loading";
 import TrialWarning from "../../components/TrialWarning";
 import useFetch from "../../hooks/useFetch";
@@ -59,16 +59,6 @@ const Account = () => {
         removeItem(config.userStoreKey);
         navigate("login");
     };
-
-    useEffect(() => {
-        if (user) {
-            if (!checkRedeem(user)) {
-                navigate("/redeem");
-            }
-        } else {
-            navigate("/");
-        }
-    });
 
     return (
         <>

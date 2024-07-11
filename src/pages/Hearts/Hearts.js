@@ -7,14 +7,11 @@ import useFetch from "../../hooks/useFetch";
 import {getItemDecrypted} from "../../helpers/storage";
 import Loading from "../../components/Loading";
 import NoHeart from "../../components/NoHeart/NoHeart";
-import {checkRedeem, getConfig} from "../../helpers/common";
-import {useEffect} from "react";
-import {useNavigate} from "react-router-dom";
+import {getConfig} from "../../helpers/common";
 
 const Hearts = () => {
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
-    const navigate = useNavigate();
     let totalHearts, amount;
     let jobData, ratingData = {
         result: null,
@@ -38,16 +35,6 @@ const Hearts = () => {
 
         list = Object.entries(jobs);
     }
-
-    useEffect(() => {
-        if (user) {
-            if (!checkRedeem(user)) {
-                navigate("/redeem");
-            }
-        } else {
-            navigate("/");
-        }
-    });
 
     return (
         <>

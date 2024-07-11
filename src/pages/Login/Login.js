@@ -8,8 +8,8 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import {storeItemEncrypted} from "../../helpers/storage";
-import {sendRequest} from "../../helpers/fetchRequest";
 import {getConfig} from "../../helpers/common";
+import {makeRequest} from "../../helpers/httpRequest";
 
 const Login = () => {
     const config = getConfig();
@@ -29,7 +29,7 @@ const Login = () => {
 
     const onSubmit = async data => {
         setLoading(true);
-        const { result, error } = await sendRequest("auth/login", "POST", data);
+        const { result, error } = await makeRequest("auth/login", "POST", data);
         setLoading(false);
 
         if (result && result.data.id) {

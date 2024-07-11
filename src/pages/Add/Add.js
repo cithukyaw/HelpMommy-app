@@ -16,9 +16,9 @@ import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import dayjs from "dayjs";
 import {getItemDecrypted} from "../../helpers/storage";
-import {sendRequest} from "../../helpers/fetchRequest";
 import {checkRedeem, getConfig} from "../../helpers/common";
 import {useNavigate} from "react-router-dom";
+import {makeRequest} from "../../helpers/httpRequest";
 
 const Add = () => {
     const navigate = useNavigate();
@@ -53,7 +53,7 @@ const Add = () => {
         // eslint-disable-next-line camelcase
         data.activity_date = `${jobDate[2]}-${jobDate[1]}-${jobDate[0]}`;
 
-        const { result, error } = await sendRequest(`users/${user.id}/jobs`, "POST", data);
+        const { result, error } = await makeRequest(`users/${user.id}/jobs`, "POST", data);
 
         if (result && result.data.id) {
             const rating = jobs.filter(j => j.id === data.job_id).pop().rating;

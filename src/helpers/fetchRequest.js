@@ -1,3 +1,6 @@
+/**
+ * @deprecated Use makeRequest instead
+ */
 import {toast} from "react-toastify";
 import config from "../config";
 

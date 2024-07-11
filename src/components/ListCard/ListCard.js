@@ -5,9 +5,9 @@ import useLongPress from "../../hooks/useLongPress";
 import moment from "moment";
 import "./ListCard.scss";
 import {useEffect, useState} from "react";
-import {sendRequest} from "../../helpers/fetchRequest";
 import {toast} from "react-toastify";
 import config from "../../config";
+import {makeRequest} from "../../helpers/httpRequest";
 
 const ListCard = props => {
     const {title, hearts, index} = props;
@@ -32,7 +32,7 @@ const ListCard = props => {
     });
 
     const doDelete = async id => {
-        const { result, error } = await sendRequest(`user_jobs/${id}`, "POST");
+        const { result, error } = await makeRequest(`user_jobs/${id}`, "POST");
 
         if (error) {
             let errMsg = "";

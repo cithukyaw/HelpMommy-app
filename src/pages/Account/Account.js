@@ -7,7 +7,7 @@ import FormControl from "@mui/material/FormControl";
 import {Lock, Visibility, VisibilityOff} from "@mui/icons-material";
 import {useEffect, useState} from "react";
 import {getItemDecrypted, removeItem, storeItemEncrypted} from "../../helpers/storage";
-import {makeRequest} from "../../helpers/httpRequest";
+import {api} from "../../helpers/api";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {checkRedeem, getConfig} from "../../helpers/common";
@@ -41,7 +41,7 @@ const Account = () => {
     const handleMouseDownPassword = e => e.preventDefault();
 
     const onSubmit = async data => {
-        const {result, error} = await makeRequest(`users/${user.id}`, "POST", data, {
+        const {result, error} = await api(`users/${user.id}`, "POST", data, {
             loading: setLoading
         });
 

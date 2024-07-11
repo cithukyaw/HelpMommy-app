@@ -9,7 +9,7 @@ import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import {storeItemEncrypted} from "../../helpers/storage";
 import {getConfig} from "../../helpers/common";
-import {makeRequest} from "../../helpers/httpRequest";
+import {api} from "../../helpers/api";
 
 const Login = () => {
     const config = getConfig();
@@ -29,7 +29,7 @@ const Login = () => {
 
     const onSubmit = async data => {
         setLoading(true);
-        const { result, error } = await makeRequest("auth/login", "POST", data);
+        const { result, error } = await api("auth/login", "POST", data);
         setLoading(false);
 
         if (result && result.data.id) {

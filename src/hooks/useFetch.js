@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {makeRequest} from "../helpers/httpRequest";
+import {api} from "../helpers/api";
 
 const useFetch = (url, method = "get", postData = null) => {
     const [result, setResult] = useState(null);
@@ -10,7 +10,7 @@ const useFetch = (url, method = "get", postData = null) => {
         const fetchData = async () => {
             setLoading(true);
 
-            const {result, error} = await makeRequest(url, method, postData);
+            const {result, error} = await api(url, method, postData);
             if (result) {
                 setResult(result);
             }

@@ -7,7 +7,7 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {Link, useNavigate} from "react-router-dom";
 import Loading from "../../components/Loading";
 import Error from "../../components/Error";
-import {makeRequest} from "../../helpers/httpRequest";
+import {api} from "../../helpers/api";
 import {storeItemEncrypted} from "../../helpers/storage";
 import {getConfig} from "../../helpers/common";
 
@@ -29,7 +29,7 @@ const Signup = () => {
     const handleMouseDownPassword = e => e.preventDefault();
 
     const onSubmit = async data => {
-        const {result, error} = await makeRequest("users", "POST", data, {
+        const {result, error} = await api("users", "POST", data, {
             loading: setLoading
         });
 

@@ -9,7 +9,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import WalletIcon from "@mui/icons-material/Wallet";
 import {getItemDecrypted} from "../../helpers/storage";
 import {toast} from "react-toastify";
-import {makeRequest} from "../../helpers/httpRequest";
+import {api} from "../../helpers/api";
 import {checkRedeem, getConfig} from "../../helpers/common";
 import NoHeart from "../../components/NoHeart/NoHeart";
 import Loading from "../../components/Loading";
@@ -66,7 +66,7 @@ const Exchange = () => {
     };
 
     const onSubmit = async data => {
-        const {result, error} = await makeRequest(`users/${user.id}/exchange`, "POST", data, {
+        const {result, error} = await api(`users/${user.id}/exchange`, "POST", data, {
             loading: setLoading
         });
 

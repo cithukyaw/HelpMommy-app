@@ -6,7 +6,7 @@ import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import ChatIcon from "@mui/icons-material/Chat";
 import TawkMessengerReact from "@tawk.to/tawk-messenger-react";
 import {useForm} from "react-hook-form";
-import {makeRequest} from "../../helpers/httpRequest";
+import {api} from "../../helpers/api";
 import {useEffect, useRef, useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import {checkRedeem, getConfig} from "../../helpers/common";
@@ -50,7 +50,7 @@ const Redeem = () => {
     };
 
     const onSubmit = async data => {
-        const {result, error} = await makeRequest(`users/${user.id}/redeem`, "POST", data, {
+        const {result, error} = await api(`users/${user.id}/redeem`, "POST", data, {
             loading: setLoading
         });
 

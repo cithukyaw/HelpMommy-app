@@ -7,7 +7,7 @@ import "./ListCard.scss";
 import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import config from "../../config";
-import {makeRequest} from "../../helpers/httpRequest";
+import {api} from "../../helpers/api";
 
 const ListCard = props => {
     const {title, hearts, index} = props;
@@ -32,7 +32,7 @@ const ListCard = props => {
     });
 
     const doDelete = async id => {
-        const { result, error } = await makeRequest(`user_jobs/${id}`, "POST");
+        const { result, error } = await api(`user_jobs/${id}`, "POST");
 
         if (error) {
             let errMsg = "";

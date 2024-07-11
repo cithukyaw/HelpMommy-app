@@ -10,7 +10,7 @@ export const httpRequest = axios.create({
     },
 });
 
-export const makeRequest = async (url, method = "get", postData = {}, callbacks = {}) => {
+export const api = async (url, method = "get", postData = {}, callbacks = {}) => {
     if (callbacks.loading) {
         callbacks.loading(true);
     }

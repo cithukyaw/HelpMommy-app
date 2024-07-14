@@ -14,6 +14,8 @@ import {getConfig} from "../../helpers/common";
 import Loading from "../../components/Loading";
 import TrialWarning from "../../components/TrialWarning";
 import useFetch from "../../hooks/useFetch";
+import {useDispatch, useSelector} from "react-redux";
+import {togglePassword} from "../../state/user/userSlice";
 
 // eslint-disable-next-line
 const Account = () => {
@@ -21,7 +23,8 @@ const Account = () => {
     const user = getItemDecrypted(config.userStoreKey);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
+    const visiblePassword = useSelector(state => state.user.visiblePassword);
+    const dispatch = useDispatch();
     const {
         register,
         setError,
@@ -36,7 +39,7 @@ const Account = () => {
         }
     }
 
-    const handleClickShowPassword = () => setShowPassword(show => !show);
+    const handleClickShowPassword = () => dispatch(togglePassword(!visiblePassword));
 
     const handleMouseDownPassword = e => e.preventDefault();
 
@@ -100,7 +103,7 @@ const Account = () => {
                                         }
                                     })}
                                     id="outlined-password" label="Password" required
-                                    type={showPassword ? "text" : "password"}
+                                    type={visiblePassword ? "text" : "password"}
                                     endAdornment={
                                         <InputAdornment position="end">
                                             <IconButton
@@ -109,7 +112,7 @@ const Account = () => {
                                                 onMouseDown={handleMouseDownPassword}
                                                 edge="end"
                                             >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                {visiblePassword ? <VisibilityOff /> : <Visibility />}
                                             </IconButton>
                                         </InputAdornment>
                                     }

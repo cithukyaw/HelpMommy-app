@@ -10,12 +10,15 @@ import Loading from "../../components/Loading";
 import {storeItemEncrypted} from "../../helpers/storage";
 import {getConfig} from "../../helpers/common";
 import {api} from "../../helpers/api";
+import {useDispatch, useSelector} from "react-redux";
+import {togglePassword} from "../../state/user/userSlice";
 
 const Login = () => {
     const config = getConfig();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
+    const visiblePassword = useSelector(state => state.user.visiblePassword);
+    const dispatch = useDispatch();
     const {
         register,
         setError,
@@ -23,7 +26,7 @@ const Login = () => {
         handleSubmit
     } = useForm();
 
-    const handleClickShowPassword = () => setShowPassword(show => !show);
+    const handleClickShowPassword = () => dispatch(togglePassword(!visiblePassword));
 
     const handleMouseDownPassword = e => e.preventDefault();
 
@@ -63,7 +66,7 @@ const Login = () => {
                         <OutlinedInput
                             {...register("password", {required: "Enter a password with min 8 characters."})}
                             id="outlined-password" label="Password" required
-                            type={showPassword ? "text" : "password"}
+                            type={visiblePassword ? "text" : "password"}
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -72,7 +75,7 @@ const Login = () => {
                                         onMouseDown={handleMouseDownPassword}
                                         edge="end"
                                     >
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        {visiblePassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
                             }

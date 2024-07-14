@@ -57,7 +57,7 @@ const Account = () => {
 
     const logout = () => {
         removeItem(config.userStoreKey);
-        navigate("login");
+        navigate("/login");
     };
 
     return (

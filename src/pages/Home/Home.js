@@ -1,11 +1,24 @@
 import {Button} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import "./Home.scss";
+import {getConfig} from "../../helpers/common";
+import {getItemDecrypted} from "../../helpers/storage";
+import {useEffect} from "react";
 
 // eslint-disable-next-line
 const Home = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const config = getConfig();
+        const user = getItemDecrypted(config.userStoreKey);
+        if (user) {
+            navigate("/dashboard");
+        }
+    }, []);
+
     return (
         <div className="container">
             <h1 className="text-center">HelpMommy</h1>

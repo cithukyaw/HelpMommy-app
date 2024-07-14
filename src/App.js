@@ -17,16 +17,9 @@ const App = () => (
     <BrowserRouter>
         <Routes>
             <Route element={<Layout />}>
+                <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
-                <Route
-                    path="/"
-                    element={
-                        <ProtectedRoute name="home">
-                            <Home />
-                        </ProtectedRoute>
-                    }
-                />
                 <Route
                     path="/dashboard"
                     element={

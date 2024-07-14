@@ -2,7 +2,7 @@ import {Navigate} from "react-router-dom";
 import {checkRedeem, getConfig} from "../helpers/common";
 import {getItemDecrypted} from "../helpers/storage";
 
-const ProtectedRoute = ({ children, name }) => {
+const ProtectedRoute = ({ children }) => {
     let isAuthorized;
     let isRedeemed = false;
     const config = getConfig();
@@ -23,11 +23,6 @@ const ProtectedRoute = ({ children, name }) => {
     if (!isRedeemed) {
         // to redeem page to redeem
         return <Navigate to="/redeem" />;
-    }
-
-    // if the children is home, go to dashboard
-    if (name === "home") {
-        return <Navigate to="/dashboard" />;
     }
 
     // if user is authorized and subscription is valid, go to the children component

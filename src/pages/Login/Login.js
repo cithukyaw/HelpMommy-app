@@ -1,5 +1,4 @@
 import {useForm} from "react-hook-form";
-import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Button, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField} from "@mui/material";
 import FormControl from "@mui/material/FormControl";
@@ -7,16 +6,12 @@ import LoginIcon from "@mui/icons-material/Login";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
-import {storeItemEncrypted} from "../../helpers/storage";
-import {getConfig} from "../../helpers/common";
-import {api} from "../../helpers/api";
 import {useDispatch, useSelector} from "react-redux";
-import {togglePassword} from "../../state/user/userSlice";
+import {togglePassword, userLogin} from "../../state/user/userSlice";
 
 const Login = () => {
-    const config = getConfig();
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+    const loading = useSelector(state => state.user.loading);
     const visiblePassword = useSelector(state => state.user.visiblePassword);
     const dispatch = useDispatch();
     const {
@@ -31,19 +26,14 @@ const Login = () => {
     const handleMouseDownPassword = e => e.preventDefault();
 
     const onSubmit = async data => {
-        setLoading(true);
-        const { result, error } = await api("auth/login", "POST", data);
-        setLoading(false);
-
-        if (result && result.data.id) {
-            storeItemEncrypted(config.userStoreKey, result.data);
-
-            navigate("/dashboard");
-        }
-
-        if (error) {
-            error.map(err => setError(err.field, {type: "custom", message: err.message}));
-        }
+        dispatch(userLogin(data)).then(result => {
+            const { error } = result.payload;
+            if (error) {
+                error.map(err => setError(err.field, {type: "custom", message: err.message}));
+            } else {
+                navigate("/dashboard");
+            }
+        });
     };
 
     return (

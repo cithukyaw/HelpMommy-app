@@ -5,24 +5,21 @@ import {Alert, Button, IconButton, InputAdornment, InputLabel, OutlinedInput, Te
 import {useForm} from "react-hook-form";
 import FormControl from "@mui/material/FormControl";
 import {Lock, Visibility, VisibilityOff} from "@mui/icons-material";
-import {useState} from "react";
-import {getItemDecrypted, removeItem, storeItemEncrypted} from "../../helpers/storage";
-import {api} from "../../helpers/api";
+import {getItemDecrypted, removeItem} from "../../helpers/storage";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {getConfig} from "../../helpers/common";
 import Loading from "../../components/Loading";
 import TrialWarning from "../../components/TrialWarning";
-import useFetch from "../../hooks/useFetch";
 import {useDispatch, useSelector} from "react-redux";
-import {togglePassword} from "../../state/user/userSlice";
+import {togglePassword, userAccount} from "../../state/user/userSlice";
 
 // eslint-disable-next-line
 const Account = () => {
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+    const loading = useSelector(state => state.user.loading);
     const visiblePassword = useSelector(state => state.user.visiblePassword);
     const dispatch = useDispatch();
     const {
@@ -32,30 +29,21 @@ const Account = () => {
         handleSubmit
     } = useForm();
 
-    if (user) {
-        const {result} = useFetch(`account/${user.account_id}`);
-        if (result) {
-            storeItemEncrypted(config.userStoreKey, result.data);
-        }
-    }
-
     const handleClickShowPassword = () => dispatch(togglePassword(!visiblePassword));
 
     const handleMouseDownPassword = e => e.preventDefault();
 
     const onSubmit = async data => {
-        const {result, error} = await api(`users/${user.id}`, "POST", data, {
-            loading: setLoading
+        dispatch(userAccount({ id: user.id, data })).then(response => {
+            const { result, error } = response.payload;
+            if (error) {
+                error.map(err => setError(err.field, {type: "custom", message: err.message}));
+            } else {
+                if (result && result.data.id) {
+                    toast.success("အကောင့်အချက်အလက်ကိုပြင်ပြီးပါပြီ", config.toastOptions);
+                }
+            }
         });
-
-        if (result && result.data.id) {
-            storeItemEncrypted(config.userStoreKey, result.data);
-            toast.success("အကောင့်အချက်အလက်ကိုပြင်ပြီးပါပြီ", config.toastOptions);
-        }
-
-        if (error) {
-            error.map(err => setError(err.field, {type: "custom", message: err.message}));
-        }
     };
 
     const logout = () => {

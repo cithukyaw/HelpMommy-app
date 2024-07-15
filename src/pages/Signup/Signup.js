@@ -1,5 +1,4 @@
 import {useForm} from "react-hook-form";
-import {useState} from "react";
 import {Button, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField} from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
@@ -7,17 +6,13 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {Link, useNavigate} from "react-router-dom";
 import Loading from "../../components/Loading";
 import Error from "../../components/Error";
-import {api} from "../../helpers/api";
-import {storeItemEncrypted} from "../../helpers/storage";
-import {getConfig} from "../../helpers/common";
 import {useDispatch, useSelector} from "react-redux";
-import {togglePassword} from "../../state/user/userSlice";
+import {togglePassword, userRegister} from "../../state/user/userSlice";
 
 // eslint-disable-next-line
 const Signup = () => {
-    const config = getConfig();
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+    const loading = useSelector(state => state.user.loading);
     const visiblePassword = useSelector(state => state.user.visiblePassword);
     const dispatch = useDispatch();
 
@@ -33,19 +28,14 @@ const Signup = () => {
     const handleMouseDownPassword = e => e.preventDefault();
 
     const onSubmit = async data => {
-        const {result, error} = await api("users", "POST", data, {
-            loading: setLoading
+        dispatch(userRegister(data)).then(result => {
+            const { error } = result.payload;
+            if (error) {
+                error.map(err => setError(err.field, {type: "custom", message: err.message}));
+            } else {
+                navigate("/dashboard");
+            }
         });
-
-        if (result && result.data.id) {
-            storeItemEncrypted(config.userStoreKey, result.data);
-
-            navigate("/dashboard");
-        }
-
-        if (error) {
-            error.map(err => setError(err.field, {type: "custom", message: err.message}));
-        }
     };
 
     return (

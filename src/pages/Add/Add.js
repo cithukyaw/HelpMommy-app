@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect} from "react";
 import {Controller, useForm} from "react-hook-form";
 import {Box, Button, FormControl, TextField} from "@mui/material";
 import Autocomplete, {autocompleteClasses} from "@mui/material/Autocomplete";
@@ -8,24 +8,24 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
-import {toast} from "react-toastify";
-import useFetch from "../../hooks/useFetch";
 import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import dayjs from "dayjs";
-import {getItemDecrypted} from "../../helpers/storage";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchJobs, saveJob, setJobDate} from "../../state/job/jobSlice";
 import {getConfig} from "../../helpers/common";
-import {api} from "../../helpers/api";
+import {getItemDecrypted} from "../../helpers/storage";
+import {toast} from "react-toastify";
 
 const Add = () => {
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
-
-    const { result, loading } = useFetch("jobs");
-    const jobs = result?.data;
-    const [jobDate, setJobDate] = useState(dayjs());
+    const loading = useSelector(state => state.job.loading);
+    const date = useSelector(state => state.job.date);
+    const jobs = useSelector(state => state.job.jobs);
+    const dispatch = useDispatch();
     const {
         register,
         control,
@@ -35,26 +35,27 @@ const Add = () => {
     } = useForm();
     const today = dayjs();
 
+    useEffect(() => {
+        dispatch(fetchJobs());
+    }, []);
+
     const onSubmit = async data => {
-        const { activity_date: activityDate } = data;
-        const jobDate = activityDate.split("/");
-        // eslint-disable-next-line camelcase
-        data.activity_date = `${jobDate[2]}-${jobDate[1]}-${jobDate[0]}`;
-
-        const { result, error } = await api(`users/${user.id}/jobs`, "POST", data);
-
-        if (result && result.data.id) {
-            const rating = jobs.filter(j => j.id === data.job_id).pop().rating;
-            if (rating > 0) {
-                toast.success(`Congrats! You got ${rating} hearts.`, config.toastOptions);
-            } else {
-                toast.error(`Oops! You lost ${Math.abs(rating)} hearts.`, config.toastOptions);
+        dispatch(saveJob({
+            id: user.id,
+            data
+        })).then(response => {
+            const { result, error } = response.payload;
+            if (result && result.data.id) {
+                const { rating } = result.data;
+                if (rating > 0) {
+                    toast.success(`Congrats! You got ${rating} hearts.`, config.toastOptions);
+                } else {
+                    toast.error(`Oops! You lost ${Math.abs(rating)} hearts.`, config.toastOptions);
+                }
+            } else if (error) {
+                error.map(err => setError(err.field, { type: "custom", message: err.message }));
             }
-        }
-
-        if (error) {
-            error.map(err => setError(err.field, { type: "custom", message: err.message }));
-        }
+        });
     };
 
     return (
@@ -133,16 +134,16 @@ const Add = () => {
                                 {...register("activity_date", {required: "Select a date."})}
                                 label="Date of the job"
                                 format="DD/MM/YYYY"
-                                onChange={value => setJobDate(value)}
+                                onChange={value => dispatch(setJobDate(value))}
                                 slotProps={{
                                     textField: {
                                         ...register("activity_date", {required: "Select a date."}),
                                         fullWidth: true,
-                                        value: jobDate
+                                        value: date
                                     },
                                 }}
                                 maxDate={today}
-                                defaultValue={jobDate}
+                                defaultValue={date}
                             />
                         </LocalizationProvider>
                     </div>

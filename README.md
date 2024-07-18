@@ -1,8 +1,18 @@
 # HelpMommy
 
-A reward system app that you can get hearts by helping your mom. It is a pet project built using React.js and Cordova.
+A reward system mobile app that you can get hearts by helping your mom. It is a pet project.
 
-API backend: https://github.com/dev-sithu/HelpMommy-api
+API backend: https://github.com/dev-sithu/HelpMommy-api (private)
+
+Tech Stack:
+- Frontend
+  - React
+  - Redux
+  - Sass
+  - Cordova
+- Backend
+  - PHP
+  - MySQL
 
 ## Installation
 

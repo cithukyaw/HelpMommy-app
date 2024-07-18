@@ -34,7 +34,7 @@ const userRatingsSlice = createSlice({
 });
 
 export const fetchUserRatings = createAsyncThunk(
-    "fetchUserRatings",
+    "user/fetchUserRatings",
     async id => api(`users/${id}/ratings`)
 );
 

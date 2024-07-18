@@ -3,6 +3,7 @@ import userSlice from "./user/userSlice";
 import jobSlice from "./job/jobSlice";
 import userJobsSlice from "./user/userJobsSlice";
 import userRatingsSlice from "./user/userRatingsSlice";
+import exchangeSlice, {calculateAmountReceived} from "./user/exchangeSlice";
 
 const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
         job: jobSlice,
         userJobs: userJobsSlice,
         userRatings: userRatingsSlice,
+        exchange: exchangeSlice,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({
@@ -21,5 +23,20 @@ const store = configureStore({
             },
         }),
 });
+
+// redux thunk middleware that will be called by text input onchange in the Exchange screen
+// share state between two reducers (userRatingsSlice and exchangeSlice)
+export const exchangeAmount = exchangedHearts => (dispatch, getState) => {
+    const state = getState(); // the whole state
+    // from userRatingsSlice
+    const totalHearts = state.userRatings.totalHearts;
+    const amount = state.userRatings.amount;
+    // send the values to exchangeSlice
+    dispatch(calculateAmountReceived({
+        exchangedHearts,
+        totalHearts,
+        amount
+    }));
+};
 
 export default store;

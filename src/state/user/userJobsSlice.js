@@ -34,7 +34,7 @@ const userJobsSlice = createSlice({
 });
 
 export const fetchUserJobs = createAsyncThunk(
-    "fetchUserJobs",
+    "user/fetchUserJobs",
     async id => api(`users/${id}/jobs?pager=7`)
 );
 

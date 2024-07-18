@@ -3,81 +3,60 @@ import Navbar from "../../components/Navbar/Navbar";
 import Error from "../../components/Error";
 import {Button, Card, CardContent, TextField, Typography} from "@mui/material";
 import {useForm} from "react-hook-form";
-import {useEffect, useState} from "react";
-import useFetch from "../../hooks/useFetch";
+import {useEffect} from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import WalletIcon from "@mui/icons-material/Wallet";
 import {getItemDecrypted} from "../../helpers/storage";
 import {toast} from "react-toastify";
-import {api} from "../../helpers/api";
 import {getConfig} from "../../helpers/common";
 import NoHeart from "../../components/NoHeart/NoHeart";
 import Loading from "../../components/Loading";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchUserRatings} from "../../state/user/userRatingsSlice";
+import {exchange, setBalanceAmount, setBalanceHearts} from "../../state/user/exchangeSlice";
+import {exchangeAmount} from "../../state/store";
 
 // eslint-disable-next-line
 const Exchange = () => {
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
-    // const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
-    const [amountReceived, setAmountReceived] = useState(0);
-    const [balanceHearts, setBalanceHearts] = useState(0);
-    const [balanceAmount, setBalanceAmount] = useState(0);
+    const { totalHearts, amount, loading } = useSelector(state => state.userRatings);
+    const { balanceHearts, balanceAmount, amountReceived, saveLoading } = useSelector(state => state.exchange);
+    const dispatch = useDispatch();
+
     const {
         register,
         setError,
         formState: {errors},
         handleSubmit
     } = useForm();
-    let totalHearts, amount;
-    let ratingData = {
-        result: null,
-        loading: false
-    };
-    if (user) {
-        ratingData = useFetch(`users/${user.id}/ratings`);
-        totalHearts = ratingData.result?.meta.rating;
-        amount = totalHearts * config.exchangeRate;
-    }
 
     useEffect(() => {
         if (user) {
-            setBalanceHearts(totalHearts);
-            setBalanceAmount(amount);
+            dispatch(fetchUserRatings(user.id)).then(() => {
+                dispatch(setBalanceHearts(totalHearts));
+                dispatch(setBalanceAmount(amount));
+            });
         }
     }, [totalHearts, amount]);
 
-    const calculateAmountReceived = e => {
-        const hearts = e.target.value * 1;
-        const value = hearts * config.exchangeRate;
-        const diffHearts = totalHearts - hearts;
-        const diffAmount = amount - value;
-
-        setAmountReceived(value);
-        setBalanceHearts(diffHearts > 0 ? diffHearts : 0);
-        setBalanceAmount(diffAmount > 0 ? diffAmount : 0);
-    };
-
     const onSubmit = async data => {
-        const {result, error} = await api(`users/${user.id}/exchange`, "POST", data, {
-            loading: setLoading
+        dispatch(exchange({ id: user.id, data })).then(response => {
+            const { result, error } = response.payload;
+            if (result && result.data.id) {
+                toast.success(`Congrats! You got ${data.hearts * config.exchangeRate} ${config.currencyUnit}.`, config.toastOptions);
+            } else if (error) {
+                error.map(err => setError(err.field, {type: "custom", message: err.message}));
+            }
         });
-
-        if (result && result.data.id) {
-            toast.success(`Congrats! You got ${data.hearts * config.exchangeRate} ${config.currencyUnit}.`, config.toastOptions);
-        }
-
-        if (error) {
-            error.map(err => setError(err.field, {type: "custom", message: err.message}));
-        }
     };
 
     return (
         <>
-            {(ratingData?.loading || loading) && <Loading/>}
+            {(loading || saveLoading) && <Loading/>}
             <Header title="အသည်းနှင့်မုန့်ဖိုးလဲလှယ်ရန်" customClass="my"/>
             <div className="container">
-                {!ratingData?.loading ?
+                {!loading ?
                     <>
                         <Card className="mb-2">
                             <CardContent>
@@ -113,7 +92,8 @@ const Exchange = () => {
                                                    autoFocus: true
                                                }}
                                                required fullWidth id="outlined-name" variant="outlined"
-                                               onChange={calculateAmountReceived} />
+                                               onChange={e => dispatch(exchangeAmount(e.target.value))}
+                                    />
                                 </div>
                                 <div className="form-control">
                                     <div className="label paragraph my">ရရှိမည့်မုန့်ဖိုး</div>

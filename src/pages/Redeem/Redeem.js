@@ -5,16 +5,18 @@ import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import ChatIcon from "@mui/icons-material/Chat";
 import TawkMessengerReact from "@tawk.to/tawk-messenger-react";
 import {useForm} from "react-hook-form";
-import {api} from "../../helpers/api";
-import {useRef, useState} from "react";
+import {useRef} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import {checkRedeem, getConfig} from "../../helpers/common";
 import {getItemDecrypted, storeItemEncrypted} from "../../helpers/storage";
+import {useDispatch, useSelector} from "react-redux";
+import {redeem} from "../../state/user/redeemSlice";
 
 const Redeem = () => {
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
-    const [loading, setLoading] = useState(false);
+    const loading = useSelector(state => state.redeem.loading);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const tawkMessengerRef = useRef();
     const {
@@ -49,20 +51,17 @@ const Redeem = () => {
     };
 
     const onSubmit = async data => {
-        const {result, error} = await api(`users/${user.id}/redeem`, "POST", data, {
-            loading: setLoading
+        dispatch(redeem({ id: user.id, data })).then(response => {
+            const { result, error } = response.payload;
+            if (result && result.data.id) {
+                storeItemEncrypted(config.userStoreKey, result.data);
+                tawkMessengerRef.current.hideWidget();
+
+                navigate("/dashboard");
+            } else if (error) {
+                error.map(err => setError(err.field, {type: "custom", message: err.message}));
+            }
         });
-
-        if (result && result.data.id) {
-            storeItemEncrypted(config.userStoreKey, result.data);
-            tawkMessengerRef.current.hideWidget();
-
-            navigate("/dashboard");
-        }
-
-        if (error) {
-            error.map(err => setError(err.field, {type: "custom", message: err.message}));
-        }
     };
 
     return (

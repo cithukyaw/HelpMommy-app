@@ -4,6 +4,7 @@ import jobSlice from "./job/jobSlice";
 import userJobsSlice from "./user/userJobsSlice";
 import userRatingsSlice from "./user/userRatingsSlice";
 import exchangeSlice, {calculateAmountReceived} from "./user/exchangeSlice";
+import redeemSlice from "./user/redeemSlice";
 
 const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
         userJobs: userJobsSlice,
         userRatings: userRatingsSlice,
         exchange: exchangeSlice,
+        redeem: redeemSlice,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({

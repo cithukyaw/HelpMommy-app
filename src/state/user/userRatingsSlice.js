@@ -23,12 +23,14 @@ const userRatingsSlice = createSlice({
             .addCase(fetchUserRatings.fulfilled, (state, action) => {
                 state.loading = false;
 
-                const { result } = action.payload;
-                const currentDate = moment().format("YYYY-MM-DD");
-                state.ratings = result.data;
-                state.totalHearts = result.meta.rating;
-                state.todayHearts = result.data[currentDate]?.ratings;
-                state.amount = result.meta.rating * getConfig().exchangeRate;
+                const { result, error } = action.payload;
+                if (!error) {
+                    const currentDate = moment().format("YYYY-MM-DD");
+                    state.ratings = result.data;
+                    state.totalHearts = result.meta.rating;
+                    state.todayHearts = result.data[currentDate]?.ratings;
+                    state.amount = result.meta.rating * getConfig().exchangeRate;
+                }
             })
             .addCase(fetchUserRatings.rejected, state => {
                 state.loading = false;

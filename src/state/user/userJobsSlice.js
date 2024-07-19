@@ -38,10 +38,12 @@ const userJobsSlice = createSlice({
                 state.loading = true;
             })
             .addCase(fetchUserJobsByDate.fulfilled, (state, action) => {
-                const { result } = action.payload;
+                const { result, error } = action.payload;
                 state.loading = false;
-                state.jobs = result.data;
-                state.total = result.meta.total;
+                if (!error) {
+                    state.jobs = result.data;
+                    state.total = result.meta.total;
+                }
             })
             .addCase(fetchUserJobsByDate.rejected, state => {
                 state.loading = false;

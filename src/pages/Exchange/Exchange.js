@@ -21,7 +21,7 @@ const Exchange = () => {
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
     const { totalHearts, amount, loading } = useSelector(state => state.userRatings);
-    const { balanceHearts, balanceAmount, amountReceived, saveLoading } = useSelector(state => state.exchange);
+    const { balanceHearts, balanceAmount, amountReceived, loading: saveLoading } = useSelector(state => state.exchange);
     const dispatch = useDispatch();
 
     const {

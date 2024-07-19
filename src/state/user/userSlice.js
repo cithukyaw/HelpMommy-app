@@ -51,16 +51,31 @@ const userSlice = createSlice({
                 console.log("userRegister.rejected");
             })
             // Update Account
-            .addCase(userAccount.pending, state => {
+            .addCase(userUpdate.pending, state => {
                 state.loading = true;
             })
-            .addCase(userAccount.fulfilled, (state, action) => {
+            .addCase(userUpdate.fulfilled, (state, action) => {
                 const { result } = action.payload;
                 state.loading = false;
 
                 if (result && result.data.id) {
                     storeItemEncrypted(config.userStoreKey, result.data);
                 }
+            })
+            .addCase(userUpdate.rejected, state => {
+                state.loading = false;
+                console.log("userUpdate.rejected");
+            })
+            // Get user account by account id
+            .addCase(userAccount.pending, state => {
+                state.loading = true;
+            })
+            .addCase(userAccount.fulfilled, (state, action) => {
+                const { result } = action.payload;
+                if (result) {
+                    storeItemEncrypted(config.userStoreKey, result.data);
+                }
+                state.loading = false;
             })
             .addCase(userAccount.rejected, state => {
                 state.loading = false;
@@ -80,9 +95,14 @@ export const userRegister = createAsyncThunk(
     async data => await api("users", "POST", data)
 );
 
+export const userUpdate = createAsyncThunk(
+    "user/update",
+    async ({ id, data }) => await api(`users/${id}`, "POST", data)
+);
+
 export const userAccount = createAsyncThunk(
     "user/account",
-    async ({ id, data }) => await api(`users/${id}`, "POST", data)
+    async accId => await api(`account/${accId}`)
 );
 
 export const {togglePassword} = userSlice.actions;

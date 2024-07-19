@@ -12,7 +12,7 @@ import {getConfig} from "../../helpers/common";
 import Loading from "../../components/Loading";
 import TrialWarning from "../../components/TrialWarning";
 import {useDispatch, useSelector} from "react-redux";
-import {togglePassword, userAccount} from "../../state/user/userSlice";
+import {togglePassword, userUpdate} from "../../state/user/userSlice";
 
 // eslint-disable-next-line
 const Account = () => {
@@ -34,7 +34,7 @@ const Account = () => {
     const handleMouseDownPassword = e => e.preventDefault();
 
     const onSubmit = async data => {
-        dispatch(userAccount({ id: user.id, data })).then(response => {
+        dispatch(userUpdate({ id: user.id, data })).then(response => {
             const { result, error } = response.payload;
             if (error) {
                 error.map(err => setError(err.field, {type: "custom", message: err.message}));

@@ -6,43 +6,37 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 import {Link} from "react-router-dom";
 import "./Dashboard.scss";
-import {getItemDecrypted, storeItemEncrypted} from "../../helpers/storage";
-import useFetch from "../../hooks/useFetch";
+import {getItemDecrypted} from "../../helpers/storage";
 import Loading from "../../components/Loading";
 import NoHeart from "../../components/NoHeart/NoHeart";
-import moment from "moment";
 import WalletIcon from "@mui/icons-material/Wallet";
 import TrialWarning from "../../components/TrialWarning";
 import {getConfig} from "../../helpers/common";
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchUserJobsByDate} from "../../state/user/userJobsSlice";
+import {userAccount} from "../../state/user/userSlice";
+import {fetchUserRatings} from "../../state/user/userRatingsSlice";
 
 const Dashboard = () => {
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
-    const currentDate = moment().format("YYYY-MM-DD");
-    let jobs, totalHearts, todayHearts, amount;
-    let jobData, ratingData = {
-        result: null,
-        loading: false
-    };
+    const loadingUser = useSelector(state => state.user.loading);
+    const { jobs, total, loading: loadingJobs } = useSelector(state => state.userJobs);
+    const { ratings, totalHearts, todayHearts, amount, loading: loadingRatings } = useSelector(state => state.userRatings);
+    const dispatch = useDispatch();
 
-    if (user) {
-        const {result} = useFetch(`account/${user.account_id}`);
-        if (result) {
-            storeItemEncrypted(config.userStoreKey, result.data);
-        }
+    useEffect(() => {
+        dispatch(userAccount(user.account_id));
+        dispatch(fetchUserJobsByDate({id: user.id}));
+        dispatch(fetchUserRatings(user.id));
+    }, []);
 
-        jobData = useFetch(`users/${user.id}/jobs?filter[date]=${currentDate}`);
-        jobs = jobData.result?.data;
-
-        ratingData = useFetch(`users/${user.id}/ratings`);
-        totalHearts = ratingData.result?.meta.rating;
-        todayHearts = ratingData.result?.data[currentDate]?.ratings;
-        amount = totalHearts * config.exchangeRate;
-    }
+    const isLoading = loadingUser || loadingJobs || loadingRatings;
 
     return (
         <>
-            {jobData?.loading && <Loading/>}
+            {isLoading && <Loading/>}
             <Header title="Help Mommy"/>
             <div className="container">
                 { user &&
@@ -50,7 +44,7 @@ const Dashboard = () => {
                         <TrialWarning user={user}/>
                         <div className="card">
                             <div className="user-name">Welcome {user.full_name}</div>
-                            {!jobData?.loading && !ratingData.loading ?
+                            {!isLoading ?
                                 <div>
                                     <div className="user-hearts">
                                         <FavoriteIcon/>
@@ -70,7 +64,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                 }
-                {jobs && jobData?.result.meta.total && ratingData?.result ?
+                {jobs && total && ratings ?
                     <div className="card">
                         <h4 className="margin-top-none">
                             {todayHearts} heart{todayHearts > 1 ? "s " : " "}
@@ -88,7 +82,7 @@ const Dashboard = () => {
                         </ul>
                     </div>
                     :
-                    !jobData?.loading && <NoHeart msg="ဒီနေ့ သင် အသည်းမရရှိသေးပါ။" />
+                    !isLoading && <NoHeart msg="ဒီနေ့ သင် အသည်းမရရှိသေးပါ။" />
                 }
             </div>
             <Navbar/>

@@ -40,3 +40,5 @@ export const checkRedeem = user => {
 
     return !redeem.expired;
 };
+
+export const uniqueId = () => "id" + Math.random().toString(16).slice(2);

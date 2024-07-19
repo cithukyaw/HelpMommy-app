@@ -14,7 +14,7 @@ import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import dayjs from "dayjs";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchJobs, saveJob, setJobDate} from "../../state/job/jobSlice";
+import {changeJobAutocompleteKey, fetchJobs, saveJob, setJobDate} from "../../state/job/jobSlice";
 import {getConfig} from "../../helpers/common";
 import {getItemDecrypted} from "../../helpers/storage";
 import {toast} from "react-toastify";
@@ -22,9 +22,7 @@ import {toast} from "react-toastify";
 const Add = () => {
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
-    const loading = useSelector(state => state.job.loading);
-    const date = useSelector(state => state.job.date);
-    const jobs = useSelector(state => state.job.jobs);
+    const { loading, jobs, jobAutocompleteKey, date } = useSelector(state => state.job);
     const dispatch = useDispatch();
     const {
         register,
@@ -52,6 +50,8 @@ const Add = () => {
                 } else {
                     toast.error(`Oops! You lost ${Math.abs(rating)} hearts.`, config.toastOptions);
                 }
+
+                dispatch(changeJobAutocompleteKey());
             } else if (error) {
                 error.map(err => setError(err.field, { type: "custom", message: err.message }));
             }
@@ -78,6 +78,7 @@ const Add = () => {
                                     return (
                                         <Autocomplete
                                             id="job-select"
+                                            key={jobAutocompleteKey}
                                             options={jobs}
                                             autoHighlight
                                             getOptionLabel={option => option.name}

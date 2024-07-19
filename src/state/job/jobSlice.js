@@ -1,9 +1,11 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {api} from "../../helpers/api";
 import dayjs from "dayjs";
+import {uniqueId} from "../../helpers/common";
 
 const initialState = {
     jobs: [],
+    jobAutocompleteKey: uniqueId(),
     date: dayjs(),
     loading: false,
 };
@@ -14,6 +16,9 @@ const jobSlice = createSlice({
     reducers: {
         setJobDate: (state, action) => {
             state.date = action.payload;
+        },
+        changeJobAutocompleteKey: state => {
+            state.jobAutocompleteKey = uniqueId();
         }
     },
     extraReducers: builder => {
@@ -72,6 +77,9 @@ export const saveJob = createAsyncThunk(
     }
 );
 
-export const { setJobDate } = jobSlice.actions;
+export const {
+    setJobDate,
+    changeJobAutocompleteKey
+} = jobSlice.actions;
 
 export default jobSlice.reducer;

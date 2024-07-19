@@ -19,7 +19,7 @@
     "@reduxjs/toolkit": "^2.2.6",
     "@tawk.to/tawk-messenger-react": "^2.0.2",
     "@testing-library/jest-dom": "^6.4.6",
-    "@testing-library/react": "^13.4.0",
+    "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
     "axios": "^1.4.0",
     "crypto-js": "^4.1.1",

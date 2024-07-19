@@ -2,7 +2,7 @@ import {Navigate} from "react-router-dom";
 import {checkRedeem, getConfig} from "../helpers/common";
 import {getItemDecrypted} from "../helpers/storage";
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children, name }) => {
     let isAuthorized;
     let isRedeemed = false;
     const config = getConfig();
@@ -20,7 +20,7 @@ const ProtectedRoute = ({ children }) => {
         return <Navigate to="/" replace={true} />;
     }
 
-    if (!isRedeemed) {
+    if (!isRedeemed && name !== "redeem") {
         // to redeem page to redeem
         return <Navigate to="/redeem" />;
     }

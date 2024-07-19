@@ -63,7 +63,7 @@ const App = () => (
                 <Route
                     path="/redeem"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute name="redeem">
                             <Redeem />
                         </ProtectedRoute>
                     }

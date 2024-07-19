@@ -28,7 +28,8 @@ const Exchange = () => {
         register,
         setError,
         formState: {errors},
-        handleSubmit
+        handleSubmit,
+        reset
     } = useForm();
 
     useEffect(() => {
@@ -44,6 +45,7 @@ const Exchange = () => {
         dispatch(exchange({ id: user.id, data })).then(response => {
             const { result, error } = response.payload;
             if (result && result.data.id) {
+                reset();
                 toast.success(`Congrats! You got ${data.hearts * config.exchangeRate} ${config.currencyUnit}.`, config.toastOptions);
             } else if (error) {
                 error.map(err => setError(err.field, {type: "custom", message: err.message}));

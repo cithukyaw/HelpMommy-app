@@ -4,19 +4,19 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import useLongPress from "../../hooks/useLongPress";
 import moment from "moment";
 import "./ListCard.scss";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {toast} from "react-toastify";
 import config from "../../config";
 import {api} from "../../helpers/api";
 
 const ListCard = props => {
-    const {title, hearts, index} = props;
-    const [jobs, setJobs] = useState([]);
+    const {title, hearts, index, jobs} = props;
+    // const [jobs, setJobs] = useState([]);
     const [showDeleteIcon, setShowDeleteIcon] = useState(false);
 
-    useEffect(() => {
-        setJobs(props.jobs);
-    }, [props]);
+    // useEffect(() => {
+    //     setJobs(props.jobs);
+    // }, [props]);
 
     const onLongPress = () => {
         setShowDeleteIcon(true);
@@ -41,7 +41,7 @@ const ListCard = props => {
         } else {
             if (result) {
                 toast.success("Deleted.", config.toastOptions);
-                setJobs(jobs.filter(job => parseInt(job.id) !== parseInt(id)));
+                // setJobs(jobs.filter(job => parseInt(job.id) !== parseInt(id)));
             }
         }
     };

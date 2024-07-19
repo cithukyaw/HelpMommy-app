@@ -14,7 +14,7 @@ import TrialWarning from "../../components/TrialWarning";
 import {getConfig} from "../../helpers/common";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchUserJobsByDate} from "../../state/user/userJobsSlice";
+import {fetchUserTodayJobs} from "../../state/user/userJobsSlice";
 import {userAccount} from "../../state/user/userSlice";
 import {fetchUserRatings} from "../../state/user/userRatingsSlice";
 
@@ -22,13 +22,13 @@ const Dashboard = () => {
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
     const loadingUser = useSelector(state => state.user.loading);
-    const { jobs, loading: loadingJobs } = useSelector(state => state.userJobs);
-    const { ratings, totalHearts, todayHearts, amount, loading: loadingRatings } = useSelector(state => state.userRatings);
+    const { todayJobs, loading: loadingJobs } = useSelector(state => state.userJobs);
+    const { totalHearts, todayHearts, amount, loading: loadingRatings } = useSelector(state => state.userRatings);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(userAccount(user.account_id));
-        dispatch(fetchUserJobsByDate({id: user.id}));
+        dispatch(fetchUserTodayJobs(user.id));
         dispatch(fetchUserRatings(user.id));
     }, []);
 
@@ -64,14 +64,14 @@ const Dashboard = () => {
                         </div>
                     </div>
                 }
-                {jobs.length && ratings.length ?
+                {todayJobs.length ?
                     <div className="card">
                         <h4 className="margin-top-none">
                             {todayHearts} heart{todayHearts > 1 ? "s " : " "}
                             ({ (todayHearts * config.exchangeRate).toLocaleString() } { config.currencyUnit }) earned today
                         </h4>
                         <ul className="list">
-                        {jobs.map(job => (
+                        {todayJobs.map(job => (
                             <li key={job.id}>
                                 <span className="list-item">
                                     <span>{job.name}</span>

@@ -15,15 +15,13 @@ import {fetchUserRatings} from "../../state/user/userRatingsSlice";
 const Hearts = () => {
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
-    const { jobs, loading } = useSelector(state => state.userJobs);
+    const { jobs: allJobs, loading } = useSelector(state => state.userJobs);
     const { ratings, totalHearts, amount } = useSelector(state => state.userRatings);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (user) {
-            dispatch(fetchUserRatings(user.id));
-            dispatch(fetchUserJobs(user.id));
-        }
+        dispatch(fetchUserRatings(user.id));
+        dispatch(fetchUserJobs(user.id));
     }, []);
 
     return (
@@ -44,8 +42,8 @@ const Hearts = () => {
                     </Card>
                     : ""
                 }
-                { jobs.length ?
-                    jobs.map(([key, value]) => <ListCard key={key} title={key} hearts={ratings[key]?.ratings} jobs={value} />)
+                { allJobs.length ?
+                    allJobs.map(([key, value]) => <ListCard key={key} title={key} hearts={ratings[key]?.ratings} jobs={value} />)
                     :
                     !loading && <NoHeart msg="နောက်ဆုံး (၇)ရက်အတွင်း သင် အသည်းမရရှိခဲ့ပါ။" />
                 }

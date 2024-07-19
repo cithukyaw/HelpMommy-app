@@ -22,7 +22,7 @@ const Dashboard = () => {
     const config = getConfig();
     const user = getItemDecrypted(config.userStoreKey);
     const loadingUser = useSelector(state => state.user.loading);
-    const { jobs, total, loading: loadingJobs } = useSelector(state => state.userJobs);
+    const { jobs, loading: loadingJobs } = useSelector(state => state.userJobs);
     const { ratings, totalHearts, todayHearts, amount, loading: loadingRatings } = useSelector(state => state.userRatings);
     const dispatch = useDispatch();
 
@@ -64,7 +64,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                 }
-                {jobs && total && ratings ?
+                {jobs.length && ratings.length ?
                     <div className="card">
                         <h4 className="margin-top-none">
                             {todayHearts} heart{todayHearts > 1 ? "s " : " "}

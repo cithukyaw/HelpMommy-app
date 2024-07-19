@@ -82,32 +82,36 @@ const Add = () => {
                                             options={jobs}
                                             autoHighlight
                                             getOptionLabel={option => option.name}
-                                            renderOption={(props, option) => (
-                                                <Box sx={{
-                                                        borderRadius: "5px",
-                                                        margin: "5px",
-                                                        [`&.${autocompleteClasses.option}`]: {
-                                                            display: "flex",
-                                                            justifyContent: "space-between",
-                                                            padding: "8px",
-                                                        },
-                                                    }}
-                                                     component="li"
-                                                     {...props}>
-                                                    <span className="my">{option.name}</span>
-                                                    <span className="hearts">
-                                                    {
-                                                        [...Array(Math.abs(option.rating))].map((x, i) => {
-                                                            if (option.rating > 0) {
-                                                                return <FavoriteIcon key={i}/>;
-                                                            } else {
-                                                                return <HeartBrokenIcon key={i}/>;
-                                                            }
-                                                        })
-                                                    }
-                                                    </span>
-                                                </Box>
-                                            )}
+                                            renderOption={(props, option) => {
+                                                const { key, ...otherProps } = props; // to solve Warning: A props object containing a "key" prop is being spread into JSX: React keys must be passed directly to JSX without using spread:
+                                                return (
+                                                    <Box sx={{
+                                                            borderRadius: "5px",
+                                                            margin: "5px",
+                                                            [`&.${autocompleteClasses.option}`]: {
+                                                                display: "flex",
+                                                                justifyContent: "space-between",
+                                                                padding: "8px",
+                                                            },
+                                                        }}
+                                                         component="li"
+                                                         key={key}
+                                                         {...otherProps}>
+                                                        <span className="my">{option.name}</span>
+                                                        <span className="hearts">
+                                                        {
+                                                            [...Array(Math.abs(option.rating))].map((x, i) => {
+                                                                if (option.rating > 0) {
+                                                                    return <FavoriteIcon key={i}/>;
+                                                                } else {
+                                                                    return <HeartBrokenIcon key={i}/>;
+                                                                }
+                                                            })
+                                                        }
+                                                        </span>
+                                                    </Box>
+                                                );
+                                            }}
                                             renderInput={params => (
                                                 <TextField
                                                     {...params}

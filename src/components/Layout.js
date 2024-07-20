@@ -1,29 +1,22 @@
 import {ToastContainer} from "react-toastify";
 import {Outlet} from "react-router-dom";
-import useFetch from "../hooks/useFetch";
-import {getItemDecrypted, storeItemEncrypted} from "../helpers/storage";
+import {getItemDecrypted} from "../helpers/storage";
 import config from "../config";
-
-const loadSetting = () => {
-    const { result } = useFetch("settings");
-    if (result) {
-        storeItemEncrypted(config.settingStoreKey, result.value);
-    }
-};
-
-const loadUser = () => {
-    const user = getItemDecrypted(config.userStoreKey);
-    if (user) {
-        const {result} = useFetch(`account/${user.account_id}`);
-        if (result) {
-            storeItemEncrypted(config.userStoreKey, result.data);
-        }
-    }
-};
+import {useDispatch} from "react-redux";
+import {useEffect} from "react";
+import {userAccount} from "../state/user/userSlice";
+import {fetchSettings} from "../state/setting/settingSlice";
 
 const Layout = () => {
-    loadSetting();
-    loadUser();
+    const user = getItemDecrypted(config.userStoreKey);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchSettings());
+        if (user) {
+            dispatch(userAccount(user.account_id));
+        }
+    }, []);
 
     return (
         <div className="app">

@@ -6,9 +6,11 @@ import userRatingsSlice from "./user/userRatingsSlice";
 import exchangeSlice, {calculateAmountReceived} from "./user/exchangeSlice";
 import redeemSlice from "./user/redeemSlice";
 import jobCardSlice from "./user/jobCardSlice";
+import settingSlice from "./setting/settingSlice";
 
 const store = configureStore({
     reducer: {
+        setting: settingSlice,
         user: userSlice,
         job: jobSlice,
         userJobs: userJobsSlice,

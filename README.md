@@ -2,7 +2,7 @@
 
 A reward system mobile app that you can get hearts by helping your mom. It is a pet project.
 
-API backend: https://github.com/dev-sithu/HelpMommy-api (private)
+API backend: https://github.com/cithukyaw/HelpMommy-api (private)
 
 Tech Stack:
 - Frontend
